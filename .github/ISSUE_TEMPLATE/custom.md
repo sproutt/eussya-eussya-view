@@ -1,6 +1,6 @@
 ---
-name: 컴포넌트 개발
-about: 컴포넌트 개발
+name: Custom issue template
+about: Describe this issue template's purpose here.
 title: ''
 labels: enhancement
 assignees: ''
