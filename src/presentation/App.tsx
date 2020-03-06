@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { Fragment } from "react";
+import { Login } from "./component/login";
+import Logo from "../assets/uthyauthya-gb.svg";
+import "./App.scss";
 
 function App() {
   return (
-    <div className="App">
+    <Fragment>
       <header className="App-header">
-        으쌰으쌰
+        <img src={Logo} />
       </header>
-    </div>
+      <section id="main-section">
+        <Login></Login>
+      </section>
+    </Fragment>
   );
 }
 
