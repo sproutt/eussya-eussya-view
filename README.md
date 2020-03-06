@@ -1,6 +1,13 @@
 # 으쌰으쌰 view
 
+## 컨벤션
+
+**파일이름** : snake-case
+
+> snake-case.ts
+
 ## 폴더 구조
+
 ```
 + build
 + public
@@ -9,13 +16,12 @@
 |   + robots.txt
 + src
 | \ + presentation
-|   | \ + App.tsx
+|   | \ + app.tsx
 |   |   + index.tsx
 |   + test
-|   + serviceWorker.ts
+|   + service-worker.ts
 + package-lock.json
 + package.json
 + README.md
 + tsconfig.json
 ```
-
