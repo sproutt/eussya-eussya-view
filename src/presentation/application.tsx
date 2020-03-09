@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Login } from "./component/login";
 import Logo from "../assets/uthyauthya-gb.svg";
-import "./App.scss";
+import "./application.scss";
 
 function App() {
   return (
