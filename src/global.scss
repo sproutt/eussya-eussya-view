@@ -1,0 +1,20 @@
+$large-font: 3rem;
+$medium-font: 1rem;
+$small-font: 0.75rem;
+$large-blank: 4rem;
+$medium-blank: 2rem;
+$small-blank: 1rem;
+$main-color: "#274c5e";
+@mixin appearance($value: none) {
+  -webkit-appearance: $value;
+  -moz-appearance: $value;
+  -ms-appearance: $value;
+  -o-appearance: $value;
+  appearance: $value;
+}
+
+@mixin clearBorderMarginPadding($value: 0) {
+  border: $value;
+  margin: $value;
+  padding: $value;
+}
