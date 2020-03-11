@@ -1,4 +1,7 @@
+@import "./global.scss";
+
 html,
 body {
   font-family: "Noto Sans KR", sans-serif;
+  font-size: $font-size-base;
 }

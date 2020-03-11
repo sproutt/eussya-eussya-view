@@ -8,6 +8,7 @@ $main-color: "#274c5e";
 $large-element: 5rem;
 $medium-element: 3.5rem;
 $small-element: 2rem;
+$font-size-base: 14px;
 
 @mixin appearance($value: none) {
   -webkit-appearance: $value;
