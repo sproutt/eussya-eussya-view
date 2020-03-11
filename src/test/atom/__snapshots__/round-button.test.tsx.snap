@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RoundButton/> 스냅샷 1`] = `
+<div>
+  <div
+    class="medium-round-button "
+  >
+    hello
+  </div>
+</div>
+`;
