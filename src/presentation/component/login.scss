@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 24rem;
   height: 40rem;
   h1 {
     @include appearance();
@@ -77,14 +77,4 @@
       font-weight: bold;
     }
   }
-}
-
-.OAuth-button {
-  @include appearance();
-  @include clearBorderMarginPadding();
-  height: 3.5rem;
-  width: 24rem;
-  font-size: #{$medium-font};
-  font-weight: bolder;
-  margin-bottom: #{$small-blank};
 }

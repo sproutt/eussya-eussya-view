@@ -1,5 +1,10 @@
 import * as React from "react";
 import "./login.scss";
+import { OAuthButton } from "presentation/molecule/oauth-button";
+import { UserAction } from "enum/user-action";
+import google from "assets/google-g-logo.svg";
+import github from "assets/github-mark.png";
+import facebook from "assets/facebook-f-logo.svg";
 
 export const Login: React.FC = () => {
   return (
@@ -13,9 +18,21 @@ export const Login: React.FC = () => {
       <article id="division">
         <hr></hr> <span>또는</span> <hr></hr>
       </article>
-      <button className="OAuth-button">구글</button>
-      <button className="OAuth-button">페이스북</button>
-      <button className="OAuth-button">깃허브</button>
+      <OAuthButton
+        icon={google}
+        name="Google"
+        actions={UserAction.SIGN_IN}
+      ></OAuthButton>
+      <OAuthButton
+        icon={facebook}
+        name="Facebook"
+        actions={UserAction.SIGN_IN}
+      ></OAuthButton>
+      <OAuthButton
+        icon={github}
+        name="Github"
+        actions={UserAction.SIGN_IN}
+      ></OAuthButton>
     </section>
   );
 };
