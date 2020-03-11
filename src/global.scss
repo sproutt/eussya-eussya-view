@@ -5,6 +5,11 @@ $large-blank: 4rem;
 $medium-blank: 2rem;
 $small-blank: 1rem;
 $main-color: "#274c5e";
+$large-element: 5rem;
+$medium-element: 3.5rem;
+$small-element: 2rem;
+$font-size-base: 14px;
+
 @mixin appearance($value: none) {
   -webkit-appearance: $value;
   -moz-appearance: $value;

@@ -1,0 +1,29 @@
+@import "../../global.scss";
+
+@mixin roundButton($width: 1px, $style: solid, $color: black, $radius: 5px) {
+  @include appearance();
+  @include clearBorderMarginPadding();
+  border: $width $style $color;
+  border-radius: $radius;
+}
+
+.large-round-button {
+  @include roundButton();
+  height: $large-element;
+  font-size: $large-font;
+  line-height: $large-element;
+}
+
+.medium-round-button {
+  @include roundButton();
+  height: $medium-element;
+  font-size: $medium-font;
+  line-height: $medium-element;
+}
+
+.small-round-button {
+  @include roundButton();
+  height: $small-element;
+  font-size: $small-font;
+  line-height: $small-element;
+}

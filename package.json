@@ -37,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "eslint-plugin-flowtype": "^3.13.0",
     "node-sass": "^4.13.1"
   }
 }
