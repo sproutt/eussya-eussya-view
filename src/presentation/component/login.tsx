@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import * as React from "react";
 import "./login.scss";
 
 export const Login: React.FC = () => {
