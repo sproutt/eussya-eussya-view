@@ -7,17 +7,20 @@ const ROUND_BUTTON = "-round-button";
 export const RoundButton: React.FC<propTypes> = ({
   onClick,
   size = Size.MEDIUM,
+  className = "",
   children
 }) => {
-  console.log(size);
+  const currentClassName = style[size + ROUND_BUTTON];
+
   return (
-    <button className={style[size + ROUND_BUTTON]} onClick={onClick}>
+    <div className={[currentClassName, className].join(" ")} onClick={onClick}>
       {children}
-    </button>
+    </div>
   );
 };
 
 type propTypes = {
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
   size?: Size;
+  className?: string;
 };

@@ -3,7 +3,6 @@
 @mixin roundButton($width: 1px, $style: solid, $color: black, $radius: 5px) {
   @include appearance();
   @include clearBorderMarginPadding();
-  box-sizing: border-box;
   border: $width $style $color;
   border-radius: $radius;
 }
