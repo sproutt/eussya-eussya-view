@@ -2,6 +2,7 @@ import * as React from "react";
 import { RoundButton } from "presentation/atom/button/round-button";
 import { UserAction } from "enum/user-action";
 import "./oauth-button.scss";
+
 export const OAuthButton: React.FC<propTypes> = ({ icon, name, actions }) => {
   return (
     <RoundButton className="oauth-button">
