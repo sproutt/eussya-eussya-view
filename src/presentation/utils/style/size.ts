@@ -1,6 +1,7 @@
 export enum Size {
   LARGE = "LARGE",
   MEDIUM = "MEDIUM",
+  MEDIUM_SMALL = "MEDIUM_SMALL",
   SMALL = "SMALL",
   EXTRASMALL = "EXTRASMALL"
 }
@@ -33,15 +34,14 @@ export type SizeKey =
 export class SizeSeparator {
   static asFont(sizekey: SizeKey | keyof typeof FontSize): string {
     //type guard
-    if ((sizekey as keyof typeof FontSize) in FontSize)
-      return FontSize[sizekey as keyof typeof FontSize];
+    if (sizekey in FontSize) return FontSize[sizekey as keyof typeof FontSize];
     return FontSize.MEDIUM;
   }
   static asElementHeight(
     sizekey: SizeKey | keyof typeof ElementSizeByHeight
   ): string {
     //type guard
-    if ((sizekey as keyof typeof ElementSizeByHeight) in ElementSizeByHeight)
+    if (sizekey in ElementSizeByHeight)
       return ElementSizeByHeight[sizekey as keyof typeof ElementSizeByHeight];
     return ElementSizeByHeight.MEDIUM;
   }
@@ -49,10 +49,7 @@ export class SizeSeparator {
     sizekey: SizeKey | keyof typeof ElementDistanceEachOthers
   ): string {
     //type guard
-    if (
-      (sizekey as keyof typeof ElementDistanceEachOthers) in
-      ElementDistanceEachOthers
-    )
+    if (sizekey in ElementDistanceEachOthers)
       return ElementDistanceEachOthers[
         sizekey as keyof typeof ElementDistanceEachOthers
       ];
