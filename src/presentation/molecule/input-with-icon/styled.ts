@@ -62,7 +62,7 @@ const focusNameIcon = `
   font-size: ${FontSize.MEDIUM_SMALL}
 `;
 
-const Name = styled.span``;
+const Name = styled.label``;
 
 export default {
   OutLineBox,
