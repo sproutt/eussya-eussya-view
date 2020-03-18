@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<InputWithIcon/> 스냅샷 1`] = `
+<div>
+  <div
+    class="sc-AxjAm cbiAJS"
+  >
+    <div
+      class="sc-AxirZ GlRQw"
+    >
+      <img
+        alt=""
+        class="sc-AxiKw eQatMN"
+      />
+      <label
+        class="sc-AxhUy kMyssT"
+      />
+    </div>
+    <input
+      class="sc-AxhCb dXmLYl"
+    />
+  </div>
+</div>
+`;
