@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "./styled";
-import { SizeKey } from "presentation/utils/style/size";
+import { SizeKey } from "utils/style/size";
 
 export const InputWithIcon: React.FC<propTypes> = ({
   size,

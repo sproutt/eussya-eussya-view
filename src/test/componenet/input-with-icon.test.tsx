@@ -1,7 +1,7 @@
 import * as React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { InputWithIcon } from "presentation/molecule/input-with-icon";
-import { Size } from "presentation/utils/style/size";
+import { Size } from "utils/style/size";
 
 describe("<InputWithIcon/>", () => {
   it("스냅샷", () => {

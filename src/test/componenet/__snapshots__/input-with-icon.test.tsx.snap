@@ -18,6 +18,7 @@ exports[`<InputWithIcon/> 스냅샷 1`] = `
     </div>
     <input
       class="sc-AxhCb dXmLYl"
+      value=""
     />
   </div>
 </div>
