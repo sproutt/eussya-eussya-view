@@ -3,7 +3,7 @@ import {
   SizeSeparator,
   ElementDistanceEachOthers,
   FontSize
-} from "../../utils/style/size";
+} from "../../../utils/style/size";
 import styled, { css } from "styled-components";
 
 const OutLineBox = styled.div<{ size: SizeKey }>`

@@ -1,12 +1,13 @@
 import * as React from "react";
 import styled from "./styled";
-import { SizeKey } from "presentation/utils/style/size";
+import { SizeKey } from "utils/style/size";
 
 export const InputWithIcon: React.FC<propTypes> = ({
   size,
   name,
   type,
   imgSrc,
+  value,
   onChange
 }) => {
   const outLineBoxRef = React.useRef<HTMLDivElement>(null);
@@ -35,6 +36,7 @@ export const InputWithIcon: React.FC<propTypes> = ({
         onFocus={focusHandler}
         onBlur={blurHandler}
         onChange={onChange}
+        value={value}
       ></styled.Input>
     </styled.OutLineBox>
   );
@@ -45,5 +47,6 @@ type propTypes = {
   name?: string;
   type?: string;
   imgSrc?: string;
+  value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };

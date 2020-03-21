@@ -4,7 +4,7 @@ import {
   FontSize,
   ElementSizeByHeight,
   ElementDistanceEachOthers
-} from "presentation/utils/style/size";
+} from "utils/style/size";
 
 describe("SizeSeparator test", () => {
   it("입력이 LARGE 일때 FontSize는 LARGE", () => {
