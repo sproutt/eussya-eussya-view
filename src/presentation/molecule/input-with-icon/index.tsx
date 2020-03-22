@@ -1,6 +1,8 @@
 import * as React from "react";
 import styled from "./styled";
 import { SizeKey } from "utils/style/size";
+import { ValidationText } from "enum/validation-text";
+import { isUndefined } from "util";
 
 export const InputWithIcon: React.FC<propTypes> = ({
   size,
@@ -8,8 +10,12 @@ export const InputWithIcon: React.FC<propTypes> = ({
   type,
   imgSrc,
   value,
-  onChange
+  onChange,
+  validator,
+  validationText,
+  setOn
 }) => {
+  const [isWrong, setIsWorng] = React.useState(true);
   const outLineBoxRef = React.useRef<HTMLDivElement>(null);
   const nameIconBoxRef = React.useRef<HTMLDivElement>(null);
 
@@ -25,6 +31,14 @@ export const InputWithIcon: React.FC<propTypes> = ({
     }
   };
 
+  React.useEffect(() => {
+    if (isUndefined(value)) return;
+    if (setOn && validator) {
+      setOn(validator(value));
+      setIsWorng(validator(value));
+    }
+  }, [setOn, value, validator]);
+
   return (
     <styled.OutLineBox size={size} ref={outLineBoxRef}>
       <styled.NameIconBox ref={nameIconBoxRef}>
@@ -36,8 +50,11 @@ export const InputWithIcon: React.FC<propTypes> = ({
         onFocus={focusHandler}
         onBlur={blurHandler}
         onChange={onChange}
-        value={value}
+        value={value || ""}
       ></styled.Input>
+      {!isWrong && (
+        <styled.ValidationTextSpan>{validationText}</styled.ValidationTextSpan>
+      )}
     </styled.OutLineBox>
   );
 };
@@ -49,4 +66,7 @@ type propTypes = {
   imgSrc?: string;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  validator?: (value?: string) => boolean;
+  validationText?: ValidationText;
+  setOn?: React.Dispatch<React.SetStateAction<boolean | undefined>>;
 };
