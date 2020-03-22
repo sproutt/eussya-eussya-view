@@ -5,21 +5,25 @@ import {
   FontSize
 } from "../../../utils/style/size";
 import styled, { css } from "styled-components";
+import { Color } from "utils/style/color";
 
 const OutLineBox = styled.div<{ size: SizeKey }>`
   box-sizing: border-box;
   position: relative;
-  width: 24rem;
+  width: 100%;
   height: ${({ size }) => SizeSeparator.asElementHeight(size)};
-  font-size: ${({ size }) => SizeSeparator.asFont(size)};
+  font-size: ${FontSize.MEDIUM_SMALL};
   padding: ${ElementDistanceEachOthers.EXTRASMALL};
   border: 1px solid black;
   border-radius: 5px;
   transition: 0.2s;
+  margin: calc(${FontSize.MEDIUM_SMALL} + ${ElementDistanceEachOthers.SMALL});
 `;
 
 const NameIconBox = styled.div`
   position: absolute;
+  z-index: -1;
+  color: #555555;
   top: 50%;
   transform: translate(1rem, -50%);
   display: flex;
@@ -43,6 +47,7 @@ const Icon = styled.img`
 
 const Input = styled.input`
   box-sizing: border-box;
+  background-color: #ffffff00;
   width: 100%;
   height: 100%;
   font-size: inherit;
@@ -57,9 +62,15 @@ const focusOutLine = `
 `;
 
 const focusNameIcon = `
+  color: black;
   top: 0%;
   transform: translate(0,-120%);
   font-size: ${FontSize.MEDIUM_SMALL}
+`;
+
+const ValidationTextSpan = styled.span`
+  font-size: ${FontSize.SMALL};
+  color: ${Color.WARNING_COLOR};
 `;
 
 const Name = styled.label``;
@@ -71,5 +82,6 @@ export default {
   Name,
   Input,
   focusOutLine,
-  focusNameIcon
+  focusNameIcon,
+  ValidationTextSpan
 };
