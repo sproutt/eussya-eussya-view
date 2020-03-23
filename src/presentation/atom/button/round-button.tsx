@@ -1,6 +1,6 @@
 import * as React from "react";
 import style from "../button.module.scss";
-import { Size } from "enum/size";
+import { Size } from "utils/style/size";
 
 const ROUND_BUTTON = "-round-button";
 
