@@ -1,4 +1,5 @@
 export enum Size {
+  EXTRA_LARGE = "EXTRA_LARGE",
   LARGE = "LARGE",
   MEDIUM_LARGE = "MEDIUM_LARGE",
   MEDIUM = "MEDIUM",
@@ -15,6 +16,7 @@ export enum FontSize {
 }
 
 export enum ElementSizeByHeight {
+  EXTRA_LARGE = "7.5rem",
   LARGE = "5rem",
   MEDIUM_LARGE = "4rem",
   MEDIUM = "3.5rem",
