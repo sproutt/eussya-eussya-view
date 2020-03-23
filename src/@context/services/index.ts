@@ -1,6 +1,10 @@
 import { RepositoriesDependencies } from "@context/repositories";
+import { MemberService } from "domain/service/member-service";
 
 //서비스 의존성 주입
 export class ServiceDependencies {
-  constructor(repositories: RepositoriesDependencies) {}
+  public readonly member: MemberService;
+  constructor(repositories: RepositoriesDependencies) {
+    this.member = new MemberService(repositories.memberRepository);
+  }
 }
