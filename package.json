@@ -11,6 +11,7 @@
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
     "axios": "^0.19.2",
+    "http-status-codes": "^1.4.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0",
