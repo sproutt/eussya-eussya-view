@@ -19,6 +19,7 @@ function App() {
           <Route path="/">
             <Login></Login>
           </Route>
+          <Route path="/codecheck"></Route>
         </Switch>
       </section>
     </Router>
