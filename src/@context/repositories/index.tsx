@@ -3,7 +3,7 @@ import { StorageProviderDependencies } from "@context/storage-providers";
 import { MemberRepository } from "data/repository/member-repository";
 
 //레포지토리 의존성을 주입하는 곳
-export class RepositoriesDependencies {
+export class RepositoryContainer {
   public readonly memberRepository: MemberRepository;
   constructor(
     apiProviders: HttpProviderDependencies,

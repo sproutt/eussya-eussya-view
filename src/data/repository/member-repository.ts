@@ -1,8 +1,8 @@
-import { MemberRepositoryType } from "domain/use-case/member-repository-type";
+import { MemberRepositoryImpl } from "domain/use-case/member-repository-type";
 import { MemberApiProvider } from "data/http/member-api";
 import { Member } from "entity/member";
 import HttpStatus from "http-status-codes";
-export class MemberRepository implements MemberRepositoryType {
+export class MemberRepository implements MemberRepositoryImpl {
   constructor(private api: MemberApiProvider) {}
 
   async signUp(member: Member) {

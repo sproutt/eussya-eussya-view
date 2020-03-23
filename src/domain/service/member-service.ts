@@ -1,10 +1,10 @@
-import { MemberRepositoryType } from "domain/use-case/member-repository-type";
+import { MemberRepositoryImpl } from "domain/use-case/member-repository-type";
 import { Member } from "entity/member";
 
 export class MemberService {
-  private repo: MemberRepositoryType;
+  private repo: MemberRepositoryImpl;
 
-  constructor(repo: MemberRepositoryType) {
+  constructor(repo: MemberRepositoryImpl) {
     this.repo = repo;
   }
 
