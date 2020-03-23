@@ -5,6 +5,7 @@ import { UserAction } from "enum/user-action";
 import google from "assets/google-g-logo.svg";
 import github from "assets/github-mark.png";
 import facebook from "assets/facebook-f-logo.svg";
+import { Link } from "react-router-dom";
 
 export const Login: React.FC = () => {
   return (
@@ -12,7 +13,9 @@ export const Login: React.FC = () => {
       <h1>Login</h1>
       <input type="email" placeholder="이메일" />
       <article id="email-login">
-        <span>계정 만들기</span>
+        <Link to="/signup">
+          <span>계정 만들기</span>
+        </Link>
         <button>다음</button>
       </article>
       <article id="division">
