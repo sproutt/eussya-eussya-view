@@ -9,11 +9,7 @@ export const SignUpCheck: React.FC = () => {
       element?.focus();
       return;
     }
-    if (key === 8 || key === 46) {
-      event.stopPropagation();
-      return;
-    }
-    if (key === 0 || key === 9) {
+    if (key === 8 || key === 46 || key === 0 || key === 9) {
       event.stopPropagation();
       return;
     }
@@ -23,7 +19,8 @@ export const SignUpCheck: React.FC = () => {
         .trim();
       return;
     }
-    if (index === 6) event.currentTarget.blur();
+    if (index === 7) event.currentTarget.blur();
+    if (!event.currentTarget.value.length) return;
     const element = document.getElementById(`code-${index + 1}`);
     element?.focus();
   };
@@ -45,7 +42,7 @@ export const SignUpCheck: React.FC = () => {
         인증번호를 입력하시면 가입이 완료됩니다.
       </styled.Span>
       <styled.NumberCodeInputBox>
-        {Array.from({ length: 6 }, (element, index) => (
+        {Array.from({ length: 8 }, (element, index) => (
           <styled.NumberCodeInput
             maxLength={1}
             key={index}

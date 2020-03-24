@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Login } from "./component/login";
+import { SignUpCheck } from "presentation/page/sign-up-check";
 import Logo from "../assets/uthyauthya-gb.svg";
 import "./application.scss";
 
@@ -10,7 +10,7 @@ function App() {
         <img src={Logo} alt={"으쌰으쌰"} />
       </header>
       <section id="main-section">
-        <Login></Login>
+        <SignUpCheck></SignUpCheck>
       </section>
     </Fragment>
   );
