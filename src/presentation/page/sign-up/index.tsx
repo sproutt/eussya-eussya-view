@@ -4,8 +4,11 @@ import { Size } from "utils/style/size";
 import styled from "./styled";
 import { Validator } from "utils/validator";
 import { ValidationText } from "enum/validation-text";
+import { Application } from "context-instance";
+import { useHistory } from "react-router-dom";
 
 export const SignUp: React.FC = () => {
+  const histoey = useHistory();
   const [email, setEmail] = React.useState<string | undefined>(undefined);
   const [nickName, setNickName] = React.useState<string | undefined>(undefined);
   const [password, setPassword] = React.useState<string | undefined>(undefined);
@@ -48,6 +51,15 @@ export const SignUp: React.FC = () => {
     isCorrectRepassword
   ]);
 
+  const signUp = async () => {
+    const result = await Application.services.member.signUp(
+      email!,
+      nickName!,
+      password!
+    );
+    if (result) histoey.push("/codecheck");
+  };
+
   return (
     <styled.SignUpBox>
       <InputWithIcon
@@ -88,7 +100,9 @@ export const SignUp: React.FC = () => {
         validationText={ValidationText.REPASSWORD_IS_NOT_SAME}
         setOn={setIsCorrectRepassword}
       ></InputWithIcon>
-      <styled.SignUpButton disabled={!buttonOn}>가입하기</styled.SignUpButton>
+      <styled.SignUpButton disabled={!buttonOn} onClick={signUp}>
+        가입하기
+      </styled.SignUpButton>
     </styled.SignUpBox>
   );
 };
