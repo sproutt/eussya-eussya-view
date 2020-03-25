@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "./styled";
 import { Application } from "context-instance";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 export const SignUpCheck: React.FC = () => {
   const params = useParams<{ email: string }>();
   const history = useHistory();
