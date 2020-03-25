@@ -4,6 +4,7 @@ import { Application } from "context-instance";
 import { useParams } from "react-router-dom";
 export const SignUpCheck: React.FC = () => {
   const params = useParams<{ email: string }>();
+  const history = useHistory();
   const [code, setCode] = React.useState<string[]>(new Array(8));
 
   const nextInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -20,11 +21,20 @@ export const SignUpCheck: React.FC = () => {
     }
     if (index === 7) {
       event.currentTarget.blur();
-      Application.services.member.checkCode(params.email, code.join(""));
+      checkCode(params.email, code.join(""));
+      return;
     }
     if (!event.currentTarget.value.length) return;
     const element = document.getElementById(`code-${index + 1}`);
     element?.focus();
+  };
+
+  const checkCode = async (email: string, code: string) => {
+    const result = Application.services.member.checkCode(email, code);
+    if (result) {
+      history.push("/");
+    }
+    alert("인증코드가 틀렸습니다.");
   };
 
   const blockKorean = (event: React.FocusEvent<HTMLInputElement>) => {
