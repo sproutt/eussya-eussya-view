@@ -32,7 +32,8 @@ export const SignUp: React.FC = () => {
   );
 
   const changeValue = (
-    action: React.Dispatch<React.SetStateAction<string | undefined>>
+    action: React.Dispatch<React.SetStateAction<string | undefined>>,
+    allowKorean: boolean = true
   ) => (event: React.ChangeEvent<HTMLInputElement>) => {
     action(event.target.value);
   };
@@ -51,21 +52,24 @@ export const SignUp: React.FC = () => {
     isCorrectRepassword
   ]);
 
-  const signUp = async () => {
+  const signUp = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     const result = await Application.services.member.signUp(
       email!,
       nickName!,
       password!
     );
-    if (result) histoey.push("/codecheck");
+    if (result) histoey.push(`/codecheck/${email}`);
   };
 
   return (
-    <styled.SignUpBox>
+    <styled.SignUpBox onSubmit={signUp}>
       <InputWithIcon
         size={Size.MEDIUM}
         name="이메일"
         value={email}
+        type="email"
+        autoComplete="email"
         onChange={changeValue(setEmail)}
         validator={Validator.correctEmailFormat}
         validationText={ValidationText.EMAIL_FORMAT_IS_WRONG}
@@ -75,6 +79,7 @@ export const SignUp: React.FC = () => {
         size={Size.MEDIUM}
         name="별명(10자 이내)"
         value={nickName}
+        autoComplete={"username"}
         onChange={changeValue(setNickName)}
         validator={Validator.correctNickNameFormat}
         validationText={ValidationText.NICK_NAME_IS_WRONG}
@@ -85,10 +90,12 @@ export const SignUp: React.FC = () => {
         name="비밀번호(영문 숫자 특수문자 2가지 이상을 포함한 6~15자 이내)"
         type="password"
         value={password}
+        autoComplete={"new-password"}
         onChange={changeValue(setPassword)}
         validator={Validator.correctPasswordFormat}
         validationText={ValidationText.PASSWORD_FORMAT_IS_WRONG}
         setOn={setIsCorrectPassword}
+        pattern={"[^ㄱ-ㅎㅏ-ㅣ가-힣]"}
       ></InputWithIcon>
       <InputWithIcon
         size={Size.MEDIUM}
@@ -100,7 +107,7 @@ export const SignUp: React.FC = () => {
         validationText={ValidationText.REPASSWORD_IS_NOT_SAME}
         setOn={setIsCorrectRepassword}
       ></InputWithIcon>
-      <styled.SignUpButton disabled={!buttonOn} onClick={signUp}>
+      <styled.SignUpButton disabled={!buttonOn} type={"submit"}>
         가입하기
       </styled.SignUpButton>
     </styled.SignUpBox>
