@@ -1,6 +1,6 @@
 import { Member } from "entity/member";
 
 export interface MemberRepositoryImpl {
-  sendMail(member: Member): Promise<boolean>;
+  authEmail(email: string, code: string): Promise<boolean>;
   signUp(member: Member): Promise<boolean>;
 }
