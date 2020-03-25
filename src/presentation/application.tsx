@@ -1,10 +1,10 @@
-
 import React from "react";
 import { Login } from "./component/login";
 import { SignUp } from "./page/sign-up";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Logo from "../assets/uthyauthya-gb.svg";
 import "./application.scss";
+import { SignUpCheck } from "./page/sign-up-check";
 
 function App() {
   return (
@@ -17,10 +17,12 @@ function App() {
           <Route path="/signup">
             <SignUp></SignUp>
           </Route>
+          <Route path="/codecheck/:email">
+            <SignUpCheck></SignUpCheck>
+          </Route>
           <Route path="/">
             <Login></Login>
           </Route>
-          <Route path="/codecheck"></Route>
         </Switch>
       </section>
     </Router>
