@@ -9,18 +9,25 @@ export class MemberApiProvider {
 
   async signUp(member: Member): Promise<AxiosResponse> {
     try {
-      return await this.axiosWrapper.getAxios().post("/members", member);
+      return await this.axiosWrapper
+        .getAxios()
+        .post(process.env.REACT_APP_HOST + "/members", member);
     } catch (error) {
+      console.log(error.response);
       throw error;
     }
   }
 
-  async sendMail(member: Member): Promise<AxiosResponse> {
+  async authEmail(email: string, code: string): Promise<AxiosResponse> {
     try {
       return await this.axiosWrapper
         .getAxios()
-        .post("/email-auth", member.email);
+        .post(process.env.REACT_APP_HOST + "/email-auth", {
+          memberId: email,
+          authCode: code
+        });
     } catch (error) {
+      console.log(error);
       throw error;
     }
   }

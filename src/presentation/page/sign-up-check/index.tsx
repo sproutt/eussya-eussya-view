@@ -1,6 +1,12 @@
 import * as React from "react";
 import styled from "./styled";
+import { Application } from "context-instance";
+import { useParams, useHistory } from "react-router-dom";
 export const SignUpCheck: React.FC = () => {
+  const params = useParams<{ email: string }>();
+  const history = useHistory();
+  const [code, setCode] = React.useState<string[]>(new Array(8));
+
   const nextInput = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const index = Number(event.currentTarget.id.split("-")[1]);
     const key = event.keyCode;
@@ -9,20 +15,26 @@ export const SignUpCheck: React.FC = () => {
       element?.focus();
       return;
     }
-    if (key === 8 || key === 46 || key === 0 || key === 9) {
+    if (key === 8 || key === 46 || key === 0 || key === 9 || key === 20) {
       event.stopPropagation();
       return;
     }
-    if (/[^a-zA-Z0-9]/.test(event.key)) {
-      event.currentTarget.value = event.currentTarget.value
-        .replace(/[^a-zA-Z0-9]/gi, "")
-        .trim();
+    if (index === 7) {
+      event.currentTarget.blur();
+      checkCode(params.email, code.join(""));
       return;
     }
-    if (index === 7) event.currentTarget.blur();
     if (!event.currentTarget.value.length) return;
     const element = document.getElementById(`code-${index + 1}`);
     element?.focus();
+  };
+
+  const checkCode = async (email: string, code: string) => {
+    const result = Application.services.member.checkCode(email, code);
+    if (result) {
+      history.push("/");
+    }
+    alert("인증코드가 틀렸습니다.");
   };
 
   const blockKorean = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -33,6 +45,17 @@ export const SignUpCheck: React.FC = () => {
 
   const onFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     event.target.value = "";
+  };
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const index = Number(event.currentTarget.id.split("-")[1]);
+    console.log(code);
+    if (/[^a-zA-Z0-9]/.test(event.target.value)) {
+      event.target.value = "";
+      return;
+    }
+    code[index] = event.target.value;
+    setCode(code);
   };
 
   return (
@@ -50,6 +73,7 @@ export const SignUpCheck: React.FC = () => {
             onFocus={onFocus}
             onBlur={blockKorean}
             onKeyUp={nextInput}
+            onChange={onChange}
           ></styled.NumberCodeInput>
         ))}
       </styled.NumberCodeInputBox>

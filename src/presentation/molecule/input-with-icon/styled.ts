@@ -50,7 +50,7 @@ const Input = styled.input`
   background-color: #ffffff00;
   width: 100%;
   height: 100%;
-  font-size: inherit;
+  font-size: ${FontSize.MEDIUM};
   border: none;
   &:focus {
     outline: none;
@@ -59,6 +59,7 @@ const Input = styled.input`
 
 const focusOutLine = `
   border-width: 2px;
+  padding-left: ${ElementDistanceEachOthers.SMALL};
 `;
 
 const focusNameIcon = `

@@ -5,7 +5,7 @@ import {
   FontSize
 } from "utils/style/size";
 import { Color } from "utils/style/color";
-const SignUpBox = styled.section`
+const SignUpBox = styled.form`
   display: flex;
   width: 30rem;
   height: auto;

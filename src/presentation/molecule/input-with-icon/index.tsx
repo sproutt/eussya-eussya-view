@@ -13,7 +13,9 @@ export const InputWithIcon: React.FC<propTypes> = ({
   onChange,
   validator,
   validationText,
-  setOn
+  setOn,
+  autoComplete,
+  pattern
 }) => {
   const [isWrong, setIsWorng] = React.useState(true);
   const outLineBoxRef = React.useRef<HTMLDivElement>(null);
@@ -50,7 +52,9 @@ export const InputWithIcon: React.FC<propTypes> = ({
         onFocus={focusHandler}
         onBlur={blurHandler}
         onChange={onChange}
+        autoComplete={autoComplete}
         value={value || ""}
+        pattern={pattern}
       ></styled.Input>
       {!isWrong && (
         <styled.ValidationTextSpan>{validationText}</styled.ValidationTextSpan>
@@ -65,8 +69,10 @@ type propTypes = {
   type?: string;
   imgSrc?: string;
   value?: string;
+  autoComplete?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   validator?: (value?: string) => boolean;
   validationText?: ValidationText;
   setOn?: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+  pattern?: string;
 };

@@ -1,4 +1,4 @@
-import { MemberRepositoryImpl } from "domain/use-case/member-repository-type";
+import { MemberRepositoryImpl } from "domain/use-case/member-repository-Impl";
 import { Member } from "entity/member";
 
 export class MemberService {
@@ -13,9 +13,10 @@ export class MemberService {
     nickName: string,
     password: string
   ): Promise<boolean> {
-    if (await this.repo.signUp(new Member(email, nickName, password))) {
-      return await this.repo.sendMail(new Member(email));
-    }
-    return false;
+    return await this.repo.signUp(new Member(email, nickName, password));
+  }
+
+  async checkCode(email: string, code: string) {
+    return await this.repo.authEmail(email, code);
   }
 }
