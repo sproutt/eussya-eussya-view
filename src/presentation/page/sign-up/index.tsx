@@ -8,7 +8,7 @@ import { Application } from "context-instance";
 import { useHistory } from "react-router-dom";
 
 export const SignUp: React.FC = () => {
-  const histoey = useHistory();
+  const history = useHistory();
   const [email, setEmail] = React.useState<string | undefined>(undefined);
   const [nickName, setNickName] = React.useState<string | undefined>(undefined);
   const [password, setPassword] = React.useState<string | undefined>(undefined);
@@ -59,7 +59,7 @@ export const SignUp: React.FC = () => {
       nickName!,
       password!
     );
-    if (result) histoey.push(`/codecheck/${email}`);
+    if (result) history.push(`/codecheck/${email}`);
   };
 
   return (
@@ -95,7 +95,6 @@ export const SignUp: React.FC = () => {
         validator={Validator.correctPasswordFormat}
         validationText={ValidationText.PASSWORD_FORMAT_IS_WRONG}
         setOn={setIsCorrectPassword}
-        pattern={"[^ㄱ-ㅎㅏ-ㅣ가-힣]"}
       ></InputWithIcon>
       <InputWithIcon
         size={Size.MEDIUM}
