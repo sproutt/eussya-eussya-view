@@ -31,4 +31,17 @@ export class MemberApiProvider {
       throw error;
     }
   }
+
+  async login(member: Member): Promise<AxiosResponse> {
+    try {
+      return await this.axiosWrapper
+        .getAxios()
+        .post(process.env.REACT_APP_HOST + "/login", {
+          memberId: member.memberId,
+          password: member.password
+        });
+    } catch (error) {
+      throw error;
+    }
+  }
 }

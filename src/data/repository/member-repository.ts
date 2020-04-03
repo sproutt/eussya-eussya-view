@@ -22,4 +22,13 @@ export class MemberRepository implements MemberRepositoryImpl {
       return false;
     }
   }
+
+  async login(member: Member) {
+    try {
+      const result = await this.api.login(member);
+      return result.status === HttpStatus.OK;
+    } catch (error) {
+      return false;
+    }
+  }
 }
