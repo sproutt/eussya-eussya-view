@@ -20,4 +20,8 @@ export class MemberService {
     const upperCode = code.toUpperCase();
     return await this.repo.authEmail(email, upperCode);
   }
+
+  async login(email: string, password: string) {
+    return await this.repo.signUp(new Member(email, undefined, password));
+  }
 }
