@@ -17,6 +17,7 @@ export class MemberService {
   }
 
   async checkCode(email: string, code: string) {
-    return await this.repo.authEmail(email, code);
+    const upperCode = code.toUpperCase();
+    return await this.repo.authEmail(email, upperCode);
   }
 }

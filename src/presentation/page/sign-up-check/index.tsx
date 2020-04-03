@@ -33,7 +33,10 @@ export const SignUpCheck: React.FC = () => {
     const result = Application.services.member.checkCode(email, code);
     if (result) {
       history.push("/");
+      return;
     }
+    const documents = document.getElementsByClassName("numbers");
+    Array.from(documents).forEach(dom => (dom.nodeValue = ""));
     alert("인증코드가 틀렸습니다.");
   };
 
@@ -70,6 +73,7 @@ export const SignUpCheck: React.FC = () => {
             maxLength={1}
             key={index}
             id={`code-${index}`}
+            className="numbers"
             onFocus={onFocus}
             onBlur={blockKorean}
             onKeyUp={nextInput}
