@@ -2,7 +2,8 @@ import {
   SizeKey,
   SizeSeparator,
   ElementDistanceEachOthers,
-  FontSize
+  FontSize,
+  ElementSizeByHeight,
 } from "../../../utils/style/size";
 import styled, { css } from "styled-components";
 import { Color } from "utils/style/color";
@@ -12,7 +13,7 @@ const OutLineBox = styled.div<{ size: SizeKey }>`
   position: relative;
   width: 100%;
   height: ${({ size }) => SizeSeparator.asElementHeight(size)};
-  font-size: ${FontSize.MEDIUM_SMALL};
+  font-size: ${FontSize.SMALL};
   padding: ${ElementDistanceEachOthers.EXTRASMALL};
   border: 1px solid black;
   border-radius: 5px;
@@ -50,10 +51,13 @@ const Input = styled.input`
   background-color: #ffffff00;
   width: 100%;
   height: 100%;
-  font-size: ${FontSize.MEDIUM};
+  font-size: ${FontSize.MEDIUM_SMALL};
   border: none;
   &:focus {
     outline: none;
+  }
+  &[type="password"] {
+    letter-spacing: 5px;
   }
 `;
 
@@ -70,6 +74,9 @@ const focusNameIcon = `
 `;
 
 const ValidationTextSpan = styled.span`
+  position: absolute;
+  left: 0;
+  top: calc(${ElementSizeByHeight.MEDIUM} - 5px);
   font-size: ${FontSize.SMALL};
   color: ${Color.WARNING_COLOR};
 `;
@@ -84,5 +91,5 @@ export default {
   Input,
   focusOutLine,
   focusNameIcon,
-  ValidationTextSpan
+  ValidationTextSpan,
 };

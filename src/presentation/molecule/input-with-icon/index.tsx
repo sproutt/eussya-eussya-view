@@ -11,11 +11,12 @@ export const InputWithIcon: React.FC<propTypes> = ({
   imgSrc,
   value,
   onChange,
+  onKeyUp,
   validator,
   validationText,
   setOn,
   autoComplete,
-  pattern
+  pattern,
 }) => {
   const [isWrong, setIsWorng] = React.useState(true);
   const outLineBoxRef = React.useRef<HTMLDivElement>(null);
@@ -42,24 +43,29 @@ export const InputWithIcon: React.FC<propTypes> = ({
   }, [setOn, value, validator]);
 
   return (
-    <styled.OutLineBox size={size} ref={outLineBoxRef}>
-      <styled.NameIconBox ref={nameIconBoxRef}>
-        <styled.Icon src={imgSrc} alt=""></styled.Icon>
-        <styled.Name>{name}</styled.Name>
-      </styled.NameIconBox>
-      <styled.Input
-        type={type}
-        onFocus={focusHandler}
-        onBlur={blurHandler}
-        onChange={onChange}
-        autoComplete={autoComplete}
-        value={value || ""}
-        pattern={pattern}
-      ></styled.Input>
-      {!isWrong && (
-        <styled.ValidationTextSpan>{validationText}</styled.ValidationTextSpan>
-      )}
-    </styled.OutLineBox>
+    <>
+      <styled.OutLineBox size={size} ref={outLineBoxRef}>
+        <styled.NameIconBox ref={nameIconBoxRef}>
+          <styled.Icon src={imgSrc} alt=""></styled.Icon>
+          <styled.Name>{name}</styled.Name>
+        </styled.NameIconBox>
+        <styled.Input
+          type={type}
+          onFocus={focusHandler}
+          onBlur={blurHandler}
+          onChange={onChange}
+          onKeyUp={onKeyUp}
+          autoComplete={autoComplete}
+          value={value || ""}
+          pattern={pattern}
+        ></styled.Input>
+        {!isWrong && (
+          <styled.ValidationTextSpan>
+            {validationText}
+          </styled.ValidationTextSpan>
+        )}
+      </styled.OutLineBox>
+    </>
   );
 };
 
@@ -71,6 +77,7 @@ type propTypes = {
   value?: string;
   autoComplete?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   validator?: (value?: string) => boolean;
   validationText?: ValidationText;
   setOn?: React.Dispatch<React.SetStateAction<boolean | undefined>>;
