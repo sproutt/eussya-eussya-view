@@ -3,7 +3,6 @@ import { RoundButton } from "presentation/atom/button/round-button";
 import { UserAction } from "enum/user-action";
 import "./oauth-button.scss";
 import { OAuthUrl } from "enum/oauth-url";
-import { useHistory } from "react-router-dom";
 
 export const OAuthButton: React.FC<propTypes> = ({
   icon,
@@ -11,17 +10,14 @@ export const OAuthButton: React.FC<propTypes> = ({
   actions,
   href,
   clientId,
-  redirectUri
+  redirectUri,
 }) => {
-  const history = useHistory();
   const onClick = () => {
     if (href && clientId && redirectUri)
       // eslint-disable-next-line no-restricted-globals
-      location.href = `${href}?client_id=${clientId}&redirect_uri=${process.env
-        .REACT_APP_DOMAIN +
-        redirectUri +
-        "/" +
-        name.toLowerCase()}`;
+      location.href = `${href}?client_id=${clientId}&redirect_uri=${
+        process.env.REACT_APP_DOMAIN + redirectUri + "/" + name.toLowerCase()
+      }`;
   };
   return (
     <RoundButton className="oauth-button" onClick={onClick}>

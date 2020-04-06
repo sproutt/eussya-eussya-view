@@ -1,5 +1,5 @@
 import React from "react";
-import { Login } from "./component/login";
+import { Login } from "./page/login";
 import { SignUp } from "./page/sign-up";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Logo from "../assets/uthyauthya-gb.svg";
