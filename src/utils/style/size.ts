@@ -5,29 +5,30 @@ export enum Size {
   MEDIUM = "MEDIUM",
   MEDIUM_SMALL = "MEDIUM_SMALL",
   SMALL = "SMALL",
-  EXTRASMALL = "EXTRASMALL"
+  EXTRASMALL = "EXTRASMALL",
 }
 
 export enum FontSize {
-  LARGE = "1.75rem",
-  MEDIUM = "1.25rem",
-  MEDIUM_SMALL = "1rem",
-  SMALL = "0.75rem"
+  EXTRA_LARGE = "2.5rem",
+  LARGE = "2.0rem",
+  MEDIUM = "1.5rem",
+  MEDIUM_SMALL = "1.25rem",
+  SMALL = "1rem",
 }
 
 export enum ElementSizeByHeight {
-  EXTRA_LARGE = "7.5rem",
-  LARGE = "5rem",
+  EXTRA_LARGE = "5.5rem",
+  LARGE = "4.5rem",
   MEDIUM_LARGE = "4rem",
   MEDIUM = "3.5rem",
-  SMALL = "2rem"
+  SMALL = "2.5rem",
 }
 
 export enum ElementDistanceEachOthers {
   SMALL = "8px",
   MEDIUM = "16px",
   LARGE = "24px",
-  EXTRASMALL = "4px"
+  EXTRASMALL = "4px",
 }
 
 export type SizeKey =
