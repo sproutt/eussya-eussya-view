@@ -1,3 +1,4 @@
 export enum BrowserStorageKey {
-  SOMTHING = ""
+  SOMTHING = "",
+  TOKEN = "token",
 }

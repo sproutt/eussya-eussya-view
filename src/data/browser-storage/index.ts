@@ -1,12 +1,12 @@
-import { BrowserStorageMapper } from "./browser-storage-mapper";
+import { BrowserStorageMapperImpl } from "./browser-storage-mapper";
 import { BrowserStorageKey } from "enum/browser-storage-key";
 import { BrowserStorageHelper } from "./browser-storage-helper";
 
 export class BrowserStorage<T> {
   private key: BrowserStorageKey;
-  private mapper: BrowserStorageMapper<T>;
+  private mapper: BrowserStorageMapperImpl<T>;
 
-  constructor(key: BrowserStorageKey, mapper: BrowserStorageMapper<T>) {
+  constructor(key: BrowserStorageKey, mapper: BrowserStorageMapperImpl<T>) {
     this.key = key;
     this.mapper = mapper;
   }

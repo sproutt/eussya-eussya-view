@@ -1,10 +1,13 @@
 import axios, { AxiosStatic } from "axios";
+import { StorageProviderDependencies } from "@context/storage-providers";
 
 export class AxiosWrapper {
   private axios: AxiosStatic;
+  private storage: StorageProviderDependencies;
   constructor() {
     this.axios = axios;
     this.initialize();
+    this.storage = new StorageProviderDependencies();
   }
 
   private initialize(): void {
@@ -13,6 +16,12 @@ export class AxiosWrapper {
   }
 
   public getAxios() {
-    return this.axios.create();
+    const jwtToken = this.storage.JWTTokenStorage.get().token;
+    if (!jwtToken) return this.axios.create();
+    return this.axios.create({
+      headers: {
+        authorization: jwtToken,
+      },
+    });
   }
 }

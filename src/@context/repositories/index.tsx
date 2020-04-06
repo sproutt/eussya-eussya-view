@@ -9,6 +9,9 @@ export class RepositoryContainer {
     apiProviders: HttpProviderDependencies,
     storageProviders: StorageProviderDependencies
   ) {
-    this.memberRepository = new MemberRepository(apiProviders.memberApi);
+    this.memberRepository = new MemberRepository(
+      apiProviders.memberApi,
+      storageProviders.JWTTokenStorage
+    );
   }
 }
