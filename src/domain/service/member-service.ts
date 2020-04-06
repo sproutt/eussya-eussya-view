@@ -22,6 +22,6 @@ export class MemberService {
   }
 
   async login(email: string, password: string) {
-    return await this.repo.signUp(new Member(email, undefined, password));
+    return await this.repo.login(new Member(email, undefined, password));
   }
 }

@@ -24,7 +24,7 @@ export class MemberApiProvider {
         .getAxios()
         .post(process.env.REACT_APP_HOST + "/email-auth", {
           memberId: email,
-          authCode: code
+          authCode: code,
         });
     } catch (error) {
       console.log(error);
@@ -38,7 +38,7 @@ export class MemberApiProvider {
         .getAxios()
         .post(process.env.REACT_APP_HOST + "/login", {
           memberId: member.memberId,
-          password: member.password
+          password: member.password,
         });
     } catch (error) {
       throw error;
