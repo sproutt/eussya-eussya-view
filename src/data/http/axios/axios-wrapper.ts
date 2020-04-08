@@ -16,11 +16,11 @@ export class AxiosWrapper {
   }
 
   public getAxios() {
-    const jwtToken = this.storage.JWTTokenStorage.get().token;
-    if (!jwtToken) return this.axios.create();
+    const jwtToken = this.storage.JWTTokenStorage.get();
+    if (!(jwtToken && jwtToken.token)) return this.axios.create();
     return this.axios.create({
       headers: {
-        authorization: jwtToken,
+        authorization: jwtToken.token,
       },
     });
   }
