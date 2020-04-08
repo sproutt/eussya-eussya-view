@@ -32,8 +32,8 @@ export class MemberRepository implements MemberRepositoryImpl {
   async login(member: Member) {
     try {
       const result = await this.api.login(member);
-      if (!result.headers["authorization"]) return false;
-      this.storage.set(result.headers["authorization"]);
+      if (!result.headers["Authorization"]) return false;
+      this.storage.set(result.headers["Authorization"]);
       return result.status === HttpStatus.OK;
     } catch (error) {
       return false;
