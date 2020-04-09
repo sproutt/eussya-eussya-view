@@ -49,22 +49,28 @@ export const SignUp: React.FC = () => {
       isCorrectEmail &&
         isCorrectNickName &&
         isCorrectPassword &&
-        isCorrectRepassword
+        isCorrectRepassword &&
+        isDupllcatedEmail &&
+        isDupllcatedNickName
     );
   }, [
     isCorrectEmail,
     isCorrectNickName,
     isCorrectPassword,
     isCorrectRepassword,
+    isDupllcatedEmail,
+    isDupllcatedNickName,
   ]);
 
   const signUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setButtonOn(true);
     const result = await Application.services.member.signUp(
       email!,
       nickName!,
       password!
     );
+    setButtonOn(false);
     if (result) history.push(`/codecheck/${email}`);
   };
 
