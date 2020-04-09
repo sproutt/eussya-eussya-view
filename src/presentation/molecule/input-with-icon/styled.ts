@@ -14,7 +14,7 @@ const OutLineBox = styled.div<{ size: SizeKey }>`
   width: 100%;
   height: ${({ size }) => SizeSeparator.asElementHeight(size)};
   font-size: ${FontSize.SMALL};
-  padding: ${ElementDistanceEachOthers.EXTRASMALL};
+  padding: ${ElementDistanceEachOthers.EXTRA_SMALL};
   border: 1px solid black;
   border-radius: 5px;
   transition: 0.2s;
@@ -70,18 +70,26 @@ const focusNameIcon = `
   color: black;
   top: 0%;
   transform: translate(0,-120%);
-  font-size: ${FontSize.MEDIUM_SMALL}
+  font-size: ${FontSize.SMALL}
 `;
 
 const ValidationTextSpan = styled.span`
   position: absolute;
   left: 0;
-  top: calc(${ElementSizeByHeight.MEDIUM} - 5px);
-  font-size: ${FontSize.SMALL};
+  top: ${ElementSizeByHeight.MEDIUM};
+  font-size: ${FontSize.EXTRA_SMALL};
   color: ${Color.WARNING_COLOR};
 `;
 
 const Name = styled.label``;
+
+const duplicateCheckIcon = styled.img`
+  position: absolute;
+  top: 50%;
+  transform: translate(100%, -50%);
+  height: ${ElementSizeByHeight.TWO_EXTRA_SMALL};
+  width: auto;
+`;
 
 export default {
   OutLineBox,
@@ -92,4 +100,5 @@ export default {
   focusOutLine,
   focusNameIcon,
   ValidationTextSpan,
+  duplicateCheckIcon,
 };
