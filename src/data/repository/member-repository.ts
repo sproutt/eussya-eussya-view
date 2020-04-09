@@ -39,4 +39,22 @@ export class MemberRepository implements MemberRepositoryImpl {
       return false;
     }
   }
+
+  async checkDuplicateOfEmail(memberId: string) {
+    try {
+      const result = await this.api.checkDuplicateEmail(memberId);
+      return result.status === HttpStatus.OK;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async checkDuplicateOfNickName(nickName: string) {
+    try {
+      const result = await this.api.checkDuplicateNickName(nickName);
+      return result.status === HttpStatus.OK;
+    } catch (error) {
+      return false;
+    }
+  }
 }
