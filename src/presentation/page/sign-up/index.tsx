@@ -30,6 +30,12 @@ export const SignUp: React.FC = () => {
   const [buttonOn, setButtonOn] = React.useState<boolean | undefined>(
     undefined
   );
+  const [isDupllcatedEmail, setIsDupliactedEmail] = React.useState<
+    boolean | undefined
+  >(undefined);
+  const [isDupllcatedNickName, setIsDupliactedNickName] = React.useState<
+    boolean | undefined
+  >(undefined);
 
   const changeValue = (
     action: React.Dispatch<React.SetStateAction<string | undefined>>,
@@ -43,23 +49,45 @@ export const SignUp: React.FC = () => {
       isCorrectEmail &&
         isCorrectNickName &&
         isCorrectPassword &&
-        isCorrectRepassword
+        isCorrectRepassword &&
+        isDupllcatedEmail &&
+        isDupllcatedNickName
     );
   }, [
     isCorrectEmail,
     isCorrectNickName,
     isCorrectPassword,
-    isCorrectRepassword
+    isCorrectRepassword,
+    isDupllcatedEmail,
+    isDupllcatedNickName,
   ]);
 
   const signUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setButtonOn(true);
     const result = await Application.services.member.signUp(
       email!,
       nickName!,
       password!
     );
+    setButtonOn(false);
     if (result) history.push(`/codecheck/${email}`);
+  };
+
+  const checkDuplicateOfEmail = async () => {
+    if (email === undefined) return setIsDupliactedEmail(false);
+    const result = await Application.services.member.checkDuplicateOfEmail(
+      email
+    );
+    setIsDupliactedEmail(result);
+  };
+
+  const checkDuplicateOfNickName = async () => {
+    if (nickName === undefined) return setIsDupliactedNickName(false);
+    const result = await Application.services.member.checkDuplicateOfNickName(
+      nickName
+    );
+    setIsDupliactedNickName(result);
   };
 
   return (
@@ -74,6 +102,9 @@ export const SignUp: React.FC = () => {
         validator={Validator.correctEmailFormat}
         validationText={ValidationText.EMAIL_FORMAT_IS_WRONG}
         setOn={setIsCorrectEmail}
+        onBlur={checkDuplicateOfEmail}
+        isDuplicatedValue={isDupllcatedEmail}
+        duplicatedText={ValidationText.DUPLICATED_EMAIL}
       ></InputWithIcon>
       <InputWithIcon
         size={Size.MEDIUM}
@@ -84,6 +115,9 @@ export const SignUp: React.FC = () => {
         validator={Validator.correctNickNameFormat}
         validationText={ValidationText.NICK_NAME_IS_WRONG}
         setOn={setIsCorrectNickName}
+        onBlur={checkDuplicateOfNickName}
+        isDuplicatedValue={isDupllcatedNickName}
+        duplicatedText={ValidationText.DUPLICATED_NICK_NAME}
       ></InputWithIcon>
       <InputWithIcon
         size={Size.MEDIUM}

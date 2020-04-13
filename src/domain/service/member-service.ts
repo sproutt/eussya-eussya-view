@@ -24,4 +24,12 @@ export class MemberService {
   async login(email: string, password: string) {
     return await this.repo.login(new Member(email, undefined, password));
   }
+
+  async checkDuplicateOfEmail(memberId: string) {
+    return await this.repo.checkDuplicateOfEmail(memberId);
+  }
+
+  async checkDuplicateOfNickName(nickName: string) {
+    return await this.repo.checkDuplicateOfNickName(nickName);
+  }
 }

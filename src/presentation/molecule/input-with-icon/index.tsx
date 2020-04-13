@@ -3,6 +3,8 @@ import styled from "./styled";
 import { SizeKey } from "utils/style/size";
 import { ValidationText } from "enum/validation-text";
 import { isUndefined } from "util";
+import greenCheckImg from "assets/green-check.svg";
+import redX from "assets/red-x.svg";
 
 export const InputWithIcon: React.FC<propTypes> = ({
   size,
@@ -17,10 +19,16 @@ export const InputWithIcon: React.FC<propTypes> = ({
   setOn,
   autoComplete,
   pattern,
+  onBlur,
+  isDuplicatedValue,
+  duplicatedText,
 }) => {
   const [isWrong, setIsWorng] = React.useState(true);
   const outLineBoxRef = React.useRef<HTMLDivElement>(null);
   const nameIconBoxRef = React.useRef<HTMLDivElement>(null);
+  const [isDuplicated, setIsDuplicated] = React.useState<boolean | undefined>(
+    undefined
+  );
 
   const focusHandler = () => {
     outLineBoxRef.current?.setAttribute("style", styled.focusOutLine);
@@ -28,6 +36,10 @@ export const InputWithIcon: React.FC<propTypes> = ({
   };
 
   const blurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (onBlur) {
+      setIsDuplicated(true);
+      onBlur().then();
+    }
     if (!!!event.target.value) {
       outLineBoxRef.current?.removeAttribute("style");
       nameIconBoxRef.current?.removeAttribute("style");
@@ -40,7 +52,12 @@ export const InputWithIcon: React.FC<propTypes> = ({
       setOn(validator(value));
       setIsWorng(validator(value));
     }
-  }, [setOn, value, validator]);
+  }, [setOn, value, validator, onBlur]);
+
+  const onChangeWrpper = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (onBlur) setIsDuplicated(false);
+    if (onChange) onChange(event);
+  };
 
   return (
     <>
@@ -53,17 +70,33 @@ export const InputWithIcon: React.FC<propTypes> = ({
           type={type}
           onFocus={focusHandler}
           onBlur={blurHandler}
-          onChange={onChange}
+          onChange={onChangeWrpper}
           onKeyUp={onKeyUp}
           autoComplete={autoComplete}
           value={value || ""}
           pattern={pattern}
         ></styled.Input>
-        {!isWrong && (
-          <styled.ValidationTextSpan>
-            {validationText}
-          </styled.ValidationTextSpan>
-        )}
+        {isDuplicatedValue !== undefined ? (
+          isDuplicatedValue ? (
+            <styled.duplicateCheckIcon
+              src={greenCheckImg}
+            ></styled.duplicateCheckIcon>
+          ) : (
+            <styled.duplicateCheckIcon src={redX}></styled.duplicateCheckIcon>
+          )
+        ) : null}
+        {(!isWrong || isDuplicatedValue === false) &&
+          (!isWrong || !value ? (
+            <styled.ValidationTextSpan>
+              {validationText}
+            </styled.ValidationTextSpan>
+          ) : (
+            isDuplicated && (
+              <styled.ValidationTextSpan>
+                {duplicatedText}
+              </styled.ValidationTextSpan>
+            )
+          ))}
       </styled.OutLineBox>
     </>
   );
@@ -82,4 +115,7 @@ type propTypes = {
   validationText?: ValidationText;
   setOn?: React.Dispatch<React.SetStateAction<boolean | undefined>>;
   pattern?: string;
+  onBlur?: () => Promise<void>;
+  isDuplicatedValue?: boolean;
+  duplicatedText?: string;
 };

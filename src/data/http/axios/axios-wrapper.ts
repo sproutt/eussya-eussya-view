@@ -20,7 +20,7 @@ export class AxiosWrapper {
     if (!(jwtToken && jwtToken.token)) return this.axios.create();
     return this.axios.create({
       headers: {
-        authorization: jwtToken.token,
+        Authorization: jwtToken.token,
       },
     });
   }

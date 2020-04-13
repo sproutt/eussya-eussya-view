@@ -46,4 +46,28 @@ export class MemberApiProvider {
       throw error;
     }
   }
+
+  async checkDuplicateEmail(memberId: string): Promise<AxiosResponse> {
+    try {
+      return await this.axiosWrapper
+        .getAxios()
+        .get(
+          process.env.REACT_APP_HOST + "members/validate/memberid/" + memberId
+        );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async checkDuplicateNickName(nickName: string): Promise<AxiosResponse> {
+    try {
+      return await this.axiosWrapper
+        .getAxios()
+        .get(
+          process.env.REACT_APP_HOST + "members/validate/nickname/" + nickName
+        );
+    } catch (error) {
+      throw error;
+    }
+  }
 }
