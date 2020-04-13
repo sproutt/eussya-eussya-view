@@ -52,7 +52,7 @@ export class MemberApiProvider {
       return await this.axiosWrapper
         .getAxios()
         .get(
-          process.env.REACT_APP_HOST + "members/validate/memberid/" + memberId
+          process.env.REACT_APP_HOST + "/members/validate/memberid/" + memberId
         );
     } catch (error) {
       throw error;
@@ -64,7 +64,7 @@ export class MemberApiProvider {
       return await this.axiosWrapper
         .getAxios()
         .get(
-          process.env.REACT_APP_HOST + "members/validate/nickname/" + nickName
+          process.env.REACT_APP_HOST + "/members/validate/nickname/" + nickName
         );
     } catch (error) {
       throw error;
