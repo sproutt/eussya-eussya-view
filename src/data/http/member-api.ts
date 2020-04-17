@@ -38,7 +38,7 @@ export class MemberApiProvider {
       return await this.axiosWrapper
         .getAxios()
         .post(process.env.REACT_APP_HOST + "/login", {
-          memberId: member.memberId,
+          memberId: member.email,
           password: member.password,
         });
     } catch (error) {

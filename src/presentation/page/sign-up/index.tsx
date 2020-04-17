@@ -1,9 +1,6 @@
 import * as React from "react";
 import { InputWithIcon } from "presentation/molecule/input-with-icon";
-import { Size } from "utils/style/size";
 import styled from "./styled";
-import { Validator } from "utils/validator";
-import { ValidationText } from "enum/validation-text";
 import { Application } from "context-instance";
 import { useHistory } from "react-router-dom";
 
@@ -38,8 +35,7 @@ export const SignUp: React.FC = () => {
   >(undefined);
 
   const changeValue = (
-    action: React.Dispatch<React.SetStateAction<string | undefined>>,
-    allowKorean: boolean = true
+    action: React.Dispatch<React.SetStateAction<string | undefined>>
   ) => (event: React.ChangeEvent<HTMLInputElement>) => {
     action(event.target.value);
   };
