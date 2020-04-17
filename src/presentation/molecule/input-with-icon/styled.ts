@@ -1,6 +1,4 @@
 import {
-  SizeKey,
-  SizeSeparator,
   ElementDistanceEachOthers,
   FontSize,
   ElementSizeByHeight,
@@ -8,11 +6,11 @@ import {
 import styled, { css } from "styled-components";
 import { Color } from "utils/style/color";
 
-const OutLineBox = styled.div<{ size: SizeKey }>`
+const OutLineBox = styled.div`
   box-sizing: border-box;
   position: relative;
   width: 100%;
-  height: ${({ size }) => SizeSeparator.asElementHeight(size)};
+  height: ${ElementSizeByHeight.MEDIUM};
   font-size: ${FontSize.SMALL};
   padding: ${ElementDistanceEachOthers.EXTRA_SMALL};
   border: 1px solid black;

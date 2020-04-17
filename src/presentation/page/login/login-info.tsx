@@ -28,15 +28,7 @@ export const LoginIfo: React.FC = () => {
 
   return (
     <>
-      <InputWithIcon
-        size={Size.MEDIUM}
-        name={"email"}
-        value={email}
-        onChange={changeValue}
-        validator={Validator.correctEmailFormat}
-        validationText={ValidationText.EMAIL_FORMAT_IS_WRONG}
-        setOn={setIsCorrectEmail}
-      />
+      <InputWithIcon name={"email"} value={email} onChange={changeValue} />
       <styled.EmailLogin>
         <Link to="/signUp">
           <styled.SignUpLink>계정 만들기</styled.SignUpLink>
