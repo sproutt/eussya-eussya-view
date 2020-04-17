@@ -53,7 +53,7 @@
 
 <p align="center"><img src="https://cask.scotch.io/2014/10/V70cSEC.png" height="250px"/></p>
 
-#### Presctation 구조
+#### Presentation 구조
 
 으쌰으쌰 뷰의 구조는 세 가지로 나누어저 있습니다.
 - page: Layout이 담겨 있으며 기능을 담고 있는 컴포넌트들이 Layout에 배치 됩니다. 대부분의 로직이 이 곳에서 실행됩니다.
