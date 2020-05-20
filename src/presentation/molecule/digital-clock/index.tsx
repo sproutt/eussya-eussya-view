@@ -32,7 +32,7 @@ export const DigitalClock: React.FC<{ color: string }> = ({ color }) => {
   React.useEffect(() => {
     const setTime = setInterval(changeTime, 1000);
     return () => clearInterval(setTime);
-  });
+  }, []);
   return (
     <styled.Clock color={color}>
       <div className={"hours"}>
