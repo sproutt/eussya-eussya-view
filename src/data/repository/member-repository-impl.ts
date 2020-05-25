@@ -1,10 +1,10 @@
-import { BrowserStorage } from "./../browser-storage/index";
-import { MemberRepositoryImpl } from "core/use-case/member-repository-Impl";
+import { BrowserStorage } from "../browser-storage/index";
+import { MemberRepository } from "core/use-case/member-repository";
 import { MemberApiProvider } from "data/http/member-api";
 import { Member } from "core/entity/member";
 import HttpStatus from "http-status-codes";
 import { JWTToken } from "core/entity/jwt-token";
-export class MemberRepository implements MemberRepositoryImpl {
+export class MemberRepositoryImpl implements MemberRepository {
   constructor(
     private api: MemberApiProvider,
     private storage: BrowserStorage<JWTToken>

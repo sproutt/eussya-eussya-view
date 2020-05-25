@@ -1,15 +1,15 @@
 import { HttpProviderDependencies } from "@context/http-providers";
 import { StorageProviderDependencies } from "@context/storage-providers";
-import { MemberRepository } from "data/repository/member-repository";
+import { MemberRepositoryImpl } from "data/repository/member-repository-impl";
 
 //레포지토리 의존성을 주입하는 곳
 export class RepositoryContainer {
-  public readonly memberRepository: MemberRepository;
+  public readonly memberRepository: MemberRepositoryImpl;
   constructor(
     apiProviders: HttpProviderDependencies,
     storageProviders: StorageProviderDependencies
   ) {
-    this.memberRepository = new MemberRepository(
+    this.memberRepository = new MemberRepositoryImpl(
       apiProviders.memberApi,
       storageProviders.JWTTokenStorage
     );
