@@ -1,4 +1,4 @@
-import { Member } from "entity/member";
+import { Member } from "core/entity/member";
 
 export interface MemberRepositoryImpl {
   authEmail(email: string, code: string): Promise<boolean>;

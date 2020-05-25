@@ -1,5 +1,5 @@
 import { AxiosWrapper } from "./axios/axios-wrapper";
-import { Member } from "entity/member";
+import { Member } from "core/entity/member";
 import { AxiosResponse } from "axios";
 export class MemberApiProvider {
   private axiosWrapper: AxiosWrapper;

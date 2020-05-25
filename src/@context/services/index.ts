@@ -1,5 +1,5 @@
 import { RepositoryContainer } from "@context/repositories";
-import { MemberService } from "domain/service/member-service";
+import { MemberService } from "core/service/member-service";
 
 //서비스 의존성 주입
 export class ServiceDependencies {

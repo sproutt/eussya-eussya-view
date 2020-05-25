@@ -1,5 +1,5 @@
-import { MemberRepositoryImpl } from "domain/use-case/member-repository-Impl";
-import { Member } from "entity/member";
+import { MemberRepositoryImpl } from "core/use-case/member-repository-Impl";
+import { Member } from "core/entity/member";
 
 export class MemberService {
   private repo: MemberRepositoryImpl;
