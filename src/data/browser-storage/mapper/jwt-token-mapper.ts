@@ -1,4 +1,4 @@
-import { JWTToken } from "./../../../entity/jwt-token";
+import { JWTToken } from "../../../core/entity/jwt-token";
 import { BrowserStorageMapperImpl } from "./../browser-storage-mapper";
 
 export class JWTTokenMapper implements BrowserStorageMapperImpl<JWTToken> {

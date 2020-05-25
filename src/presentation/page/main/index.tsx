@@ -3,10 +3,24 @@ import styled from "./styled";
 import { DigitalClock } from "presentation/molecule/digital-clock";
 import { EarlyCrazyPopUp } from "presentation/molecule/early-crazy-pop-up";
 import logo from "assets/logo.svg";
+import { Application } from "context-instance";
 
 export const Main: React.FC = () => {
   const [pop, setPop] = React.useState<boolean | undefined>(undefined);
+  const [motivationalPhrase, setMotivationalPhrase] = React.useState<
+    string | undefined
+  >(undefined);
 
+  React.useEffect(() => {
+    (async function () {
+      try {
+        let text = await Application.services.system.getMotivatedMassage();
+        setMotivationalPhrase(text);
+      } catch (error) {
+        setMotivationalPhrase("일곱번 넘어져도 여덟 번 일어나라");
+      }
+    })();
+  }, []);
   let color = "#000000";
 
   let popUp = (
@@ -25,7 +39,7 @@ export const Main: React.FC = () => {
         <styled.HeaderButton>얼또 랭킹</styled.HeaderButton>
       </styled.Header>
       <styled.Banner color={""}>
-        <h1>일곱번 넘어져도 여덟 번 일어나라</h1>
+        <h1>{motivationalPhrase}</h1>
         <DigitalClock color={color}></DigitalClock>
         <styled.Button onClick={() => setPop(true)}>
           눌러서 시작하기
