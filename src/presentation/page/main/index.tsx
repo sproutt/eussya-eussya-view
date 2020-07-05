@@ -1,12 +1,10 @@
 import * as React from "react";
 import styled from "./styled";
 import { DigitalClock } from "presentation/molecule/digital-clock";
-import { EarlyCrazyPopUp } from "presentation/molecule/early-crazy-pop-up";
-import logo from "assets/logo.svg";
 import { Application } from "context-instance";
+import { NavBar } from "presentation/molecule/nav-bar";
 
 export const Main: React.FC = () => {
-  const [pop, setPop] = React.useState<boolean | undefined>(undefined);
   const [motivationalPhrase, setMotivationalPhrase] = React.useState<
     string | undefined
   >(undefined);
@@ -21,32 +19,18 @@ export const Main: React.FC = () => {
       }
     })();
   }, []);
-  let color = "#000000";
-
-  let popUp = (
-    <styled.PopUpWrapper>
-      <styled.PopUp onClick={() => setPop(false)}>
-        <EarlyCrazyPopUp></EarlyCrazyPopUp>
-      </styled.PopUp>
-    </styled.PopUpWrapper>
-  );
 
   return (
-    <styled.Container>
-      <styled.Header>
-        <styled.Logo src={logo}></styled.Logo>
-        <styled.HeaderButton>투데이 얼또</styled.HeaderButton>
-        <styled.HeaderButton>얼또 랭킹</styled.HeaderButton>
-      </styled.Header>
-      <styled.Banner color={""}>
-        <h1>{motivationalPhrase}</h1>
-        <DigitalClock color={color}></DigitalClock>
-        <styled.Button onClick={() => setPop(true)}>
-          눌러서 시작하기
-        </styled.Button>
-      </styled.Banner>
-      <styled.Explain></styled.Explain>
-      {pop && popUp}
-    </styled.Container>
+    <React.Fragment>
+      <NavBar></NavBar>
+      <styled.Container>
+        <styled.Banner color={""}>
+          <h1>{motivationalPhrase}</h1>
+          <DigitalClock color={"#000000"}></DigitalClock>
+          <styled.Button>눌러서 시작하기</styled.Button>
+        </styled.Banner>
+        <styled.Explain></styled.Explain>
+      </styled.Container>
+    </React.Fragment>
   );
 };
