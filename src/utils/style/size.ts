@@ -23,6 +23,7 @@ export enum ElementSizeByHeight {
   LARGE = "4.5rem",
   MEDIUM_LARGE = "4rem",
   MEDIUM = "3.5rem",
+  MEDIUM_SMALL = "3rem",
   SMALL = "2.5rem",
   EXTRA_SMALL = "2rem",
   TWO_EXTRA_SMALL = "1.5rem",
