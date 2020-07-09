@@ -67,6 +67,7 @@ const Button = styled.button`
 `;
 
 const Container = styled.section`
+  position: relative;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-column-gap: 20px;
