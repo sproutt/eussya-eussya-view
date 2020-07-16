@@ -6,56 +6,53 @@ import {
 import styled from "styled-components";
 
 const Banner = styled.section<{ color: string }>`
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  grid-column: 2/3;
-  grid-row: 2 / 3;
+  grid-column: 2/12;
   width: 100%;
+  height: 400px;
   margin: 0;
   h1 {
     font-size: ${FontSize.EXTRA_LARGE};
     margin: ${ElementDistanceEachOthers.SMALL};
   }
-`;
-const PopUpWrapper = styled.section`
-  grid-column: 1/4;
-  grid-row: 2/5;
-  z-index: 1;
+  @media screen and (min-width: 1920px) {
+    grid-column: 3/13;
+  }
+  @media screen and (min-width: 1024px) and (max-width: 1344px) {
+  }
+  @media screen and (min-width: 720px) and (max-width: 1024px) {
+    grid-column: 1/13;
+    padding: 0 20px;
+  }
+  @media screen and (max-width: 720px) {
+    grid-column: 1/7;
+    padding: 0 20px;
+  }
 `;
 
-const PopUp = styled.article`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
-  height: 100px;
-  background: white;
-  border: 1px solid grey;
-`;
 const Explain = styled.article`
   box-sizing: border-box;
   background-color: #ffce3f;
   width: 100%;
-  grid-column: 2/3;
-  grid-row: 3/4;
-`;
-
-const Header = styled.section`
-  box-sizing: border-box;
-  grid-column: 1/4;
-  grid-row: 1/2;
-  display: flex;
-  align-items: center;
-  padding: ${ElementDistanceEachOthers.EXTRA_SMALL};
-  background-color: black;
-  width: 100%;
-`;
-
-const Logo = styled.img`
-  height: 80%;
+  grid-column: 2/12;
+  height: 300px;
+  @media screen and (min-width: 1920px) {
+    grid-column: 3/13;
+  }
+  @media screen and (min-width: 1024px) and (max-width: 1344px) {
+  }
+  @media screen and (min-width: 720px) and (max-width: 1024px) {
+    grid-column: 1/13;
+    padding: 0 20px;
+  }
+  @media screen and (max-width: 720px) {
+    grid-column: 1/7;
+    padding: 0 20px;
+  }
 `;
 
 const Button = styled.button`
@@ -71,30 +68,32 @@ const Button = styled.button`
 
 const Container = styled.section`
   display: grid;
-  grid-template-rows: 40px 360px 200px auto;
-  grid-template-columns: 50px auto 50px;
+  grid-template-columns: repeat(12, 1fr);
+  grid-column-gap: 20px;
   width: 100%;
   height: auto;
-`;
+  padding: 0 20px;
+  box-sizing: border-box;
 
-const HeaderButton = styled.button`
-  border: none;
-  background-color: #00000000;
-  height: ${ElementSizeByHeight.SMALL};
-  font-size: ${FontSize.SMALL};
-  font-weight: bold;
-  margin: ${ElementDistanceEachOthers.SMALL};
-  width: auto;
-  color: white;
+  @media screen and (min-width: 1920px) {
+    grid-template-columns: repeat(14, 1fr);
+  }
+  @media screen and (min-width: 1024px) and (max-width: 1344px) {
+    grid-column-gap: 16px;
+  }
+  @media screen and (min-width: 720px) and (max-width: 1024px) {
+    grid-column-gap: 12px;
+    padding: 0;
+  }
+  @media screen and (max-width: 720px) {
+    grid-template-columns: repeat(6, 1fr);
+    grid-column-gap: 8px;
+    padding: 0;
+  }
 `;
 export default {
   Banner,
-  Header,
   Container,
-  Logo,
   Button,
   Explain,
-  HeaderButton,
-  PopUpWrapper,
-  PopUp,
 };
