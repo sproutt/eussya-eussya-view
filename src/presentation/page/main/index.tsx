@@ -3,12 +3,15 @@ import styled from "./styled";
 import { DigitalClock } from "presentation/molecule/digital-clock";
 import { Application } from "context-instance";
 import { NavBar } from "presentation/molecule/nav-bar";
+import { TodoResistration } from "presentation/molecule/to-do-resistration";
 
 export const Main: React.FC = () => {
   const [motivationalPhrase, setMotivationalPhrase] = React.useState<
     string | undefined
   >(undefined);
-
+  const [toDoModalOn, setTodoModalOn] = React.useState<boolean | undefined>(
+    undefined
+  );
   React.useEffect(() => {
     (async function () {
       try {
@@ -20,6 +23,8 @@ export const Main: React.FC = () => {
     })();
   }, []);
 
+  const changeTodoModalOn = (value: boolean) => setTodoModalOn(value);
+
   return (
     <React.Fragment>
       <NavBar></NavBar>
@@ -27,9 +32,14 @@ export const Main: React.FC = () => {
         <styled.Banner color={""}>
           <h1>{motivationalPhrase}</h1>
           <DigitalClock color={"#000000"}></DigitalClock>
-          <styled.Button>눌러서 시작하기</styled.Button>
+          <styled.Button onClick={() => setTodoModalOn(true)}>
+            눌러서 시작하기
+          </styled.Button>
         </styled.Banner>
-        <styled.Explain></styled.Explain>
+        <TodoResistration
+          on={toDoModalOn}
+          changeModal={changeTodoModalOn}
+        ></TodoResistration>
       </styled.Container>
     </React.Fragment>
   );
