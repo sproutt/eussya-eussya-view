@@ -35,6 +35,7 @@ const ModalContent = styled.div`
 `;
 
 const ModalLayout = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;

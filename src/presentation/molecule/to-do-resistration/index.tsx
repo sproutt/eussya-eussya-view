@@ -3,11 +3,31 @@ import styled from "./styled";
 import moment from "moment";
 import { TimeInput } from "presentation/molecule/time-input";
 import { ReactComponent as CloseSVG } from "assets/SVGclose.svg";
+import { Application } from "context-instance";
+import { Time } from "enum/time";
+import { useHistory } from "react-router-dom";
+import { MissionErrorMessage } from "enum/mission-error-message";
+import CheckModal from "presentation/molecule/check-modal";
+import { MissionErrorCode } from "enum/mission-error-code";
+import { AuthErrorCode } from "enum/auth-error-code";
+
 export const TodoResistration: React.FC<PropTypes> = ({ on, changeModal }) => {
   const [hour, setHour] = React.useState<number>(moment().hours());
   const [minute, setMinute] = React.useState<number>(moment().minutes());
   const [title, setTitle] = React.useState<string>("");
   const [contents, setContents] = React.useState<string>("");
+  const [resultModalOnoff, setResultModalOnoff] = React.useState<0 | 1>(0);
+  const [resultModalTitle, setResultModalTitle] = React.useState<
+    string | undefined
+  >(undefined);
+  const [resultModalAction, setResultModalAction] = React.useState<
+    string | undefined
+  >(undefined);
+  const [resultModalText, setResultModalText] = React.useState<
+    string | undefined
+  >(undefined);
+
+  const history = useHistory();
 
   const changeHour = (value: number) => {
     setHour(value);
@@ -17,10 +37,10 @@ export const TodoResistration: React.FC<PropTypes> = ({ on, changeModal }) => {
     setMinute(value);
   };
 
-  const clickEvent = React.useCallback(
+  const removeModalCloseEvent = React.useCallback(
     function (event: any) {
       if (event.target.closest("#todo__modal")) return;
-      this.removeEventListener("click", clickEvent);
+      this.removeEventListener("click", removeModalCloseEvent);
       changeModal(false);
     },
     [changeModal]
@@ -29,13 +49,89 @@ export const TodoResistration: React.FC<PropTypes> = ({ on, changeModal }) => {
   const closeEvent = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     event.preventDefault();
     changeModal(false);
-    document.removeEventListener("click", clickEvent);
+    document.removeEventListener("click", removeModalCloseEvent);
   };
 
   React.useEffect(() => {
-    if (on === true) document.addEventListener("click", clickEvent);
-  }, [on, clickEvent]);
+    if (on === true) document.addEventListener("click", removeModalCloseEvent);
+  }, [on, removeModalCloseEvent]);
 
+  const removeResultModalCloseEvent = function (event: any) {
+    if (event.target.closest("#tresult-modal")) return;
+    this.removeEventListener("click", removeResultModalCloseEvent);
+    setResultModalOnoff(0);
+  };
+
+  const addResultModalEvent = () => {
+    document.addEventListener("click", removeResultModalCloseEvent);
+  };
+
+  const getDate = () => {
+    let date = new Date();
+    let time = new Date();
+    time.setHours(Time.MAXIMUM_TIME_HOUR - 1, 0, 0, 0);
+    if (date.getTime() <= time.getTime()) {
+      date.setHours(hour, minute, 0, 0);
+      return date;
+    }
+    date.setDate(date.getDate() + 1);
+    date.setHours(hour, minute, 0, 0);
+    return date;
+  };
+
+  const closeResultModal = (
+    event: React.MouseEvent<HTMLSpanElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    document.removeEventListener("click", removeResultModalCloseEvent);
+    setResultModalOnoff(0);
+  };
+
+  const clickSubmit = async () => {
+    try {
+      let result = await Application.services.mission.postMission(
+        title,
+        getDate().toISOString(),
+        contents
+      );
+      if (result.ok) return history.push("/dawn");
+      setResultModalText(result.message);
+      addResultModalEvent();
+      if (result.message === AuthErrorCode.NOT_USER) {
+        setResultModalAction(AuthErrorCode.NOT_USER);
+        setResultModalTitle("인증 오류");
+        setResultModalOnoff(1);
+        return;
+      }
+      if (result.message === MissionErrorMessage.NOT_DAWN) {
+        setResultModalAction(MissionErrorCode.NOT_DAWN);
+        setResultModalTitle("시간 오류");
+        setResultModalOnoff(1);
+        return;
+      }
+      setResultModalTitle("알 수 없는 오류");
+      setResultModalOnoff(1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const actionReducer = (
+    event: React.MouseEvent<HTMLSpanElement, MouseEvent>
+  ) => {
+    event.preventDefault();
+    switch (resultModalAction) {
+      case MissionErrorCode.NOT_DAWN:
+        document.removeEventListener("click", removeResultModalCloseEvent);
+        return setResultModalOnoff(0);
+      case AuthErrorCode.NOT_USER:
+        document.removeEventListener("click", removeResultModalCloseEvent);
+        return setResultModalOnoff(0);
+      default:
+        document.removeEventListener("click", removeResultModalCloseEvent);
+        return setResultModalOnoff(0);
+    }
+  };
   return (
     <styled.Modal on={on ? 1 : 0}>
       <styled.ModalContent>
@@ -71,11 +167,22 @@ export const TodoResistration: React.FC<PropTypes> = ({ on, changeModal }) => {
               ></TimeInput>
             </styled.RowBox>
             <styled.Footer>
-              <styled.SubimtButton disabled={title.trim().length <= 0}>
+              <styled.SubimtButton
+                onClick={clickSubmit}
+                disabled={title.trim().length <= 0}
+              >
                 등록
               </styled.SubimtButton>
             </styled.Footer>
           </styled.Body>
+          <CheckModal
+            onOff={resultModalOnoff}
+            title={resultModalTitle}
+            action={actionReducer}
+            closeCheckModal={closeResultModal}
+          >
+            {resultModalText}
+          </CheckModal>
         </styled.ModalLayout>
       </styled.ModalContent>
     </styled.Modal>
