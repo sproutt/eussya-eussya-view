@@ -3,6 +3,7 @@ import styled from "./styled";
 import moment from "moment";
 import { ReactComponent as UpButton } from "assets/SVGup.svg";
 import { ReactComponent as DownButton } from "assets/SVGdown.svg";
+import { Time } from "enum/time";
 
 export const TimeInput: React.FC<propTypes> = ({
   hour,
@@ -10,14 +11,14 @@ export const TimeInput: React.FC<propTypes> = ({
   minute,
   changeMinute,
 }) => {
-  const LEAST_TIME_HOUR = 3;
-  const MAXIMUM_TIME_HOUR = 8;
   let leastTime =
-    moment().hours() >= LEAST_TIME_HOUR && moment().hours() <= MAXIMUM_TIME_HOUR
+    moment().hours() >= Time.LEAST_TIME_HOUR &&
+    moment().hours() <= Time.MAXIMUM_TIME_HOUR
       ? moment().hours()
-      : LEAST_TIME_HOUR;
+      : Time.LEAST_TIME_HOUR;
   let leastMinute =
-    moment().hours() >= LEAST_TIME_HOUR && moment().hours() <= MAXIMUM_TIME_HOUR
+    moment().hours() >= Time.LEAST_TIME_HOUR &&
+    moment().hours() <= Time.MAXIMUM_TIME_HOUR
       ? moment().minutes()
       : 0;
   const [hourUpButtonDisabled, setHourUpButtonDisabled] = React.useState<
@@ -36,7 +37,7 @@ export const TimeInput: React.FC<propTypes> = ({
   const [modalOn, setModalOn] = React.useState<number | undefined>(undefined);
 
   const checkHourHigh = React.useCallback(() => {
-    return hour! < MAXIMUM_TIME_HOUR;
+    return hour! < Time.MAXIMUM_TIME_HOUR;
   }, [hour]);
 
   const checkHourLow = React.useCallback(() => {
@@ -52,11 +53,11 @@ export const TimeInput: React.FC<propTypes> = ({
   ) => {
     event.stopPropagation();
     event.preventDefault();
-    if (hour! + 1 > MAXIMUM_TIME_HOUR) {
+    if (hour! + 1 > Time.MAXIMUM_TIME_HOUR) {
       setHourUpButtonDisabled(true);
       return;
     }
-    if (hour! + 1 === MAXIMUM_TIME_HOUR) {
+    if (hour! + 1 === Time.MAXIMUM_TIME_HOUR) {
       changeHour(hour! + 1);
       changeMinute(0);
       return;
@@ -86,7 +87,7 @@ export const TimeInput: React.FC<propTypes> = ({
     event.stopPropagation();
     event.preventDefault();
     let tempMinute = (parseInt((minute! / 5).toString()) * 5) % 60;
-    if (hour! >= MAXIMUM_TIME_HOUR) {
+    if (hour! >= Time.MAXIMUM_TIME_HOUR) {
       setMinuteUpButtonDisabled(true);
       changeMinute(0);
       return;
@@ -104,6 +105,7 @@ export const TimeInput: React.FC<propTypes> = ({
   ) => {
     event.preventDefault();
     let tempMinute = (parseInt((minute! / 5).toString()) * 5) % 60;
+    if (minuteDownButtonDisabled) return;
     if (hour! <= leastTime && tempMinute - 5 <= 0) {
       setMinuteDownButtonDisabled(true);
       changeMinute(0);
@@ -126,12 +128,12 @@ export const TimeInput: React.FC<propTypes> = ({
 
   React.useEffect(() => {
     if (
-      (hour! >= LEAST_TIME_HOUR && hour! < MAXIMUM_TIME_HOUR) ||
-      (hour! === MAXIMUM_TIME_HOUR && minute! === 0)
+      (hour! >= Time.LEAST_TIME_HOUR && hour! < Time.MAXIMUM_TIME_HOUR) ||
+      (hour! === Time.MAXIMUM_TIME_HOUR && minute! === 0)
     ) {
       return;
     }
-    changeHour(3);
+    changeHour(Time.LEAST_TIME_HOUR);
     changeMinute(0);
   }, [changeHour, changeMinute, hour, minute]);
 
@@ -151,7 +153,7 @@ export const TimeInput: React.FC<propTypes> = ({
     elements.forEach((e) => {
       e.classList.remove("state");
     });
-    if (hour! > leastTime && hour! < MAXIMUM_TIME_HOUR) return;
+    if (hour! > leastTime && hour! < Time.MAXIMUM_TIME_HOUR) return;
     elements.forEach((e) => {
       if (!checkMinuteValue(Number(e.querySelector("span")?.innerHTML)))
         e.classList.add("state");
@@ -159,8 +161,8 @@ export const TimeInput: React.FC<propTypes> = ({
   };
 
   const checkMinuteValue = (m: number) => {
-    if (hour! > leastTime && hour! < MAXIMUM_TIME_HOUR) return true;
-    if (hour! === MAXIMUM_TIME_HOUR && m === 0) return true;
+    if (hour! > leastTime && hour! < Time.MAXIMUM_TIME_HOUR) return true;
+    if (hour! === Time.MAXIMUM_TIME_HOUR && m === 0) return true;
     if (hour! === leastTime && m >= leastMinute) return true;
     return false;
   };
