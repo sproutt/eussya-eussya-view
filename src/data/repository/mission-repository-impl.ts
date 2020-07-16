@@ -1,3 +1,4 @@
+import { AuthErrorCode } from "./../../enum/auth-error-code";
 import { OK } from "http-status-codes";
 import { PublicErrorMessage } from "./../../enum/public-error-message";
 import { MissionErrorMessage } from "./../../enum/mission-error-message";
@@ -15,8 +16,13 @@ export default class MissonRepositoryImpl implements MissionRepository {
       let result = await this.api.postMisson(mission);
       return new RepoResponseType<undefined>(result.status === OK, "");
     } catch (error) {
-      if (!(error && error.response)) throw error;
-      if (error.response.data.errorCode === undefined)
+      if (!(error && error.response)) {
+        return new RepoResponseType<undefined>(
+          false,
+          PublicErrorMessage.UNKNOWN_ERROR
+        );
+      }
+      if (error.response.status === 404)
         return new RepoResponseType<undefined>(
           false,
           PublicErrorMessage.REQUEST_FAIL
@@ -26,12 +32,12 @@ export default class MissonRepositoryImpl implements MissionRepository {
           false,
           MissionErrorMessage.NOT_DAWN
         );
-      if (error.response.data.errorCode === MissionErrorCode.NOT_AUTH_USER)
-        return new RepoResponseType<undefined>(
-          false,
-          MissionErrorMessage.NOT_AUTH_USER
-        );
-      throw error;
+      if (error.response.data.errorCode === AuthErrorCode.NOT_USER)
+        return new RepoResponseType<undefined>(false, AuthErrorCode.NOT_USER);
+      return new RepoResponseType<undefined>(
+        false,
+        PublicErrorMessage.UNKNOWN_ERROR
+      );
     }
   }
 }
