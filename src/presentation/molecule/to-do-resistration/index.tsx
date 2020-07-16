@@ -111,9 +111,7 @@ export const TodoResistration: React.FC<PropTypes> = ({ on, changeModal }) => {
       }
       setResultModalTitle("알 수 없는 오류");
       setResultModalOnoff(1);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const actionReducer = (
