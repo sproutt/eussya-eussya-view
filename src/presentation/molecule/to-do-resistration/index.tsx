@@ -57,7 +57,7 @@ export const TodoResistration: React.FC<PropTypes> = ({ on, changeModal }) => {
   }, [on, removeModalCloseEvent]);
 
   const removeResultModalCloseEvent = function (event: any) {
-    if (event.target.closest("#tresult-modal")) return;
+    if (event.target.closest("#result-modal")) return;
     this.removeEventListener("click", removeResultModalCloseEvent);
     setResultModalOnoff(0);
   };
