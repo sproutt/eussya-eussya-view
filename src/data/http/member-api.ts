@@ -13,7 +13,6 @@ export class MemberApiProvider {
         .getAxios()
         .post(process.env.REACT_APP_HOST + "/members", member);
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }
@@ -27,14 +26,12 @@ export class MemberApiProvider {
           authCode: code,
         });
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }
 
   async login(member: Member): Promise<AxiosResponse> {
     try {
-      console.log(process.env.REACT_APP_HOST + "/login");
       return await this.axiosWrapper
         .getAxios()
         .post(process.env.REACT_APP_HOST + "/login", {
@@ -42,7 +39,6 @@ export class MemberApiProvider {
           password: member.password,
         });
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }

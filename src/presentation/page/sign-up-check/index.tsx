@@ -36,7 +36,7 @@ export const SignUpCheck: React.FC = () => {
       return;
     }
     const documents = document.getElementsByClassName("numbers");
-    Array.from(documents).forEach(dom => (dom.nodeValue = ""));
+    Array.from(documents).forEach((dom) => (dom.nodeValue = ""));
     alert("인증코드가 틀렸습니다.");
   };
 
@@ -52,7 +52,6 @@ export const SignUpCheck: React.FC = () => {
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const index = Number(event.currentTarget.id.split("-")[1]);
-    console.log(code);
     if (/[^a-zA-Z0-9]/.test(event.target.value)) {
       event.target.value = "";
       return;
