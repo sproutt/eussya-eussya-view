@@ -1,7 +1,7 @@
 import * as React from "react";
 import { OAuthButton } from "presentation/molecule/oauth-button";
 import styled from "./styled";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { InputWithIcon } from "presentation/molecule/input-with-icon";
 import { Size } from "utils/style/size";
 import google from "assets/google-g-logo.svg";
@@ -13,6 +13,7 @@ import { ValidationText } from "enum/validation-text";
 
 export const LoginIfo: React.FC = () => {
   const history = useHistory();
+  const location = useLocation();
   const [email, setEmail] = React.useState<string | undefined>(undefined);
   const [isCorrectEmail, setIsCorrectEmail] = React.useState<
     boolean | undefined
@@ -23,7 +24,7 @@ export const LoginIfo: React.FC = () => {
   };
 
   const continueLoginWithEmail = () => {
-    history.push(`then/${email}`);
+    history.push(`${location.pathname}/then/${email}`);
   };
 
   return (
