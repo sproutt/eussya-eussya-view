@@ -26,7 +26,7 @@ const NameIconBox = styled.div`
   z-index: -1;
   color: #555555;
   top: 50%;
-  transform: translate(1rem, -50%);
+  transform: translate(0.5rem, -50%);
   display: flex;
   align-items: center;
   transition: 0.2s;

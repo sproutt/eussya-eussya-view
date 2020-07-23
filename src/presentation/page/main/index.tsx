@@ -2,8 +2,9 @@ import * as React from "react";
 import styled from "./styled";
 import { DigitalClock } from "presentation/molecule/digital-clock";
 import { Application } from "context-instance";
-import { NavBar } from "presentation/molecule/nav-bar";
 import { TodoResistration } from "presentation/molecule/to-do-resistration";
+import { useAuth } from "context-api/context/auth-context";
+import { useHistory } from "react-router-dom";
 
 export const Main: React.FC = () => {
   const [motivationalPhrase, setMotivationalPhrase] = React.useState<
@@ -12,6 +13,9 @@ export const Main: React.FC = () => {
   const [toDoModalOn, setTodoModalOn] = React.useState<boolean | undefined>(
     undefined
   );
+  const auth = useAuth();
+  const histoty = useHistory();
+
   React.useEffect(() => {
     (async function () {
       try {
@@ -27,14 +31,23 @@ export const Main: React.FC = () => {
 
   return (
     <React.Fragment>
-      <NavBar></NavBar>
       <styled.Container>
         <styled.Banner color={""}>
-          <h1>{motivationalPhrase}</h1>
+          <h1 style={{ margin: "0" }}>{motivationalPhrase}</h1>
           <DigitalClock color={"#000000"}></DigitalClock>
-          <styled.Button onClick={() => setTodoModalOn(true)}>
-            눌러서 시작하기
-          </styled.Button>
+          {auth.isLogined ? (
+            <styled.Button onClick={() => setTodoModalOn(true)}>
+              눌러서 시작하기
+            </styled.Button>
+          ) : (
+            <styled.Button
+              onClick={() => {
+                histoty.push("/login");
+              }}
+            >
+              로그인
+            </styled.Button>
+          )}
         </styled.Banner>
         <TodoResistration
           on={toDoModalOn}
