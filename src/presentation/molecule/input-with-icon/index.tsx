@@ -76,15 +76,6 @@ export const InputWithIcon: React.FC<propTypes> = ({
           value={value || ""}
           pattern={pattern}
         ></styled.Input>
-        {isDuplicatedValue !== undefined ? (
-          isDuplicatedValue ? (
-            <styled.duplicateCheckIcon
-              src={greenCheckImg}
-            ></styled.duplicateCheckIcon>
-          ) : (
-            <styled.duplicateCheckIcon src={redX}></styled.duplicateCheckIcon>
-          )
-        ) : null}
         {(!isWrong || isDuplicatedValue === false) &&
           (!isWrong || !value ? (
             <styled.ValidationTextSpan>
