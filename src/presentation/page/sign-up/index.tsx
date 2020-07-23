@@ -91,58 +91,60 @@ export const SignUp: React.FC = () => {
   };
 
   return (
-    <styled.SignUpBox onSubmit={signUp}>
-      <InputWithIcon
-        size={Size.MEDIUM}
-        name="이메일"
-        value={email}
-        type="email"
-        autoComplete="email"
-        onChange={changeValue(setEmail)}
-        validator={Validator.correctEmailFormat}
-        validationText={ValidationText.EMAIL_FORMAT_IS_WRONG}
-        setOn={setIsCorrectEmail}
-        onBlur={checkDuplicateOfEmail}
-        isDuplicatedValue={isDupllcatedEmail}
-        duplicatedText={ValidationText.DUPLICATED_EMAIL}
-      ></InputWithIcon>
-      <InputWithIcon
-        size={Size.MEDIUM}
-        name="별명(10자 이내)"
-        value={nickName}
-        autoComplete={"username"}
-        onChange={changeValue(setNickName)}
-        validator={Validator.correctNickNameFormat}
-        validationText={ValidationText.NICK_NAME_IS_WRONG}
-        setOn={setIsCorrectNickName}
-        onBlur={checkDuplicateOfNickName}
-        isDuplicatedValue={isDupllcatedNickName}
-        duplicatedText={ValidationText.DUPLICATED_NICK_NAME}
-      ></InputWithIcon>
-      <InputWithIcon
-        size={Size.MEDIUM}
-        name="비밀번호(영문 숫자 특수문자 2가지 이상을 포함한 6~15자 이내)"
-        type="password"
-        value={password}
-        autoComplete={"new-password"}
-        onChange={changeValue(setPassword)}
-        validator={Validator.correctPasswordFormat}
-        validationText={ValidationText.PASSWORD_FORMAT_IS_WRONG}
-        setOn={setIsCorrectPassword}
-      ></InputWithIcon>
-      <InputWithIcon
-        size={Size.MEDIUM}
-        name="비밀번호 확인"
-        type="password"
-        value={repassword}
-        onChange={changeValue(setRepassword)}
-        validator={Validator.isSamePassword(password)}
-        validationText={ValidationText.REPASSWORD_IS_NOT_SAME}
-        setOn={setIsCorrectRepassword}
-      ></InputWithIcon>
-      <styled.SignUpButton disabled={!buttonOn} type={"submit"}>
-        가입하기
-      </styled.SignUpButton>
-    </styled.SignUpBox>
+    <styled.Container>
+      <styled.SignUpBox onSubmit={signUp}>
+        <InputWithIcon
+          size={Size.MEDIUM}
+          name="이메일"
+          value={email}
+          type="email"
+          autoComplete="email"
+          onChange={changeValue(setEmail)}
+          validator={Validator.correctEmailFormat}
+          validationText={ValidationText.EMAIL_FORMAT_IS_WRONG}
+          setOn={setIsCorrectEmail}
+          onBlur={checkDuplicateOfEmail}
+          isDuplicatedValue={isDupllcatedEmail}
+          duplicatedText={ValidationText.DUPLICATED_EMAIL}
+        ></InputWithIcon>
+        <InputWithIcon
+          size={Size.MEDIUM}
+          name="별명(10자 이내)"
+          value={nickName}
+          autoComplete={"username"}
+          onChange={changeValue(setNickName)}
+          validator={Validator.correctNickNameFormat}
+          validationText={ValidationText.NICK_NAME_IS_WRONG}
+          setOn={setIsCorrectNickName}
+          onBlur={checkDuplicateOfNickName}
+          isDuplicatedValue={isDupllcatedNickName}
+          duplicatedText={ValidationText.DUPLICATED_NICK_NAME}
+        ></InputWithIcon>
+        <InputWithIcon
+          size={Size.MEDIUM}
+          name="비밀번호(영문,숫자,특수문자 2가지 이상 포함한 6~15자 이내)"
+          type="password"
+          value={password}
+          autoComplete={"new-password"}
+          onChange={changeValue(setPassword)}
+          validator={Validator.correctPasswordFormat}
+          validationText={ValidationText.PASSWORD_FORMAT_IS_WRONG}
+          setOn={setIsCorrectPassword}
+        ></InputWithIcon>
+        <InputWithIcon
+          size={Size.MEDIUM}
+          name="비밀번호 확인"
+          type="password"
+          value={repassword}
+          onChange={changeValue(setRepassword)}
+          validator={Validator.isSamePassword(password)}
+          validationText={ValidationText.REPASSWORD_IS_NOT_SAME}
+          setOn={setIsCorrectRepassword}
+        ></InputWithIcon>
+        <styled.SignUpButton disabled={!buttonOn} type={"submit"}>
+          가입하기
+        </styled.SignUpButton>
+      </styled.SignUpBox>
+    </styled.Container>
   );
 };
