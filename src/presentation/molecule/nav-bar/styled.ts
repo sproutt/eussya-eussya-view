@@ -47,6 +47,16 @@ const NavButton = styled.span`
   }
 `;
 
+const NavSpan = styled.span`
+  display: inline-block;
+  cursor: default;
+  color: #eeeeee;
+  white-space: nowrap;
+  font-size: ${FontSize.MEDIUM_SMALL};
+  font-weight: 700;
+  margin: 0 ${ElementDistanceEachOthers.SMALL_MEDIUM};
+`;
+
 const NavClickButton = styled.button`
   background: none;
   border: 1px solid #fffcfc;
@@ -74,4 +84,5 @@ export default {
   NavButton,
   NavSecondGroup,
   NavClickButton,
+  NavSpan,
 };
