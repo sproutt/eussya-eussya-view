@@ -93,6 +93,7 @@ export const SignUp: React.FC = () => {
   return (
     <styled.Container>
       <styled.SignUpBox onSubmit={signUp}>
+        <h1>회원가입</h1>
         <InputWithIcon
           size={Size.MEDIUM}
           name="이메일"

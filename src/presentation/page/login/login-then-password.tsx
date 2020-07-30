@@ -1,13 +1,16 @@
 import * as React from "react";
 import { InputWithIcon } from "presentation/molecule/input-with-icon";
 import { Size } from "utils/style/size";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import styled from "./styled";
 import { Application } from "context-instance";
+import { useAuthDispatch } from "context-api/context/auth-context";
 
 export const LoginThenPassword: React.FC = () => {
   const param = useParams<{ email: string }>();
+  const history = useHistory();
   const email = param.email;
+  const authDispatch = useAuthDispatch();
   const [password, setPassword] = React.useState<string | undefined>(undefined);
   const changePasswordValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -22,6 +25,8 @@ export const LoginThenPassword: React.FC = () => {
     if (!result) {
       return alert("로그인에 실패하셨습니다.");
     }
+    authDispatch({ type: "LOGIN" });
+    history.push("/");
   };
 
   return (

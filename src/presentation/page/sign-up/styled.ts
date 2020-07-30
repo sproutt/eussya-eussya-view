@@ -6,12 +6,20 @@ import {
 } from "utils/style/size";
 import { Color } from "utils/style/color";
 const SignUpBox = styled.form`
+  margin-top: ${ElementDistanceEachOthers.LARGE};
   display: flex;
   height: auto;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   grid-column: 5/9;
+
+  h1 {
+    font-size: ${FontSize.EXTRA_LARGE};
+    font-weight: bolder;
+    color: #000000;
+    margin-bottom: ${ElementDistanceEachOthers.LARGE};
+  }
 
   @media screen and (min-width: 1920px) {
     grid-column: 6/10;
@@ -35,6 +43,7 @@ const SignUpButton = styled.button`
   width: 100%;
   height: ${ElementSizeByHeight.MEDIUM_LARGE};
   margin: ${ElementDistanceEachOthers.LARGE} 0;
+  border: none;
   border-radius: 5px;
   font-size: ${FontSize.MEDIUM};
   font-weight: bold;
@@ -44,8 +53,8 @@ const SignUpButton = styled.button`
     outline: none;
   }
   :disabled {
-    color: ${Color.DISABLED_COLOR};
-    background-color: ${Color.DISABLED_MAIN_COLOR};
+    color: white;
+    background-color: ${Color.DISABLED_COLOR};
   }
 `;
 

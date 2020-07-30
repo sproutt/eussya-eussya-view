@@ -1,16 +1,23 @@
 import {
   FontSize,
   ElementSizeByHeight,
-  ElementDistanceEachOthers
+  ElementDistanceEachOthers,
 } from "utils/style/size";
 import styled from "styled-components";
 import { Color } from "utils/style/color";
 
 const SignUpCheckBox = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 150px;
   width: 100%;
+  height: calc(100vh - ${ElementSizeByHeight.MEDIUM_MEDIUM_LARGE});
 `;
 
 const Span = styled.p`
+  margin: 0;
+  margin-bottom: 40px;
   text-align: center;
   font-size: ${FontSize.MEDIUM_SMALL};
   color: ${Color.DISABLED_COLOR};
