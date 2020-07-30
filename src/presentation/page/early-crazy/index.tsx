@@ -10,6 +10,7 @@ import { Application } from "context-instance";
 import Axios from "axios";
 import { TodoResistration } from "presentation/molecule/to-do-resistration";
 import GrassVisibility from "presentation/molecule/grass-visibility";
+import { stringify } from "querystring";
 
 const EarlyCrazy: React.FC = () => {
   const [toDoModalOn, setTodoModalOn] = React.useState<boolean | undefined>(
@@ -27,6 +28,9 @@ const EarlyCrazy: React.FC = () => {
   const [missionStatus, setMissionStatus] = React.useState<MissionStatus>(
     MissionStatus.PENDING
   );
+  const [membersData, setMembersData] = React.useState<
+    { id: number; memberId: string; nickName: string }[] | undefined
+  >(undefined);
 
   const changeTodoModalOn = (value: boolean) => setTodoModalOn(value);
 
@@ -108,6 +112,25 @@ const EarlyCrazy: React.FC = () => {
     return () => source.cancel("요청중 페이지이동으로 요청 취소");
   }, [isExistMission]);
 
+  React.useEffect(() => {
+    const CancelToken = Axios.CancelToken;
+    const source = CancelToken.source();
+    let userInfo = Application.services.member.getTokenData();
+    if (!userInfo.member) alert("유저 정보가 존재하지 않습니다.");
+    (async function () {
+      try {
+        let result = await Application.services.member.getMembers(
+          userInfo.member.memberId,
+          source
+        );
+        let members = result.data;
+        setMembersData(members);
+      } catch (error) {}
+    })();
+
+    return () => source.cancel("요청중 페이지이동으로 요청 취소");
+  }, []);
+
   return (
     <React.Fragment>
       <styled.Container>
@@ -150,7 +173,10 @@ const EarlyCrazy: React.FC = () => {
           <styled.PeopleListLabel>
             <styled.PeopleListLabelName>사람들...</styled.PeopleListLabelName>
           </styled.PeopleListLabel>
-          <UserCard></UserCard>
+          {membersData &&
+            membersData.map((v, i) => (
+              <UserCard key={i} nickName={v.nickName} />
+            ))}
         </styled.Side>
         <TodoResistration
           on={toDoModalOn}
