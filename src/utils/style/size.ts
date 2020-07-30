@@ -9,6 +9,7 @@ export enum Size {
   TWO_EXTRA_SMALL = "TWO_EXTRA_SMALL",
   SMALL_MEDIUM = "SMALL_MEDIUM",
   MEDIUM_MEDIUM_LARGE = "MEDIUM_MEDIUM_LARGE",
+  SMALL_SMALL = "SMALL_SMALL",
 }
 
 export enum FontSize {
@@ -39,6 +40,7 @@ export enum ElementDistanceEachOthers {
   MEDIUM_SMALL = "12px",
   MEDIUM = "16px",
   LARGE = "24px",
+  SMALL_SMALL = "6px",
   EXTRA_SMALL = "4px",
 }
 
