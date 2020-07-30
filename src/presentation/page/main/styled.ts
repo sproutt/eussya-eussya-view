@@ -5,6 +5,26 @@ import {
 } from "utils/style/size";
 import styled from "styled-components";
 
+const Block = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: ${ElementDistanceEachOthers.MEDIUM};
+  min-height: ${ElementSizeByHeight.SMALL};
+  background-color: #ffffff;
+  margin: ${ElementDistanceEachOthers.MEDIUM_SMALL} 0;
+  border-radius: 5px;
+  width: 70%;
+  min-width: 500px;
+  height: auto;
+  box-shadow: 0 1px 1px 1px #00000020;
+
+  h1 {
+    font-size: ${FontSize.EXTRA_LARGE};
+    margin: ${ElementDistanceEachOthers.MEDIUM_SMALL};
+  }
+`;
+
 const Banner = styled.section<{ color: string }>`
   box-sizing: border-box;
   display: flex;
@@ -15,10 +35,6 @@ const Banner = styled.section<{ color: string }>`
   width: 100%;
   height: 400px;
   margin: 0;
-  h1 {
-    font-size: ${FontSize.EXTRA_LARGE};
-    margin: ${ElementDistanceEachOthers.SMALL};
-  }
   @media screen and (min-width: 1920px) {
     grid-column: 3/13;
   }
@@ -97,4 +113,5 @@ export default {
   Container,
   Button,
   Explain,
+  Block,
 };
