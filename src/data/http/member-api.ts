@@ -1,6 +1,6 @@
 import { AxiosWrapper } from "./axios/axios-wrapper";
 import { Member } from "core/entity/member";
-import { AxiosResponse } from "axios";
+import Axios, { AxiosResponse, CancelTokenSource } from "axios";
 export class MemberApiProvider {
   private axiosWrapper: AxiosWrapper;
   constructor() {
@@ -63,6 +63,22 @@ export class MemberApiProvider {
           process.env.REACT_APP_HOST + "/members/validate/nickname/" + nickName
         );
     } catch (error) {
+      throw error;
+    }
+  }
+
+  async getMembers(
+    memberId: number,
+    CancelTokenSource?: CancelTokenSource
+  ): Promise<AxiosResponse> {
+    try {
+      return await this.axiosWrapper
+        .getAxios()
+        .get(process.env.REACT_APP_HOST + "/members?exclude=" + memberId, {
+          cancelToken: CancelTokenSource?.token,
+        });
+    } catch (error) {
+      if (Axios.isCancel(error)) throw new Error("요청 취소");
       throw error;
     }
   }

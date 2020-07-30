@@ -4,6 +4,9 @@ import { MemberApiProvider } from "data/http/member-api";
 import { Member } from "core/entity/member";
 import HttpStatus from "http-status-codes";
 import { JWTToken } from "core/entity/jwt-token";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { CancelTokenSource } from "axios";
+
 export class MemberRepositoryImpl implements MemberRepository {
   constructor(
     private api: MemberApiProvider,
@@ -55,6 +58,16 @@ export class MemberRepositoryImpl implements MemberRepository {
       return result.status === HttpStatus.OK;
     } catch (error) {
       return false;
+    }
+  }
+
+  async getMembers(memberId: number, CancelTokenSource?: CancelTokenSource) {
+    try {
+      const result = await this.api.getMembers(memberId, CancelTokenSource);
+      if (result.status === HttpStatus.OK) return result;
+      throw new Error();
+    } catch (error) {
+      throw error;
     }
   }
 
