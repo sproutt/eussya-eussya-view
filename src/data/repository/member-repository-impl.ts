@@ -32,8 +32,8 @@ export class MemberRepositoryImpl implements MemberRepository {
   async login(member: Member) {
     try {
       const result = await this.api.login(member);
-      if (!result.headers["Authorization"]) return false;
-      this.storage.set(result.headers["Authorization"]);
+      if (!result.headers["authorization"]) return false;
+      this.storage.set(new JWTToken(result.headers["authorization"]));
       return result.status === HttpStatus.OK;
     } catch (error) {
       return false;
@@ -56,5 +56,25 @@ export class MemberRepositoryImpl implements MemberRepository {
     } catch (error) {
       return false;
     }
+  }
+
+  isLogined() {
+    let token = this.storage.get();
+    if (token.token) return true;
+    return false;
+  }
+
+  getTokenInfo() {
+    let token = this.storage.get();
+    return token.decodeTokenData();
+  }
+
+  getToken() {
+    return this.storage.get().token!;
+  }
+
+  logout() {
+    this.storage.clear();
+    return true;
   }
 }

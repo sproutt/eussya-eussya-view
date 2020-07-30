@@ -32,4 +32,20 @@ export class MemberService {
   async checkDuplicateOfNickName(nickName: string) {
     return await this.repo.checkDuplicateOfNickName(nickName);
   }
+
+  isLogined() {
+    return this.repo.isLogined();
+  }
+
+  getTokenData() {
+    return this.repo.getTokenInfo();
+  }
+
+  getToken() {
+    return this.repo.getToken();
+  }
+
+  logout() {
+    return this.repo.logout();
+  }
 }
