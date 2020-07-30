@@ -9,9 +9,10 @@ import { Color } from "utils/style/color";
 const NavBar = styled.nav`
   display: flex;
   width: 100%;
-  height: ${ElementSizeByHeight.MEDIUM};
+  height: ${ElementSizeByHeight.MEDIUM_MEDIUM_LARGE};
   background-color: ${Color.MAIN_COLOR};
   padding: ${ElementDistanceEachOthers.SMALL_MEDIUM} 20px;
+  box-shadow: 0 1px 3px 2px #00000020;
 `;
 
 const NavFirstGroup = styled.div`
@@ -35,7 +36,7 @@ const NavButton = styled.span`
   cursor: pointer;
   color: #fffcfc;
   white-space: nowrap;
-  font-size: ${FontSize.SMALL_MEDIUM};
+  font-size: ${FontSize.MEDIUM_SMALL};
   font-weight: 700;
   margin-right: ${ElementDistanceEachOthers.SMALL_MEDIUM};
   transition-property: color, opacity;
@@ -50,11 +51,11 @@ const NavClickButton = styled.button`
   background: none;
   border: 1px solid #fffcfc;
   border-radius: 4px;
-  height: ${ElementSizeByHeight.EXTRA_SMALL};
-  font-size: ${FontSize.SMALL_MEDIUM};
+  height: ${ElementSizeByHeight.SMALL};
+  font-size: ${FontSize.MEDIUM_SMALL};
   font-weight: 700;
   white-space: nowrap;
-  line-height: ${ElementSizeByHeight.EXTRA_SMALL};
+  line-height: ${ElementSizeByHeight.SMALL};
   padding: 0 10px;
   color: #fffcfc;
   transition-property: color, opacity, border-color;
