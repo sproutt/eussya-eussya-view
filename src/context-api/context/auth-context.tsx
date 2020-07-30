@@ -30,7 +30,7 @@ export const useAuth = () => {
 };
 
 export const useAuthDispatch = () => {
-  const dispatch = React.useContext(AuthContext);
+  const dispatch = React.useContext(AuthDispatchContext);
   if (!dispatch) throw new Error("AuthDispatchContextProvider not found");
   return dispatch;
 };

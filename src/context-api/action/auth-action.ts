@@ -10,6 +10,10 @@ export type AuthAction =
     }
   | {
       type: "LOGOUT";
+    }
+  | {
+      type: "CUSTOM";
+      isLogined: boolean;
     };
 
 export type AuthDispatch = Dispatch<AuthAction>;
