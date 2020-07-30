@@ -63,7 +63,7 @@ export const SignUpCheck: React.FC = () => {
   return (
     <styled.SignUpCheckBox>
       <styled.Span>
-        가입하신 이메일을 통해 인증번호 6자리를 보냈습니다. 다음 입력칸에 알맞은
+        가입하신 이메일을 통해 인증번호 8자리를 보냈습니다. 다음 입력칸에 알맞은
         인증번호를 입력하시면 가입이 완료됩니다.
       </styled.Span>
       <styled.NumberCodeInputBox>

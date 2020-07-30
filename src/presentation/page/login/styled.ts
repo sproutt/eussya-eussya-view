@@ -3,17 +3,28 @@ import { Color } from "utils/style/color";
 import { FontSize, ElementDistanceEachOthers } from "utils/style/size";
 import globalStyled from "utils/style/default";
 
+const Container = styled.section`
+  width: 100%;
+
+  display: flex;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+`;
+
 const LoginBox = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 24rem;
-  height: 40rem;
+  height: auto;
+  margin-top: ${ElementDistanceEachOthers.LARGE};
+
   h1 {
     font-size: ${FontSize.EXTRA_LARGE};
     font-weight: bolder;
-    color: ${Color.MAIN_COLOR};
+    color: #000000;
     margin-bottom: ${ElementDistanceEachOthers.LARGE};
   }
 `;
@@ -36,13 +47,21 @@ const NextButton = styled.button`
   ${globalStyled.RemoveDefaultButton}
   width: 5rem;
   height: 2.5rem;
+  cursor: pointer;
+  border: none;
   border-radius: 5px;
   color: white;
   font-size: ${FontSize.MEDIUM_SMALL};
   background-color: ${Color.MAIN_COLOR};
   :disabled {
-    color: ${Color.DISABLED_COLOR};
-    background-color: ${Color.DISABLED_MAIN_COLOR};
+    cursor: default;
+    color: white;
+    background-color: ${Color.DISABLED_COLOR};
+  }
+
+  &:active,
+  &:hover {
+    outline: none;
   }
 `;
 
@@ -67,4 +86,11 @@ margin: ${ElementDistanceEachOthers.SMALL} 0;
   }
 `;
 
-export default { EmailLogin, SignUpLink, NextButton, Division, LoginBox };
+export default {
+  EmailLogin,
+  SignUpLink,
+  NextButton,
+  Division,
+  LoginBox,
+  Container,
+};

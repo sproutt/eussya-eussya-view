@@ -3,10 +3,10 @@ import { BrowserStorageMapperImpl } from "./../browser-storage-mapper";
 
 export class JWTTokenMapper implements BrowserStorageMapperImpl<JWTToken> {
   toJson(target: JWTToken): string {
-    return JSON.stringify(target);
+    return target.token!;
   }
 
   fromJson(json: string): JWTToken {
-    return JSON.parse(json) as JWTToken;
+    return new JWTToken(json);
   }
 }

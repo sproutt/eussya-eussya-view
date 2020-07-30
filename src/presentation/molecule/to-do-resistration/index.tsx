@@ -5,13 +5,16 @@ import { TimeInput } from "presentation/molecule/time-input";
 import { ReactComponent as CloseSVG } from "assets/SVGclose.svg";
 import { Application } from "context-instance";
 import { Time } from "enum/time";
-import { useHistory } from "react-router-dom";
 import { MissionErrorMessage } from "enum/mission-error-message";
 import CheckModal from "presentation/molecule/check-modal";
 import { MissionErrorCode } from "enum/mission-error-code";
 import { AuthErrorCode } from "enum/auth-error-code";
 
-export const TodoResistration: React.FC<PropTypes> = ({ on, changeModal }) => {
+export const TodoResistration: React.FC<PropTypes> = ({
+  on,
+  changeModal,
+  changeIsExistMission,
+}) => {
   const [hour, setHour] = React.useState<number>(moment().hours());
   const [minute, setMinute] = React.useState<number>(moment().minutes());
   const [title, setTitle] = React.useState<string>("");
@@ -27,14 +30,19 @@ export const TodoResistration: React.FC<PropTypes> = ({ on, changeModal }) => {
     string | undefined
   >(undefined);
 
-  const history = useHistory();
-
   const changeHour = (value: number) => {
     setHour(value);
   };
 
   const changeMinute = (value: number) => {
     setMinute(value);
+  };
+
+  const clearInput = () => {
+    setHour(moment().hours());
+    setMinute(moment().minutes());
+    setTitle("");
+    setContents("");
   };
 
   const removeModalCloseEvent = React.useCallback(
@@ -46,9 +54,10 @@ export const TodoResistration: React.FC<PropTypes> = ({ on, changeModal }) => {
     [changeModal]
   );
 
-  const closeEvent = (event: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-    event.preventDefault();
+  const closeEvent = (event?: any) => {
+    if (event) event.preventDefault();
     changeModal(false);
+    clearInput();
     document.removeEventListener("click", removeModalCloseEvent);
   };
 
@@ -87,14 +96,22 @@ export const TodoResistration: React.FC<PropTypes> = ({ on, changeModal }) => {
     setResultModalOnoff(0);
   };
 
-  const clickSubmit = async () => {
+  const clickSubmit = async (event: any) => {
     try {
       let result = await Application.services.mission.postMission(
         title,
         getDate().toISOString(),
         contents
       );
-      if (result.ok) return history.push("/dawn");
+      if (result.ok) {
+        let element = document.querySelector(".create-mission-block");
+        element?.classList.add("remove");
+        closeEvent();
+        setTimeout(() => {
+          changeIsExistMission(true);
+        }, 500);
+        return;
+      }
       setResultModalText(result.message);
       addResultModalEvent();
       if (result.message === AuthErrorCode.NOT_USER) {
@@ -190,4 +207,5 @@ export const TodoResistration: React.FC<PropTypes> = ({ on, changeModal }) => {
 type PropTypes = {
   on: boolean | undefined;
   changeModal: any;
+  changeIsExistMission: (value: boolean) => void;
 };

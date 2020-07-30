@@ -11,25 +11,28 @@ import { Color } from "utils/style/color";
 const OutLineBox = styled.div<{ size: SizeKey }>`
   box-sizing: border-box;
   position: relative;
+  background-color: #ffffff;
   width: 100%;
   height: ${({ size }) => SizeSeparator.asElementHeight(size)};
   font-size: ${FontSize.SMALL};
   padding: ${ElementDistanceEachOthers.EXTRA_SMALL};
   border: 1px solid black;
   border-radius: 5px;
-  transition: 0.2s;
+  transition: all 0.2s;
   margin: calc(${FontSize.MEDIUM_SMALL} + ${ElementDistanceEachOthers.SMALL});
+  pointer-events: all;
 `;
 
 const NameIconBox = styled.div`
   position: absolute;
-  z-index: -1;
+  z-index: 10;
   color: #555555;
   top: 50%;
   transform: translate(0.5rem, -50%);
   display: flex;
   align-items: center;
   transition: 0.2s;
+  pointer-events: none;
 `;
 
 const Icon = styled.img`
@@ -64,12 +67,13 @@ const Input = styled.input`
 const focusOutLine = `
   border-width: 2px;
   padding-left: ${ElementDistanceEachOthers.SMALL};
+  box-shadow: 0px 0px 10px 0px #00000020;
 `;
 
 const focusNameIcon = `
   color: black;
   top: 0%;
-  transform: translate(0,-120%);
+  transform: translate(-5px,-150%);
   font-size: ${FontSize.SMALL}
 `;
 

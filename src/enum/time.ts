@@ -1,4 +1,4 @@
 export enum Time {
-  LEAST_TIME_HOUR = 4,
+  LEAST_TIME_HOUR = 1,
   MAXIMUM_TIME_HOUR = 9,
 }

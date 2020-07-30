@@ -50,10 +50,10 @@ const RowBox = styled.div<RowBoxProp>`
     background-color: ${({ disable }) =>
       disable ? "none" : Color.MAIN_COLOR + "20"};
   }
-  svg {
+  & svg {
     width: 30%;
   }
-  svg polygon {
+  & svg polygon {
     fill: ${({ disable }) => (disable ? "#dddddd" : "#000000")};
   }
 `;

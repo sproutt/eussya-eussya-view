@@ -1,5 +1,6 @@
 import { MemberRepository } from "core/use-case/member-repository";
 import { Member } from "core/entity/member";
+import { CancelTokenSource } from "axios";
 
 export class MemberService {
   private repo: MemberRepository;
@@ -31,5 +32,25 @@ export class MemberService {
 
   async checkDuplicateOfNickName(nickName: string) {
     return await this.repo.checkDuplicateOfNickName(nickName);
+  }
+
+  async getMembers(memberId: number, CancelTokenSource?: CancelTokenSource) {
+    return await this.repo.getMembers(memberId);
+  }
+
+  isLogined() {
+    return this.repo.isLogined();
+  }
+
+  getTokenData() {
+    return this.repo.getTokenInfo();
+  }
+
+  getToken() {
+    return this.repo.getToken();
+  }
+
+  logout() {
+    return this.repo.logout();
   }
 }

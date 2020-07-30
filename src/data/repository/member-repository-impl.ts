@@ -4,6 +4,9 @@ import { MemberApiProvider } from "data/http/member-api";
 import { Member } from "core/entity/member";
 import HttpStatus from "http-status-codes";
 import { JWTToken } from "core/entity/jwt-token";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { CancelTokenSource } from "axios";
+
 export class MemberRepositoryImpl implements MemberRepository {
   constructor(
     private api: MemberApiProvider,
@@ -32,8 +35,8 @@ export class MemberRepositoryImpl implements MemberRepository {
   async login(member: Member) {
     try {
       const result = await this.api.login(member);
-      if (!result.headers["Authorization"]) return false;
-      this.storage.set(result.headers["Authorization"]);
+      if (!result.headers["authorization"]) return false;
+      this.storage.set(new JWTToken(result.headers["authorization"]));
       return result.status === HttpStatus.OK;
     } catch (error) {
       return false;
@@ -56,5 +59,35 @@ export class MemberRepositoryImpl implements MemberRepository {
     } catch (error) {
       return false;
     }
+  }
+
+  async getMembers(memberId: number, CancelTokenSource?: CancelTokenSource) {
+    try {
+      const result = await this.api.getMembers(memberId, CancelTokenSource);
+      if (result.status === HttpStatus.OK) return result;
+      throw new Error();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  isLogined() {
+    let token = this.storage.get();
+    if (token.token) return true;
+    return false;
+  }
+
+  getTokenInfo() {
+    let token = this.storage.get();
+    return token.decodeTokenData();
+  }
+
+  getToken() {
+    return this.storage.get().token!;
+  }
+
+  logout() {
+    this.storage.clear();
+    return true;
   }
 }

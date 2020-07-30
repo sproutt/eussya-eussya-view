@@ -3,8 +3,6 @@ import styled from "./styled";
 import { SizeKey } from "utils/style/size";
 import { ValidationText } from "enum/validation-text";
 import { isUndefined } from "util";
-import greenCheckImg from "assets/green-check.svg";
-import redX from "assets/red-x.svg";
 
 export const InputWithIcon: React.FC<propTypes> = ({
   size,
