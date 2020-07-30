@@ -6,7 +6,7 @@ import Axios from "axios";
 import MiniBox from "./mini-box";
 import { MissionStatus } from "enum/mission-status";
 
-const GrassVisibility: React.FC = () => {
+const GrassVisibility: React.FC<propTypes> = ({ isExistMission }) => {
   let grass = useGrass();
   let grassDispatch = useGrassDispatch();
 
@@ -166,6 +166,10 @@ const GrassVisibility: React.FC = () => {
       </styled.FlexBox>
     </styled.Wrapper>
   );
+};
+
+type propTypes = {
+  isExistMission?: boolean;
 };
 
 export default GrassVisibility;

@@ -61,17 +61,22 @@ const ToDoView: React.FC<propTypes> = ({
   };
 
   const finishMission = async () => {
-    if (missionStatus !== MissionStatus.PENDING) return;
+    if (missionStatus === MissionStatus.IN_PROGRESS) return;
     let result = await Application.services.mission.complete(missionId);
     if (!result) return alert("오류입니다.");
-    changeMissionStatus(MissionStatus.COMPLETE);
+    let element = document.querySelector(".todo-view-block");
+    element?.classList.add("remove");
+    setTimeout(() => changeIsExistMission(false), 500);
+  };
+
+  const removeAnimation = async () => {
     let element = document.querySelector(".todo-view-block");
     element?.classList.add("remove");
     setTimeout(() => changeIsExistMission(false), 500);
   };
 
   const removeMission = async () => {
-    if (missionStatus !== MissionStatus.PENDING) return;
+    if (missionStatus === MissionStatus.IN_PROGRESS) return;
     let result = await Application.services.mission.remove(missionId);
     if (!result) return alert("오류입니다.");
     let element = document.querySelector(".todo-view-block");
@@ -194,13 +199,13 @@ const ToDoView: React.FC<propTypes> = ({
             <styled.Title>{title}</styled.Title>
             <styled.ButtonBox
               onClick={changeToFixMode}
-              disabled={missionStatus !== MissionStatus.PENDING ? 1 : 0}
+              disabled={missionStatus === MissionStatus.IN_PROGRESS ? 1 : 0}
             >
               <FixIcon></FixIcon>
             </styled.ButtonBox>
             <styled.ButtonBox
               onClick={removeMission}
-              disabled={missionStatus !== MissionStatus.PENDING ? 1 : 0}
+              disabled={missionStatus === MissionStatus.IN_PROGRESS ? 1 : 0}
             >
               <BreakIcon id="break-icon"></BreakIcon>
             </styled.ButtonBox>

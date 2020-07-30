@@ -31,7 +31,13 @@ export const NavBar: React.FC = () => {
       </styled.NavFirstGroup>
       <styled.NavSecondGroup>
         {auth.isLogined ? (
-          <styled.NavButton onClick={logout}>로그아웃</styled.NavButton>
+          <>
+            <styled.NavButton onClick={logout}>로그아웃</styled.NavButton>
+            <styled.NavSpan>
+              {Application.services.member.getTokenData().member.nickName}의
+              으쌰으쌰
+            </styled.NavSpan>
+          </>
         ) : (
           <>
             <styled.NavButton onClick={() => history.push("/login")}>

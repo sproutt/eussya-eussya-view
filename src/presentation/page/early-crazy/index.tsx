@@ -2,15 +2,12 @@ import * as React from "react";
 import styled from "./styled";
 import ToDoView from "./to-do-view";
 import UserCard from "presentation/molecule/user-card";
-import ChatCircle from "presentation/molecule/chat-circle";
-import ChatBox from "presentation/molecule/chat-box";
 import moment from "moment";
 import { MissionStatus } from "enum/mission-status";
 import { Application } from "context-instance";
 import Axios from "axios";
 import { TodoResistration } from "presentation/molecule/to-do-resistration";
 import GrassVisibility from "presentation/molecule/grass-visibility";
-import { stringify } from "querystring";
 
 const EarlyCrazy: React.FC = () => {
   const [toDoModalOn, setTodoModalOn] = React.useState<boolean | undefined>(
@@ -76,7 +73,6 @@ const EarlyCrazy: React.FC = () => {
   };
 
   React.useEffect(() => {
-    if (isExistMission === false) return;
     const CancelToken = Axios.CancelToken;
     const source = CancelToken.source();
     let userInfo = Application.services.member.getTokenData();
@@ -88,7 +84,13 @@ const EarlyCrazy: React.FC = () => {
           findDate(),
           source
         );
-        let missionInfo = result[0];
+        let missionInfo = result.find(
+          (value: any) => value.status === MissionStatus.PENDING
+        );
+        if (missionInfo.status === MissionStatus.COMPLETE)
+          return setIsExistMission(false);
+        setRunningTime(0);
+        console.log(missionInfo.status);
         let date = new Date(missionInfo.deadlineTime);
         setMissionId(missionInfo.id);
         setHours(date.getHours());
@@ -102,6 +104,8 @@ const EarlyCrazy: React.FC = () => {
               Number(missionInfo.runningTime.split(":")[1]) * 60 +
               Number(missionInfo.runningTime.split(":")[2])
           );
+        } else {
+          setRunningTime(0);
         }
         setIsExistMission(true);
       } catch (error) {
@@ -165,7 +169,9 @@ const EarlyCrazy: React.FC = () => {
               </styled.NoBackgroundBlock>
             )}
             <styled.Block>
-              <GrassVisibility></GrassVisibility>
+              <GrassVisibility
+                isExistMission={isExistMission}
+              ></GrassVisibility>
             </styled.Block>
           </styled.SubMain>
         </styled.Main>
