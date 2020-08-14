@@ -45,6 +45,7 @@ const NumberCodeInput = styled.input`
   -moz-ime-mode: disabled;
   -ms-ime-mode: disabled;
   ime-mode: disabled;
+  caret-color: transparent;
 `;
 
 export default { Span, NumberCodeInput, SignUpCheckBox, NumberCodeInputBox };
