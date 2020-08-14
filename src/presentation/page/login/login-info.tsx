@@ -10,6 +10,7 @@ import facebook from "assets/facebook-f-logo.svg";
 import { UserAction } from "enum/user-action";
 import { Validator } from "utils/validator";
 import { ValidationText } from "enum/validation-text";
+import event from "lib/event";
 
 export const LoginIfo: React.FC = () => {
   const history = useHistory();
@@ -34,6 +35,7 @@ export const LoginIfo: React.FC = () => {
         name={"email"}
         value={email}
         onChange={changeValue}
+        onKeyUp={event.enterEvent(isCorrectEmail, continueLoginWithEmail)}
         validator={Validator.correctEmailFormat}
         validationText={ValidationText.EMAIL_FORMAT_IS_WRONG}
         setOn={setIsCorrectEmail}
