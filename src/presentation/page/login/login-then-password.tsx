@@ -5,6 +5,7 @@ import { useParams, useHistory } from "react-router-dom";
 import styled from "./styled";
 import { Application } from "context-instance";
 import { useAuthDispatch } from "context-api/context/auth-context";
+import event from "lib/event";
 
 export const LoginThenPassword: React.FC = () => {
   const param = useParams<{ email: string }>();
@@ -37,6 +38,10 @@ export const LoginThenPassword: React.FC = () => {
         name="비밀번호"
         value={password}
         onChange={changePasswordValue}
+        onKeyUp={event.enterEvent(
+          password !== undefined && password?.length > 0,
+          login
+        )}
       ></InputWithIcon>
       <styled.EmailLogin>
         <styled.SignUpLink>로그인에 문제가 있으신가요?</styled.SignUpLink>
