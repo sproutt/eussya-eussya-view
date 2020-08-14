@@ -6,6 +6,7 @@ import { Validator } from "utils/validator";
 import { ValidationText } from "enum/validation-text";
 import { Application } from "context-instance";
 import { useHistory } from "react-router-dom";
+import event from "lib/event";
 
 export const SignUp: React.FC = () => {
   const history = useHistory();
@@ -103,6 +104,10 @@ export const SignUp: React.FC = () => {
           onChange={changeValue(setEmail)}
           validator={Validator.correctEmailFormat}
           validationText={ValidationText.EMAIL_FORMAT_IS_WRONG}
+          onKeyUp={event.enterEvent(
+            buttonOn !== undefined && buttonOn!,
+            signUp
+          )}
           setOn={setIsCorrectEmail}
           onBlur={checkDuplicateOfEmail}
           isDuplicatedValue={isDupllcatedEmail}
@@ -116,6 +121,10 @@ export const SignUp: React.FC = () => {
           onChange={changeValue(setNickName)}
           validator={Validator.correctNickNameFormat}
           validationText={ValidationText.NICK_NAME_IS_WRONG}
+          onKeyUp={event.enterEvent(
+            buttonOn !== undefined && buttonOn!,
+            signUp
+          )}
           setOn={setIsCorrectNickName}
           onBlur={checkDuplicateOfNickName}
           isDuplicatedValue={isDupllcatedNickName}
@@ -129,6 +138,10 @@ export const SignUp: React.FC = () => {
           autoComplete={"new-password"}
           onChange={changeValue(setPassword)}
           validator={Validator.correctPasswordFormat}
+          onKeyUp={event.enterEvent(
+            buttonOn !== undefined && buttonOn!,
+            signUp
+          )}
           validationText={ValidationText.PASSWORD_FORMAT_IS_WRONG}
           setOn={setIsCorrectPassword}
         ></InputWithIcon>
@@ -139,6 +152,10 @@ export const SignUp: React.FC = () => {
           value={repassword}
           onChange={changeValue(setRepassword)}
           validator={Validator.isSamePassword(password)}
+          onKeyUp={event.enterEvent(
+            buttonOn !== undefined && buttonOn!,
+            signUp
+          )}
           validationText={ValidationText.REPASSWORD_IS_NOT_SAME}
           setOn={setIsCorrectRepassword}
         ></InputWithIcon>
