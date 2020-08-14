@@ -19,7 +19,7 @@ export class BrowserStorage<T> {
     BrowserStorageHelper.set(this.key, this.mapper.toJson(target), temporary);
   }
 
-  clear() {
+  clear(): void {
     BrowserStorageHelper.clear(this.key);
   }
 }
