@@ -10,24 +10,25 @@ import EarlyCrazy from "./page/early-crazy";
 import { useAuthDispatch } from "context-api/context/auth-context";
 import { Application } from "context-instance";
 import { GrassContextProvider } from "context-api/context/grass-context";
+import PrivateRoute from "./molecule/private-router";
 
 function App() {
   let authDispatch = useAuthDispatch();
   React.useEffect(() => {
     let result = Application.services.member.isLogined();
     authDispatch({ type: "CUSTOM", isLogined: result });
-  }, []);
+  }, [authDispatch]);
 
   return (
     <Router>
       <section id="main-section">
         <NavBar></NavBar>
         <Switch>
-          <Route path="/dawn">
+          <PrivateRoute path="/dawn">
             <GrassContextProvider>
               <EarlyCrazy></EarlyCrazy>
             </GrassContextProvider>
-          </Route>
+          </PrivateRoute>
           <Route path="/signup">
             <SignUp></SignUp>
           </Route>
