@@ -29,12 +29,12 @@ export default class MissonRepositoryImpl implements MissionRepository {
           false,
           PublicErrorMessage.REQUEST_FAIL
         );
-      if (error.response.data.errorCode === MissionErrorCode.NOT_DAWN)
+      if (error.response.data.code === MissionErrorCode.NOT_DAWN)
         return new RepoResponseType<undefined>(
           false,
           MissionErrorMessage.NOT_DAWN
         );
-      if (error.response.data.errorCode === AuthErrorCode.NOT_USER)
+      if (error.response.data.code === AuthErrorCode.NOT_USER)
         return new RepoResponseType<undefined>(false, AuthErrorCode.NOT_USER);
       return new RepoResponseType<undefined>(
         false,
