@@ -75,6 +75,7 @@ const Block = styled.section`
   max-height: 500px;
   overflow: hidden;
   min-width: 500px;
+  box-shadow: 0px 2px 4px 2px #00000020;
   animation: ${slideDown} 500ms linear;
   transition: all 500ms;
 
