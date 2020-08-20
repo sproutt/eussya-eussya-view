@@ -20,10 +20,12 @@ export const InputWithIcon: React.FC<propTypes> = ({
   onBlur,
   isDuplicatedValue,
   duplicatedText,
+  auto,
 }) => {
   const [isWrong, setIsWorng] = React.useState(true);
   const outLineBoxRef = React.useRef<HTMLDivElement>(null);
   const nameIconBoxRef = React.useRef<HTMLDivElement>(null);
+  const inputRef = React.useRef<HTMLInputElement>(null);
   const [isDuplicated, setIsDuplicated] = React.useState<boolean | undefined>(
     undefined
   );
@@ -57,6 +59,10 @@ export const InputWithIcon: React.FC<propTypes> = ({
     if (onChange) onChange(event);
   };
 
+  React.useEffect(() => {
+    if (auto) inputRef.current?.focus();
+  }, [auto]);
+
   return (
     <>
       <styled.OutLineBox size={size} ref={outLineBoxRef}>
@@ -65,6 +71,7 @@ export const InputWithIcon: React.FC<propTypes> = ({
           <styled.Name>{name}</styled.Name>
         </styled.NameIconBox>
         <styled.Input
+          ref={inputRef}
           type={type}
           onFocus={focusHandler}
           onBlur={blurHandler}
@@ -97,6 +104,7 @@ type propTypes = {
   type?: string;
   imgSrc?: string;
   value?: string;
+  auto?: boolean;
   autoComplete?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
