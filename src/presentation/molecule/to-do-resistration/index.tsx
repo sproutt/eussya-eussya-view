@@ -9,6 +9,7 @@ import { MissionErrorMessage } from "enum/mission-error-message";
 import CheckModal from "presentation/molecule/check-modal";
 import { MissionErrorCode } from "enum/mission-error-code";
 import { AuthErrorCode } from "enum/auth-error-code";
+import ResultModalEvent from "lib/result-modal-event";
 
 export const TodoResistration: React.FC<PropTypes> = ({
   on,
@@ -29,6 +30,12 @@ export const TodoResistration: React.FC<PropTypes> = ({
   const [resultModalText, setResultModalText] = React.useState<
     string | undefined
   >(undefined);
+
+  const changeResultModalOnoff = (value: any) => {
+    setResultModalOnoff(value);
+  };
+
+  const resultModalEvent = new ResultModalEvent(setResultModalOnoff);
 
   const changeHour = (value: number) => {
     setHour(value);
@@ -65,16 +72,6 @@ export const TodoResistration: React.FC<PropTypes> = ({
     if (on === true) document.addEventListener("click", removeModalCloseEvent);
   }, [on, removeModalCloseEvent]);
 
-  const removeResultModalCloseEvent = function (event: any) {
-    if (event.target.closest("#result-modal")) return;
-    this.removeEventListener("click", removeResultModalCloseEvent);
-    setResultModalOnoff(0);
-  };
-
-  const addResultModalEvent = () => {
-    document.addEventListener("click", removeResultModalCloseEvent);
-  };
-
   const getDate = () => {
     let date = new Date();
     let time = new Date();
@@ -88,14 +85,6 @@ export const TodoResistration: React.FC<PropTypes> = ({
     return date;
   };
 
-  const closeResultModal = (
-    event: React.MouseEvent<HTMLSpanElement, MouseEvent>
-  ) => {
-    event.preventDefault();
-    document.removeEventListener("click", removeResultModalCloseEvent);
-    setResultModalOnoff(0);
-  };
-
   const clickSubmit = async (event: any) => {
     try {
       let result = await Application.services.mission.postMission(
@@ -106,14 +95,14 @@ export const TodoResistration: React.FC<PropTypes> = ({
       if (result.ok) {
         let element = document.querySelector(".create-mission-block");
         element?.classList.add("remove");
-        closeEvent();
+        closeEvent(event);
         setTimeout(() => {
           changeIsExistMission(true);
         }, 500);
         return;
       }
       setResultModalText(result.message);
-      addResultModalEvent();
+      resultModalEvent.addClickOutSideEvent();
       if (result.message === AuthErrorCode.NOT_USER) {
         setResultModalAction(AuthErrorCode.NOT_USER);
         setResultModalTitle("인증 오류");
@@ -137,16 +126,17 @@ export const TodoResistration: React.FC<PropTypes> = ({
     event.preventDefault();
     switch (resultModalAction) {
       case MissionErrorCode.NOT_DAWN:
-        document.removeEventListener("click", removeResultModalCloseEvent);
+        resultModalEvent.removeClickOutSideEvent(event);
         return setResultModalOnoff(0);
       case AuthErrorCode.NOT_USER:
-        document.removeEventListener("click", removeResultModalCloseEvent);
+        resultModalEvent.removeClickOutSideEvent(event);
         return setResultModalOnoff(0);
       default:
-        document.removeEventListener("click", removeResultModalCloseEvent);
+        resultModalEvent.removeClickOutSideEvent(event);
         return setResultModalOnoff(0);
     }
   };
+
   return (
     <styled.Modal on={on ? 1 : 0}>
       <styled.ModalContent>
@@ -192,9 +182,10 @@ export const TodoResistration: React.FC<PropTypes> = ({
           </styled.Body>
           <CheckModal
             onOff={resultModalOnoff}
+            setOnoff={changeResultModalOnoff}
             title={resultModalTitle}
             action={actionReducer}
-            closeCheckModal={closeResultModal}
+            closeCheckModal={resultModalEvent.removeClickOutSideEvent}
           >
             {resultModalText}
           </CheckModal>
