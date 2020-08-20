@@ -6,7 +6,7 @@ import { Validator } from "utils/validator";
 import { ValidationText } from "enum/validation-text";
 import { Application } from "context-instance";
 import { useHistory } from "react-router-dom";
-import event from "lib/event";
+import event from "lib/key-evnet/event";
 
 export const SignUp: React.FC = () => {
   const history = useHistory();
@@ -63,7 +63,7 @@ export const SignUp: React.FC = () => {
     isDupllcatedNickName,
   ]);
 
-  const signUp = async (event: React.FormEvent<HTMLFormElement>) => {
+  const signUp = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     setButtonOn(true);
     const result = await Application.services.member.signUp(
@@ -93,9 +93,10 @@ export const SignUp: React.FC = () => {
 
   return (
     <styled.Container>
-      <styled.SignUpBox onSubmit={signUp}>
+      <styled.SignUpBox>
         <h1>회원가입</h1>
         <InputWithIcon
+          auto={true}
           size={Size.MEDIUM}
           name="이메일"
           value={email}
@@ -159,7 +160,11 @@ export const SignUp: React.FC = () => {
           validationText={ValidationText.REPASSWORD_IS_NOT_SAME}
           setOn={setIsCorrectRepassword}
         ></InputWithIcon>
-        <styled.SignUpButton disabled={!buttonOn} type={"submit"}>
+        <styled.SignUpButton
+          disabled={!buttonOn}
+          type={"button"}
+          onClick={signUp}
+        >
           가입하기
         </styled.SignUpButton>
       </styled.SignUpBox>

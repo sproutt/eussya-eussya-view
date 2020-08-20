@@ -5,7 +5,7 @@ import {
   FontSize,
 } from "utils/style/size";
 import { Color } from "utils/style/color";
-const SignUpBox = styled.form`
+const SignUpBox = styled.div`
   margin-top: ${ElementDistanceEachOthers.LARGE};
   display: flex;
   height: auto;
