@@ -1,10 +1,12 @@
 import { Member } from "core/entity/member";
 import { CancelTokenSource } from "axios";
+import RepoResponseType from "data/response-type/repo-response";
 
 export interface MemberRepository {
   authEmail(email: string, code: string): Promise<boolean>;
+  sendEmail(email: string): Promise<boolean>;
   signUp(member: Member): Promise<boolean>;
-  login(member: Member): Promise<boolean>;
+  login(member: Member): Promise<RepoResponseType<undefined>>;
   getMembers(
     memberId: number,
     CancelTokenSource?: CancelTokenSource

@@ -30,6 +30,16 @@ export class MemberApiProvider {
     }
   }
 
+  async sendEmail(email: string): Promise<AxiosResponse> {
+    try {
+      return await this.axiosWrapper
+        .getAxios()
+        .post(process.env.REACT_APP_HOST + "/members/" + email + "/authcode");
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async login(member: Member): Promise<AxiosResponse> {
     try {
       return await this.axiosWrapper
