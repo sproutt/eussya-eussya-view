@@ -6,6 +6,10 @@ import HttpStatus from "http-status-codes";
 import { JWTToken } from "core/entity/jwt-token";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { CancelTokenSource } from "axios";
+import RepoResponseType from "data/response-type/repo-response";
+import { PublicErrorMessage } from "enum/public-error-message";
+import { AuthErrorCode } from "enum/auth-error-code";
+import { AuthErrorMessage } from "enum/auth-error-message";
 
 export class MemberRepositoryImpl implements MemberRepository {
   constructor(
@@ -32,14 +36,49 @@ export class MemberRepositoryImpl implements MemberRepository {
     }
   }
 
-  async login(member: Member) {
+  async sendEmail(email: string) {
     try {
-      const result = await this.api.login(member);
-      if (!result.headers["authorization"]) return false;
-      this.storage.set(new JWTToken(result.headers["authorization"]));
+      const result = await this.api.sendEmail(email);
       return result.status === HttpStatus.OK;
     } catch (error) {
       return false;
+    }
+  }
+
+  async login(member: Member): Promise<RepoResponseType<undefined>> {
+    try {
+      const result = await this.api.login(member);
+      if (!result.headers["authorization"])
+        return new RepoResponseType<undefined>(
+          false,
+          AuthErrorMessage.NOT_COME_TOKEN
+        );
+      this.storage.set(new JWTToken(result.headers["authorization"]));
+      return new RepoResponseType<undefined>(
+        result.status === HttpStatus.OK,
+        "message"
+      );
+    } catch (error) {
+      if (!(error && error.response)) {
+        return new RepoResponseType<undefined>(
+          false,
+          PublicErrorMessage.UNKNOWN_ERROR
+        );
+      }
+      if (error.response.status === 404)
+        return new RepoResponseType<undefined>(
+          false,
+          PublicErrorMessage.REQUEST_FAIL
+        );
+      if (error.response.data.code === AuthErrorCode.EMAIL_AUTH_PENDING)
+        return new RepoResponseType<undefined>(
+          false,
+          AuthErrorMessage.EMAIL_AUTH_PENDING
+        );
+      return new RepoResponseType<undefined>(
+        false,
+        PublicErrorMessage.UNKNOWN_ERROR
+      );
     }
   }
 

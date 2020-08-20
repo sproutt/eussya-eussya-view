@@ -1,6 +1,8 @@
 import { MemberRepository } from "core/use-case/member-repository";
 import { Member } from "core/entity/member";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { CancelTokenSource } from "axios";
+import RepoResponseType from "data/response-type/repo-response";
 
 export class MemberService {
   private repo: MemberRepository;
@@ -22,7 +24,10 @@ export class MemberService {
     return await this.repo.authEmail(email, upperCode);
   }
 
-  async login(email: string, password: string) {
+  async login(
+    email: string,
+    password: string
+  ): Promise<RepoResponseType<undefined>> {
     return await this.repo.login(new Member(email, undefined, password));
   }
 
@@ -35,7 +40,11 @@ export class MemberService {
   }
 
   async getMembers(memberId: number, CancelTokenSource?: CancelTokenSource) {
-    return await this.repo.getMembers(memberId);
+    return await this.repo.getMembers(memberId, CancelTokenSource);
+  }
+
+  async sendEmail(email: string) {
+    return await this.repo.sendEmail(email);
   }
 
   isLogined() {
