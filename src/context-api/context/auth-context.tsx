@@ -13,7 +13,7 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const initialState: Auth = { isLogined: undefined };
+  const initialState: Auth = { isLogined: false };
   const [auth, dispatch] = React.useReducer(authReducer, initialState);
 
   return (
