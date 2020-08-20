@@ -10,11 +10,20 @@ import facebook from "assets/facebook-f-logo.svg";
 import { UserAction } from "enum/user-action";
 import { Validator } from "utils/validator";
 import { ValidationText } from "enum/validation-text";
-import event from "lib/event";
+import event from "lib/key-evnet/event";
+import { useAuth } from "context-api/context/auth-context";
+
+interface LocationState {
+  from: {
+    pathname: string;
+  };
+}
 
 export const LoginIfo: React.FC = () => {
   const history = useHistory();
-  const location = useLocation();
+  const auth = useAuth();
+  const location = useLocation<LocationState>();
+  let { from } = location.state || { from: { pathname: "/" } };
   const [email, setEmail] = React.useState<string | undefined>(undefined);
   const [isCorrectEmail, setIsCorrectEmail] = React.useState<
     boolean | undefined
@@ -25,12 +34,17 @@ export const LoginIfo: React.FC = () => {
   };
 
   const continueLoginWithEmail = () => {
-    history.push(`${location.pathname}/then/${email}`);
+    history.push(`${location.pathname}/then/${email}`, { from: from });
   };
+
+  React.useEffect(() => {
+    if (auth.isLogined && from.pathname === "/dawn") history.push("/dawn");
+  });
 
   return (
     <>
       <InputWithIcon
+        auto={true}
         size={Size.MEDIUM}
         name={"email"}
         value={email}
