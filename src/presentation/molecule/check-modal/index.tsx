@@ -8,13 +8,18 @@ const CheckModal: React.FC<propTypes> = ({
   onOff,
   children,
   closeCheckModal,
+  setOnoff,
 }) => {
+  const clickEvent = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    closeCheckModal(event);
+    setOnoff(0);
+  };
   return (
     <styled.ModalBackground on={onOff}>
       <styled.Modal id="result-modal" on={onOff}>
         <styled.Header>
           <span>{title}</span>
-          <styled.CloseButton onClick={closeCheckModal}>
+          <styled.CloseButton onClick={clickEvent}>
             <CloseSVG></CloseSVG>
           </styled.CloseButton>
         </styled.Header>
@@ -32,6 +37,7 @@ type propTypes = {
   action: any;
   onOff: 1 | 0;
   closeCheckModal: any;
+  setOnoff: any;
 };
 
 export default CheckModal;
