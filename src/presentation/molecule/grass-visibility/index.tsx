@@ -6,11 +6,57 @@ import Axios from "axios";
 import MiniBox from "./mini-box";
 import { MissionStatus } from "enum/mission-status";
 
-const GrassVisibility: React.FC<propTypes> = ({ isExistMission }) => {
+const GrassVisibility: React.FC<propTypes> = () => {
   let grass = useGrass();
   let grassDispatch = useGrassDispatch();
 
-  const getDateOfHundredDaysAgo = () => {
+  const minusOneDate = React.useCallback(
+    (dates: {
+      year: number;
+      month: number;
+      date: number;
+    }): { year: number; month: number; date: number } => {
+      let datesByMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+      let datesByLeapYearMonth = [
+        31,
+        29,
+        31,
+        30,
+        31,
+        30,
+        31,
+        31,
+        30,
+        31,
+        30,
+        31,
+      ];
+      let year = dates.year;
+      let month = dates.month;
+      let date = dates.date;
+      if (date - 1 === 0 && month - 1 < 0) {
+        year = year - 1;
+        month = 11;
+        date = 31;
+        return { year, month, date };
+      }
+      if (date - 1 === 0 && month - 1 === 1 && isLeapyear(year)) {
+        month = month - 1;
+        date = datesByLeapYearMonth[month - 1];
+        return { year, month, date };
+      }
+      if (date - 1 === 0) {
+        month = month - 1;
+        date = datesByMonth[month - 1];
+        return { year, month, date };
+      }
+      date = date - 1;
+      return { year, month, date };
+    },
+    []
+  );
+
+  const getDateOfHundredDaysAgo = React.useCallback(() => {
     let date = new Date();
     let today = {
       year: date.getFullYear(),
@@ -22,37 +68,7 @@ const GrassVisibility: React.FC<propTypes> = ({ isExistMission }) => {
       temp = minusOneDate(temp);
     }
     return temp;
-  };
-
-  const minusOneDate = (dates: {
-    year: number;
-    month: number;
-    date: number;
-  }): { year: number; month: number; date: number } => {
-    let datesByMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    let datesByLeapYearMonth = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    let year = dates.year;
-    let month = dates.month;
-    let date = dates.date;
-    if (date - 1 === 0 && month - 1 < 0) {
-      year = year - 1;
-      month = 11;
-      date = 31;
-      return { year, month, date };
-    }
-    if (date - 1 === 0 && month - 1 === 1 && isLeapyear(year)) {
-      month = month - 1;
-      date = datesByLeapYearMonth[month - 1];
-      return { year, month, date };
-    }
-    if (date - 1 === 0) {
-      month = month - 1;
-      date = datesByMonth[month - 1];
-      return { year, month, date };
-    }
-    date = date - 1;
-    return { year, month, date };
-  };
+  }, [minusOneDate]);
 
   const isLeapyear = (year: number) => {
     return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
@@ -66,34 +82,38 @@ const GrassVisibility: React.FC<propTypes> = ({ isExistMission }) => {
     if (!userInfo.member) alert("유저 정보가 존재하지 않습니다.");
     let dateOfhundredDaysAgo = getDateOfHundredDaysAgo();
     (async function () {
-      let result: [any] = await Application.services.mission.getTodayMission(
-        userInfo.member.memberId,
-        new Date(
-          dateOfhundredDaysAgo.year,
-          dateOfhundredDaysAgo.month,
-          dateOfhundredDaysAgo.date,
-          0,
-          0,
-          0,
-          0
-        ).toISOString(),
-        source
-      );
+      try {
+        let result: [any] = await Application.services.mission.getTodayMission(
+          userInfo.member.memberId,
+          new Date(
+            dateOfhundredDaysAgo.year,
+            dateOfhundredDaysAgo.month,
+            dateOfhundredDaysAgo.date,
+            0,
+            0,
+            0,
+            0
+          ).toISOString(),
+          source
+        );
 
-      let grassResult = result.map((v) => {
-        let dates = new Date(v.deadlineTime);
-        return {
-          year: dates.getFullYear(),
-          month: dates.getMonth() + 1,
-          date: dates.getDate(),
-          status: v.status as MissionStatus,
-        };
-      });
-      grassDispatch({ type: "SAVE", data: grassResult });
+        let grassResult = result.map((v) => {
+          let dates = new Date(v.deadlineTime);
+          return {
+            year: dates.getFullYear(),
+            month: dates.getMonth() + 1,
+            date: dates.getDate(),
+            status: v.status as MissionStatus,
+          };
+        });
+        grassDispatch({ type: "SAVE", data: grassResult });
+      } catch (error) {
+        return () => source.cancel("요청중 페이지이동으로 요청 취소");
+      }
     })();
 
     return () => source.cancel("요청중 페이지이동으로 요청 취소");
-  }, []);
+  }, [getDateOfHundredDaysAgo, grassDispatch]);
 
   const makegrass = () => {
     let values = Array.from(grass.values());
