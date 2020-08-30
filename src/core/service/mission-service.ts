@@ -47,4 +47,12 @@ export default class MissionService {
   async remove(missionId: number) {
     return await this.repo.removeMission(missionId);
   }
+
+  async postResult(
+    missionId: number,
+    result: string,
+    CancelTokenSource?: CancelTokenSource
+  ) {
+    return await this.repo.postResult(missionId, result, CancelTokenSource);
+  }
 }
