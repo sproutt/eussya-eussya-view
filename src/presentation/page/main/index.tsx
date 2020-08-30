@@ -3,7 +3,7 @@ import styled from "./styled";
 import { DigitalClock } from "presentation/molecule/digital-clock";
 import { Application } from "context-instance";
 import { useAuth } from "context-api/context/auth-context";
-import { useHistory } from "react-router-dom";
+import useLastLocationHistory from "lib/history";
 
 export const Main: React.FC = () => {
   const [motivationalPhrase, setMotivationalPhrase] = React.useState<
@@ -11,7 +11,7 @@ export const Main: React.FC = () => {
   >(undefined);
 
   const auth = useAuth();
-  const histoty = useHistory();
+  const setHistory = useLastLocationHistory();
 
   React.useEffect(() => {
     (async function () {
@@ -32,13 +32,13 @@ export const Main: React.FC = () => {
             <h1>{motivationalPhrase}</h1>
             <DigitalClock color={"#000000"}></DigitalClock>
             {auth.isLogined ? (
-              <styled.Button onClick={() => histoty.push("/dawn")}>
+              <styled.Button onClick={() => setHistory("/dawn")}>
                 눌러서 시작하기
               </styled.Button>
             ) : (
               <styled.Button
                 onClick={() => {
-                  histoty.push("/login");
+                  setHistory("/login");
                 }}
               >
                 로그인
