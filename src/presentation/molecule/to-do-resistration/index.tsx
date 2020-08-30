@@ -10,6 +10,8 @@ import CheckModal from "presentation/molecule/check-modal";
 import { MissionErrorCode } from "enum/mission-error-code";
 import { AuthErrorCode } from "enum/auth-error-code";
 import ResultModalEvent from "lib/result-modal-event";
+import Modal from "../modal";
+import modalStyled from "../modal/styled";
 
 export const TodoResistration: React.FC<PropTypes> = ({
   on,
@@ -123,7 +125,7 @@ export const TodoResistration: React.FC<PropTypes> = ({
   const actionReducer = (
     event: React.MouseEvent<HTMLSpanElement, MouseEvent>
   ) => {
-    event.preventDefault();
+    event && event.preventDefault();
     switch (resultModalAction) {
       case MissionErrorCode.NOT_DAWN:
         resultModalEvent.removeClickOutSideEvent(event);
@@ -138,60 +140,56 @@ export const TodoResistration: React.FC<PropTypes> = ({
   };
 
   return (
-    <styled.Modal on={on ? 1 : 0}>
-      <styled.ModalContent>
-        <styled.ModalLayout id={"todo__modal"}>
-          <styled.Header>
-            <styled.HeaderTitle>오늘의 미션 등록하기</styled.HeaderTitle>
-            <styled.CloseButton onClick={closeEvent}>
-              <CloseSVG></CloseSVG>
-            </styled.CloseButton>
-          </styled.Header>
-          <styled.Body>
-            <styled.TitleBox>
-              <styled.InputLabel>제목</styled.InputLabel>
-              <styled.Input
-                value={title}
-                onChange={(event) => setTitle(event.target.value)}
-              ></styled.Input>
-            </styled.TitleBox>
-            <styled.TitleBox>
-              <styled.InputLabel>내용</styled.InputLabel>
-              <styled.MissionTextArea
-                value={contents}
-                onChange={(event) => setContents(event.target.value)}
-              ></styled.MissionTextArea>
-            </styled.TitleBox>
-            <styled.RowBox>
-              <styled.Label>기한</styled.Label>
-              <TimeInput
-                hour={hour}
-                changeHour={changeHour}
-                minute={minute}
-                changeMinute={changeMinute}
-              ></TimeInput>
-            </styled.RowBox>
-            <styled.Footer>
-              <styled.SubimtButton
-                onClick={clickSubmit}
-                disabled={title.trim().length <= 0}
-              >
-                등록
-              </styled.SubimtButton>
-            </styled.Footer>
-          </styled.Body>
-          <CheckModal
-            onOff={resultModalOnoff}
-            setOnoff={changeResultModalOnoff}
-            title={resultModalTitle}
-            action={actionReducer}
-            closeCheckModal={resultModalEvent.removeClickOutSideEvent}
+    <Modal on={on ? 1 : 0} idName={"todo__modal"}>
+      <modalStyled.Header>
+        <modalStyled.HeaderTitle>오늘의 미션 등록하기</modalStyled.HeaderTitle>
+        <modalStyled.CloseButton onClick={closeEvent}>
+          <CloseSVG></CloseSVG>
+        </modalStyled.CloseButton>
+      </modalStyled.Header>
+      <modalStyled.Body>
+        <styled.TitleBox>
+          <styled.InputLabel>제목</styled.InputLabel>
+          <styled.Input
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+          ></styled.Input>
+        </styled.TitleBox>
+        <styled.TitleBox>
+          <styled.InputLabel>내용</styled.InputLabel>
+          <styled.MissionTextArea
+            value={contents}
+            onChange={(event) => setContents(event.target.value)}
+          ></styled.MissionTextArea>
+        </styled.TitleBox>
+        <styled.RowBox>
+          <styled.Label>기한</styled.Label>
+          <TimeInput
+            hour={hour}
+            changeHour={changeHour}
+            minute={minute}
+            changeMinute={changeMinute}
+          ></TimeInput>
+        </styled.RowBox>
+        <styled.Footer>
+          <styled.SubimtButton
+            onClick={clickSubmit}
+            disabled={title.trim().length <= 0}
           >
-            {resultModalText}
-          </CheckModal>
-        </styled.ModalLayout>
-      </styled.ModalContent>
-    </styled.Modal>
+            등록
+          </styled.SubimtButton>
+        </styled.Footer>
+      </modalStyled.Body>
+      <CheckModal
+        onOff={resultModalOnoff}
+        setOnoff={changeResultModalOnoff}
+        title={resultModalTitle}
+        action={actionReducer}
+        closeCheckModal={resultModalEvent.removeClickOutSideEvent}
+      >
+        {resultModalText}
+      </CheckModal>
+    </Modal>
   );
 };
 
