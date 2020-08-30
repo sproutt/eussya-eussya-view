@@ -24,4 +24,22 @@ export class AxiosWrapper {
       },
     });
   }
+
+  public getAxiosWithPlainText() {
+    const jwtToken = this.storage.JWTTokenStorage.get();
+    if (!(jwtToken && jwtToken.token))
+      return this.axios.create({
+        headers: {
+          Authorization: jwtToken.token,
+          "Content-Type": "plain/text",
+        },
+      });
+
+    return this.axios.create({
+      headers: {
+        Authorization: jwtToken.token,
+        "Content-Type": "plain/text",
+      },
+    });
+  }
 }
