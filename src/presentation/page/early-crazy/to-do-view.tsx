@@ -20,10 +20,12 @@ const ToDoView: React.FC<propTypes> = ({
   changeContents,
   changeHours,
   changeMinutes,
-  changeMissionStatus,
   changeRunningTime,
   changeTitle,
-  changeIsExistMission,
+  removeMission,
+  startMission,
+  finishMission,
+  pauseMission,
 }) => {
   const [isFixMode, setIsFixMode] = React.useState<boolean>(false);
   const [tempHours, setTempHours] = React.useState<number>(moment().hours());
@@ -44,44 +46,6 @@ const ToDoView: React.FC<propTypes> = ({
 
   const changeTempMinutes = (value: number) => {
     setTempMinutes(value);
-  };
-
-  const startMission = async () => {
-    if (missionStatus !== MissionStatus.PENDING) return;
-    let result = await Application.services.mission.start(missionId);
-    if (!result) return alert("오류입니다.");
-    changeMissionStatus(MissionStatus.IN_PROGRESS);
-  };
-
-  const pauseMission = async () => {
-    if (missionStatus !== MissionStatus.IN_PROGRESS) return;
-    let result = await Application.services.mission.pause(missionId);
-    if (!result) return alert("오류입니다.");
-    changeMissionStatus(MissionStatus.PENDING);
-  };
-
-  const finishMission = async () => {
-    if (missionStatus === MissionStatus.IN_PROGRESS) return;
-    let result = await Application.services.mission.complete(missionId);
-    if (!result) return alert("오류입니다.");
-    let element = document.querySelector(".todo-view-block");
-    element?.classList.add("remove");
-    setTimeout(() => changeIsExistMission(false), 500);
-  };
-
-  const removeAnimation = async () => {
-    let element = document.querySelector(".todo-view-block");
-    element?.classList.add("remove");
-    setTimeout(() => changeIsExistMission(false), 500);
-  };
-
-  const removeMission = async () => {
-    if (missionStatus === MissionStatus.IN_PROGRESS) return;
-    let result = await Application.services.mission.remove(missionId);
-    if (!result) return alert("오류입니다.");
-    let element = document.querySelector(".todo-view-block");
-    element?.classList.add("remove");
-    setTimeout(() => changeIsExistMission(false), 400);
   };
 
   const getDate = (hour: number, minute: number) => {
@@ -113,25 +77,20 @@ const ToDoView: React.FC<propTypes> = ({
   };
 
   const ChangeToTimeFormat = (hours: number, minutes: number) => {
-    let result = "";
-    let textHours = "";
-    let textMinutes = "";
-    let ampm = "AM";
+    let result: string = "",
+      textHours: string = "",
+      textMinutes: string = "";
+    let ampm: "AM" | "PM" = "AM";
     let tempHours: number = hours;
-    if (hours > 12) {
-      ampm = "PM";
-      tempHours = hours - 12;
-    }
-    if (hours === 12) {
-      ampm = "PM";
-    }
-    if (hours < 10) textHours = "0" + tempHours;
-    if (hours >= 10) textHours = tempHours.toString();
+    if (tempHours >= 12) ampm = "PM";
+    if (tempHours > 12) tempHours = tempHours - 12;
+    if (tempHours < 10) textHours = "0" + tempHours.toString();
+    if (tempHours >= 10) textHours = tempHours.toString();
 
-    if (minutes < 10) textMinutes = "0" + minutes;
+    if (minutes < 10) textMinutes = "0" + minutes.toString();
     if (minutes >= 10) textMinutes = minutes.toString();
 
-    result = +textHours + " : " + textMinutes + " " + ampm;
+    result = textHours + " : " + textMinutes + " " + ampm;
 
     return result;
   };
@@ -267,7 +226,9 @@ const ToDoView: React.FC<propTypes> = ({
               {missionStatus === MissionStatus.PENDING && (
                 <>
                   <styled.Button onClick={startMission}>시작</styled.Button>
-                  <styled.Button onClick={finishMission}>마침</styled.Button>
+                  <styled.Button onClick={() => finishMission(true)}>
+                    마침
+                  </styled.Button>
                 </>
               )}
               {missionStatus === MissionStatus.IN_PROGRESS && (
@@ -294,8 +255,10 @@ type propTypes = {
   changeTitle: (value: string) => void;
   changeContents: (value: string) => void;
   changeRunningTime: () => void;
-  changeMissionStatus: (missionStatus: MissionStatus) => void;
-  changeIsExistMission: (value: boolean) => void;
+  removeMission: any;
+  startMission: any;
+  finishMission: any;
+  pauseMission: any;
 };
 
 export default ToDoView;

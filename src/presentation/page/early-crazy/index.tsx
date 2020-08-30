@@ -8,8 +8,12 @@ import { Application } from "context-instance";
 import Axios from "axios";
 import { TodoResistration } from "presentation/molecule/to-do-resistration";
 import GrassVisibility from "presentation/molecule/grass-visibility";
+import ResultSenderBox from "presentation/molecule/result-sender-box";
 
 const EarlyCrazy: React.FC = () => {
+  const [resultSenderModalOn, setResultSenderModalOn] = React.useState<
+    boolean | undefined
+  >(undefined);
   const [toDoModalOn, setTodoModalOn] = React.useState<boolean | undefined>(
     undefined
   );
@@ -54,8 +58,9 @@ const EarlyCrazy: React.FC = () => {
   const changeRunningTime = () => {
     setRunningTime((runningTime) => runningTime + 1);
   };
-  const changeMissionStatus = (missionStatus: MissionStatus) => {
-    setMissionStatus(missionStatus);
+
+  const changeSetResultSenderModal = (value: boolean) => {
+    setResultSenderModalOn(value);
   };
 
   const findDate = () => {
@@ -135,6 +140,40 @@ const EarlyCrazy: React.FC = () => {
     return () => source.cancel("요청중 페이지이동으로 요청 취소");
   }, []);
 
+  const startMission = async () => {
+    if (missionStatus !== MissionStatus.PENDING) return;
+    let result = await Application.services.mission.start(missionId);
+    if (!result) return alert("오류입니다.");
+    setMissionStatus(MissionStatus.IN_PROGRESS);
+  };
+
+  const pauseMission = async () => {
+    if (missionStatus !== MissionStatus.IN_PROGRESS) return;
+    let result = await Application.services.mission.pause(missionId);
+    if (!result) return alert("오류입니다.");
+    setMissionStatus(MissionStatus.PENDING);
+  };
+
+  const removeAnimation = () => {
+    let element = document.querySelector(".todo-view-block");
+    element?.classList.add("remove");
+    setTimeout(() => changeIsExistMission(false), 500);
+  };
+
+  const finishMission = async () => {
+    if (missionStatus === MissionStatus.IN_PROGRESS) return;
+    let result = await Application.services.mission.complete(missionId);
+    if (!result) return alert("시작하지 못했습니다. 다시 시도해주세요.");
+    removeAnimation();
+  };
+
+  const removeMission = async () => {
+    if (missionStatus === MissionStatus.IN_PROGRESS) return;
+    let result = await Application.services.mission.remove(missionId);
+    if (!result) return alert("제거하지 못했습니다. 다시 시도해주세요.");
+    removeAnimation();
+  };
+
   return (
     <React.Fragment>
       <styled.Container>
@@ -153,10 +192,12 @@ const EarlyCrazy: React.FC = () => {
                   changeContents={changeContents}
                   changeHours={changeHours}
                   changeMinutes={changeMinutes}
-                  changeMissionStatus={changeMissionStatus}
                   changeRunningTime={changeRunningTime}
                   changeTitle={changeTitle}
-                  changeIsExistMission={changeIsExistMission}
+                  removeMission={removeMission}
+                  startMission={startMission}
+                  finishMission={changeSetResultSenderModal}
+                  pauseMission={pauseMission}
                 ></ToDoView>
               </styled.Block>
             )}
@@ -189,6 +230,12 @@ const EarlyCrazy: React.FC = () => {
           changeModal={changeTodoModalOn}
           changeIsExistMission={changeIsExistMission}
         ></TodoResistration>
+        <ResultSenderBox
+          on={resultSenderModalOn}
+          changeModal={changeSetResultSenderModal}
+          missionTitle={title!}
+          missionContents={contents!}
+        ></ResultSenderBox>
       </styled.Container>
     </React.Fragment>
   );
