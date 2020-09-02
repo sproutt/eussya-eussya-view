@@ -1,8 +1,4 @@
-import {
-  ElementSizeByHeight,
-  ElementDistanceEachOthers,
-  FontSize,
-} from "utils/style/size";
+import { ElementDistanceEachOthers, FontSize } from "utils/style/size";
 import styled from "styled-components";
 
 const Wrapper = styled.section`
