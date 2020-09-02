@@ -7,6 +7,7 @@ import ResultModalEvent from "lib/result-modal-event";
 import CheckModal from "../check-modal";
 import { Application } from "context-instance";
 
+
 const ResultSenderBox: React.FC<PropTypes> = ({
   on,
   missionTitle,
@@ -19,6 +20,7 @@ const ResultSenderBox: React.FC<PropTypes> = ({
   const [missionResult, setMissionResult] = React.useState<string | undefined>(
     undefined
   );
+
   const [resultModalTitle, setResultModalTitle] = React.useState<
     string | undefined
   >(undefined);
@@ -45,6 +47,7 @@ const ResultSenderBox: React.FC<PropTypes> = ({
         return setResultModalOnoff(0);
     }
   };
+
 
   const postResult = async (event: React.MouseEvent<HTMLButtonElement>) => {
     try {
@@ -134,7 +137,6 @@ const ResultSenderBox: React.FC<PropTypes> = ({
             onChange={handleChangeOfResultContext}
           ></styled.TextArea>
         </styled.ContentsWrapper>
-
         <styled.Footer>
           <styled.Button onClick={postResult}>확인</styled.Button>
         </styled.Footer>
