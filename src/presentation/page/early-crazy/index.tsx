@@ -160,10 +160,8 @@ const EarlyCrazy: React.FC = () => {
     setTimeout(() => changeIsExistMission(false), 500);
   };
 
-  const finishMission = async () => {
+  const finishMission = () => {
     if (missionStatus === MissionStatus.IN_PROGRESS) return;
-    let result = await Application.services.mission.complete(missionId);
-    if (!result) return alert("시작하지 못했습니다. 다시 시도해주세요.");
     removeAnimation();
   };
 
@@ -235,6 +233,8 @@ const EarlyCrazy: React.FC = () => {
           changeModal={changeSetResultSenderModal}
           missionTitle={title!}
           missionContents={contents!}
+          missionId={missionId}
+          finishMission={finishMission}
         ></ResultSenderBox>
       </styled.Container>
     </React.Fragment>
