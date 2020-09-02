@@ -91,4 +91,25 @@ export default class MissionApiProvider {
         .delete(process.env.REACT_APP_HOST + "/missions/" + missionId);
     } catch (error) {}
   }
+
+  async postResult(
+    missionId: number,
+    result: string,
+    CancelTokenSource?: CancelTokenSource
+  ) {
+    try {
+      return await this.axiosWrapper
+        .getAxiosWithPlainText()
+        .put(
+          process.env.REACT_APP_HOST + "/missions/" + missionId + "/result",
+          result,
+          {
+            cancelToken: CancelTokenSource?.token,
+          }
+        );
+    } catch (error) {
+      if (Axios.isCancel(error)) throw new Error("요청 취소");
+      throw error;
+    }
+  }
 }

@@ -5,14 +5,22 @@ import ModalStyled from "../modal/styled";
 import { ReactComponent as CloseSVG } from "assets/SVGclose.svg";
 import ResultModalEvent from "lib/result-modal-event";
 import CheckModal from "../check-modal";
+import { Application } from "context-instance";
+
 
 const ResultSenderBox: React.FC<PropTypes> = ({
   on,
   missionTitle,
   changeModal,
   missionContents,
+  missionId,
+  finishMission,
 }) => {
   const [resultModalOnoff, setResultModalOnoff] = React.useState<0 | 1>(0);
+  const [missionResult, setMissionResult] = React.useState<string | undefined>(
+    undefined
+  );
+
   const [resultModalTitle, setResultModalTitle] = React.useState<
     string | undefined
   >(undefined);
@@ -40,9 +48,45 @@ const ResultSenderBox: React.FC<PropTypes> = ({
     }
   };
 
+
+  const postResult = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    try {
+      event && event.preventDefault();
+      //향후 예외처리 필요
+      if (missionResult === undefined || missionId === undefined) return;
+      if (missionResult.length <= 0) return;
+      const result = await Application.services.mission.postResult(
+        missionId,
+        missionResult!
+      );
+      if (!result.ok) {
+        setResultModalTitle("오류");
+        setResultModalAction("anyting");
+        setResultModalText("오류");
+        resultModalEvent.addClickOutSideEvent();
+        return setResultModalOnoff(1);
+      }
+      closeEvent(event);
+      finishMission();
+    } catch (error) {
+      setResultModalTitle("오류");
+      setResultModalAction("anyting");
+      setResultModalText("오류");
+      resultModalEvent.addClickOutSideEvent();
+      return setResultModalOnoff(1);
+    }
+  };
+
+  const handleChangeOfResultContext = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setMissionResult(event.target.value);
+  };
+
   const getDocument = (id: string) => {
     return document && document.getElementById(id)!;
   };
+
   const removeModalCloseEvent = React.useCallback(
     function (event: any) {
       if (event.target.closest("#result-sender--modal")) return;
@@ -54,6 +98,7 @@ const ResultSenderBox: React.FC<PropTypes> = ({
     },
     [changeModal]
   );
+
   const closeEvent = (event?: any) => {
     if (event) event.preventDefault();
     changeModal(false);
@@ -65,7 +110,6 @@ const ResultSenderBox: React.FC<PropTypes> = ({
 
   React.useEffect(() => {
     if (on === true) {
-      console.log(getDocument("result-sender--modal--top")!);
       getDocument("result-sender--modal--top")!.addEventListener(
         "click",
         removeModalCloseEvent
@@ -88,11 +132,13 @@ const ResultSenderBox: React.FC<PropTypes> = ({
         </styled.ContentsWrapper>
         <styled.ContentsWrapper>
           <styled.Label>내용</styled.Label>
-          <styled.TextArea></styled.TextArea>
+          <styled.TextArea
+            value={missionResult}
+            onChange={handleChangeOfResultContext}
+          ></styled.TextArea>
         </styled.ContentsWrapper>
-
         <styled.Footer>
-          <styled.Button>확인</styled.Button>
+          <styled.Button onClick={postResult}>확인</styled.Button>
         </styled.Footer>
       </ModalStyled.Body>
       <CheckModal
@@ -110,9 +156,11 @@ const ResultSenderBox: React.FC<PropTypes> = ({
 
 type PropTypes = {
   on: boolean | undefined;
+  missionId: number;
   missionTitle: string;
   changeModal: any;
   missionContents: string;
+  finishMission: any;
 };
 
 export default ResultSenderBox;

@@ -30,15 +30,14 @@ export class AxiosWrapper {
     if (!(jwtToken && jwtToken.token))
       return this.axios.create({
         headers: {
-          Authorization: jwtToken.token,
-          "Content-Type": "plain/text",
+          "Content-Type": "plain/text; charset=utf-8",
         },
       });
 
     return this.axios.create({
       headers: {
         Authorization: jwtToken.token,
-        "Content-Type": "plain/text",
+        "Content-Type": "plain/text; charset=utf-8",
       },
     });
   }
