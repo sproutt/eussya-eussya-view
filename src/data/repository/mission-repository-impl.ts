@@ -108,4 +108,23 @@ export default class MissonRepositoryImpl implements MissionRepository {
       return false;
     }
   }
+
+  async postResult(
+    missionId: number,
+    result: string,
+    CancelTokenSource?: CancelTokenSource
+  ) {
+    try {
+      const response = await this.api.postResult(
+        missionId,
+        result,
+        CancelTokenSource
+      );
+      if (response.status !== OK)
+        return new RepoResponseType<undefined>(response.status === OK, "");
+      return new RepoResponseType<undefined>(response.status === OK, "");
+    } catch (error) {
+      return new RepoResponseType<undefined>(false, "");
+    }
+  }
 }

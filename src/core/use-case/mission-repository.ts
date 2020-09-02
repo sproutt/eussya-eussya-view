@@ -14,4 +14,9 @@ export default interface MissionRepository {
   pauseMisson(missionId: number): Promise<any>;
   completeMission(missionId: number): Promise<any>;
   removeMission(missionId: number): Promise<any>;
+  postResult(
+    missionId: number,
+    result: string,
+    CancelTokenSource?: CancelTokenSource
+  ): Promise<RepoResponseType<undefined>>;
 }
