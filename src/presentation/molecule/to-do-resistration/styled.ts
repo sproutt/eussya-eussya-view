@@ -43,44 +43,6 @@ const ModalLayout = styled.div`
   box-shadow: 0px 3px 12px 6px #00000030;
 `;
 
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  flex: 0 0 auto;
-  background-color: #fdfdfd;
-  border-bottom: 1px solid #dddddd;
-  padding: ${ElementDistanceEachOthers.MEDIUM};
-`;
-
-const HeaderTitle = styled.span`
-  font-size: ${FontSize.SMALL};
-  font-weight: 600;
-  padding-right: 1rem;
-  flex-grow: 1;
-`;
-
-const CloseButton = styled.span`
-  display: flex;
-  cursor: pointer;
-  svg {
-    width: ${FontSize.SMALL};
-    height: ${FontSize.SMALL};
-  }
-  svg polygon {
-    fill: #bbbbbb;
-  }
-`;
-
-const Body = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1 1 auto;
-  background-color: #ffffff;
-  padding: ${ElementDistanceEachOthers.MEDIUM};
-  overflow-y: auto;
-`;
-
 const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -181,9 +143,6 @@ export default {
   Modal,
   ModalContent,
   ModalLayout,
-  Header,
-  HeaderTitle,
-  Body,
   TitleBox,
   InputLabel,
   Input,
@@ -193,5 +152,4 @@ export default {
   Footer,
   RowBox,
   Label,
-  CloseButton,
 };

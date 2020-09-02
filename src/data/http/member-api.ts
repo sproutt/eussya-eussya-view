@@ -1,5 +1,6 @@
 import { AxiosWrapper } from "./axios/axios-wrapper";
 import { Member } from "core/entity/member";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import Axios, { AxiosResponse, CancelTokenSource } from "axios";
 export class MemberApiProvider {
   private axiosWrapper: AxiosWrapper;

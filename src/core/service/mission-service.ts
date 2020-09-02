@@ -1,6 +1,7 @@
 import RepoResponseType from "data/response-type/repo-response";
 import MissionRepository from "core/use-case/mission-repository";
 import Mission from "core/entity/mission";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { CancelTokenSource } from "axios";
 
 export default class MissionService {
