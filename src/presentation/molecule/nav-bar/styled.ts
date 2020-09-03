@@ -27,6 +27,7 @@ const NavSecondGroup = styled.div`
 `;
 
 const Logo = styled.img`
+  cursor: pointer;
   height: 100%;
   margin-right: 20px;
 `;
@@ -58,6 +59,7 @@ const NavSpan = styled.span`
 `;
 
 const NavClickButton = styled.button`
+  cursor: pointer;
   background: none;
   border: 1px solid #fffcfc;
   border-radius: 4px;
