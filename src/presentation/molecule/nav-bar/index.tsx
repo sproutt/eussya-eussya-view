@@ -33,7 +33,7 @@ export const NavBar: React.FC = () => {
         {auth.isLogined ? (
           <>
             <styled.NavButton onClick={logout}>로그아웃</styled.NavButton>
-            <styled.NavSpan>
+            <styled.NavSpan onClick={() => history.push("/my")}>
               {Application.services.member.getTokenData().member.nickName}의
               으쌰으쌰
             </styled.NavSpan>

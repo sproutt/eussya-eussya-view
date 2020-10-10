@@ -1,7 +1,7 @@
 import * as React from "react";
 import { OAuthButton } from "presentation/molecule/oauth-button";
 import styled from "./styled";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation, Redirect } from "react-router-dom";
 import { InputWithIcon } from "presentation/molecule/input-with-icon";
 import { Size } from "utils/style/size";
 import google from "assets/google-g-logo.svg";
@@ -37,52 +37,54 @@ export const LoginIfo: React.FC = () => {
     history.push(`${location.pathname}/then/${email}`, { from: from });
   };
 
-  React.useEffect(() => {
-    if (auth.isLogined && from.pathname === "/dawn") history.push("/dawn");
-  });
-
   return (
     <>
-      <InputWithIcon
-        auto={true}
-        size={Size.MEDIUM}
-        name={"email"}
-        value={email}
-        onChange={changeValue}
-        onKeyUp={event.enterEvent(isCorrectEmail, continueLoginWithEmail)}
-        validator={Validator.correctEmailFormat}
-        validationText={ValidationText.EMAIL_FORMAT_IS_WRONG}
-        setOn={setIsCorrectEmail}
-      />
-      <styled.EmailLogin>
-        <Link to="/signUp">
-          <styled.SignUpLink>계정 만들기</styled.SignUpLink>
-        </Link>
-        <styled.NextButton
-          disabled={!isCorrectEmail}
-          onClick={continueLoginWithEmail}
-        >
-          다음
-        </styled.NextButton>
-      </styled.EmailLogin>
-      <styled.Division>
-        <hr></hr> <span>또는</span> <hr></hr>
-      </styled.Division>
-      <OAuthButton
-        icon={google}
-        name="Google"
-        actions={UserAction.SIGN_IN}
-      ></OAuthButton>
-      <OAuthButton
-        icon={facebook}
-        name="Facebook"
-        actions={UserAction.SIGN_IN}
-      ></OAuthButton>
-      <OAuthButton
-        icon={github}
-        name="Github"
-        actions={UserAction.SIGN_IN}
-      ></OAuthButton>
+      {auth.isLogined ? (
+        <Redirect to={from.pathname}></Redirect>
+      ) : (
+        <>
+          <InputWithIcon
+            auto={true}
+            size={Size.MEDIUM}
+            name={"email"}
+            value={email}
+            onChange={changeValue}
+            onKeyUp={event.enterEvent(isCorrectEmail, continueLoginWithEmail)}
+            validator={Validator.correctEmailFormat}
+            validationText={ValidationText.EMAIL_FORMAT_IS_WRONG}
+            setOn={setIsCorrectEmail}
+          />
+          <styled.EmailLogin>
+            <Link to="/signUp">
+              <styled.SignUpLink>계정 만들기</styled.SignUpLink>
+            </Link>
+            <styled.NextButton
+              disabled={!isCorrectEmail}
+              onClick={continueLoginWithEmail}
+            >
+              다음
+            </styled.NextButton>
+          </styled.EmailLogin>
+          <styled.Division>
+            <hr></hr> <span>또는</span> <hr></hr>
+          </styled.Division>
+          <OAuthButton
+            icon={google}
+            name="Google"
+            actions={UserAction.SIGN_IN}
+          ></OAuthButton>
+          <OAuthButton
+            icon={facebook}
+            name="Facebook"
+            actions={UserAction.SIGN_IN}
+          ></OAuthButton>
+          <OAuthButton
+            icon={github}
+            name="Github"
+            actions={UserAction.SIGN_IN}
+          ></OAuthButton>
+        </>
+      )}
     </>
   );
 };

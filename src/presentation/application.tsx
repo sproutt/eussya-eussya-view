@@ -11,6 +11,7 @@ import { useAuthDispatch } from "context-api/context/auth-context";
 import { Application } from "context-instance";
 import { GrassContextProvider } from "context-api/context/grass-context";
 import PrivateRoute from "./molecule/private-router";
+import MyPage from "./page/mypage/inxde";
 
 function App() {
   let authDispatch = useAuthDispatch();
@@ -24,6 +25,9 @@ function App() {
       <section id="main-section">
         <NavBar></NavBar>
         <Switch>
+          <PrivateRoute path="/my">
+            <MyPage></MyPage>
+          </PrivateRoute>
           <PrivateRoute path="/dawn">
             <GrassContextProvider>
               <EarlyCrazy></EarlyCrazy>

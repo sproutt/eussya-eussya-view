@@ -12,6 +12,10 @@ export enum Size {
   SMALL_SMALL = "SMALL_SMALL",
 }
 
+export enum StaticSize {
+  NAV_HEIGHT = "3.75rem",
+}
+
 export enum FontSize {
   EXTRA_LARGE = "2.5rem",
   LARGE = "2.0rem",
