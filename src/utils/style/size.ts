@@ -17,13 +17,13 @@ export enum StaticSize {
 }
 
 export enum FontSize {
-  EXTRA_LARGE = "2.5rem",
-  LARGE = "2.0rem",
-  MEDIUM = "1.5rem",
-  MEDIUM_SMALL = "1.25rem",
-  SMALL_MEDIUM = "1.125rem",
-  SMALL = "1rem",
-  EXTRA_SMALL = "0.75rem",
+  EXTRA_LARGE = "28px",
+  LARGE = "24px",
+  MEDIUM = "20px",
+  MEDIUM_SMALL = "18px",
+  SMALL_MEDIUM = "16px",
+  SMALL = "14px",
+  EXTRA_SMALL = "12px",
 }
 
 export enum ElementSizeByHeight {
