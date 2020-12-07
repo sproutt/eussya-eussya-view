@@ -1,3 +1,33 @@
+$FONT_EXTRA_LARGE: 32px;
+$FONT_LARGE: 26px;
+$FONT_INTRA_LARGE: 20px;
+$FONT_LARGE_MEDIUM: 17px;
+$FONT_MEDIUM: 15px;
+$FONT_SMALL_MEDIUM: 13px;
+$FONT_INTRA_SMALL: 11px;
+$FONT_SMALL: 10px;
+$FONT_EXTRA_SMALL: 9px;
+
+$BLANK_EXTRA_LARGE: 48px;
+$BLANK_LARGE: 40px;
+$BLANK_INTRA_LARGE: 32px;
+$BLANK_LARGE_MEDIUM: 24px;
+$BLANK_MEDIUM: 20px;
+$BLANK_SMALL_MEDIUM: 16px;
+$BLANK_INTRA_SMALL: 12px;
+$BLANK_SMALL: 8px;
+$BLANK_EXTRA_SMALL: 4px;
+
+$ELEMENT_EXTRA_LARGE: 72px;
+$ELEMENT_LARGE: 64px;
+$ELEMENT_INTRA_LARGE: 56px;
+$ELEMENT_LARGE_MEDIUM: 48px;
+$ELEMENT_MEDIUM: 40px;
+$ELEMENT_SMALL_MEDIUM: 34px;
+$ELEMENT_INTRA_SMALL: 28px;
+$ELEMENT_SMALL: 22px;
+$ELEMENT_EXTRA_SMALL: 16px;
+
 $large-font: 3rem;
 $medium-font: 1rem;
 $small-font: 0.75rem;
@@ -8,7 +38,25 @@ $main-color: "#274c5e";
 $large-element: 5rem;
 $medium-element: 3.5rem;
 $small-element: 2rem;
+
 $font-size-base: 14px;
+
+$GRAY90: #191919;
+$GRAY80: #323232;
+$GRAY70: #4b4b4b;
+$GRAY60: #646464;
+$GRAY50: #818181;
+$GRAY40: #9a9a9a;
+$GRAY30: #b3b3b3;
+$GRAY20: #cccccc;
+$GRAY10: #e5e5e5;
+
+$BLACK100: #000000;
+$BLACK75: #000000c0;
+$BLACK50: #00000080;
+$BLACK25: #00000040;
+
+$MAIN100: #0071e2;
 
 @mixin appearance($value: none) {
   -webkit-appearance: $value;

@@ -16,7 +16,7 @@ export const OAuthButton: React.FC<propTypes> = ({
     if (href && clientId && redirectUri)
       // eslint-disable-next-line no-restricted-globals
       location.href = `${href}?client_id=${clientId}&redirect_uri=${
-        process.env.REACT_APP_DOMAIN + redirectUri + "/" + name.toLowerCase()
+        redirectUri + "/" + name.toLowerCase()
       }`;
   };
   return (

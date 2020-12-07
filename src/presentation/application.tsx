@@ -25,9 +25,9 @@ function App() {
       <section id="main-section">
         <NavBar></NavBar>
         <Switch>
-          <PrivateRoute path="/my">
+          <Route path="/my">
             <MyPage></MyPage>
-          </PrivateRoute>
+          </Route>
           <PrivateRoute path="/dawn">
             <GrassContextProvider>
               <EarlyCrazy></EarlyCrazy>
