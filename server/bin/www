@@ -7,6 +7,7 @@
 var app = require("../app");
 var debug = require("debug")("server:server");
 let fs = require("fs");
+let path = require("path");
 var http =
   process.env.NODE_ENV === "production" ? require("http") : require("https");
 
@@ -25,9 +26,9 @@ app.set("port", port);
 const option =
   process.env.NODE_ENV === "production"
     ? {
-        key: fs.readFileSync(__dirname + process.env.SSL_KEY),
-        cert: fs.readFileSync(__dirname + process.env.CERT),
-        ca: fs.readFileSync(__dirname + process.env.CA),
+        key: fs.readFileSync(path.join(__dirname + process.env.SSL_KEY)),
+        cert: fs.readFileSync(path.join(__dirname + process.env.CERT)),
+        ca: fs.readFileSync(path.join(__dirname + process.env.CA)),
       }
     : undefined;
 
