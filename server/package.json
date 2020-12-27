@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "dev": "export NODE_ENV=development && npm start",
+    "start": "node ./bin/www",
+    "build": "export NODE_ENV=production && npm start"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

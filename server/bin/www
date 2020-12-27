@@ -6,20 +6,39 @@
 
 var app = require("../app");
 var debug = require("debug")("server:server");
-var http = require("http");
+let fs = require("fs");
+var http =
+  process.env.NODE_ENV === "production" ? require("http") : require("https");
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || "80");
+var port =
+  process.env.NODE_ENV === "production"
+    ? normalizePort(process.env.PORT || "443")
+    : process.env.NODE_ENV === "developent"
+    ? normalizePort(process.env.PORT || "8080")
+    : normalizePort(process.env.PORT || "80");
 app.set("port", port);
+
+const option =
+  process.env.NODE_ENV === "production"
+    ? {
+        key: fs.readFileSync(__dirname + process.env.SSL_KEY),
+        cert: fs.readFileSync(__dirname + process.env.CERT),
+        ca: fs.readFileSync(__dirname + process.env.CA),
+      }
+    : undefined;
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var server =
+  process.env.NODE_ENV === "production"
+    ? http.createServer(option, app)
+    : http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
