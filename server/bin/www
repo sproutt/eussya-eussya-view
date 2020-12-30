@@ -9,7 +9,7 @@ var debug = require("debug")("server:server");
 let fs = require("fs");
 let path = require("path");
 var http =
-  process.env.NODE_ENV === "production" ? require("http") : require("https");
+  process.env.NODE_ENV === "production" ? require("https") : require("http");
 
 /**
  * Get port from environment and store in Express.
@@ -26,9 +26,9 @@ app.set("port", port);
 const option =
   process.env.NODE_ENV === "production"
     ? {
-        key: fs.readFileSync(path.join(__dirname + process.env.SSL_KEY)),
-        cert: fs.readFileSync(path.join(__dirname + process.env.CERT)),
-        ca: fs.readFileSync(path.join(__dirname + process.env.CA)),
+        key: fs.readFileSync(path.join(__dirname , process.env.SSL_KEY), "utf8"),
+        cert: fs.readFileSync(path.join(__dirname , process.env.SSL_CERT), "utf8"),
+        ca: fs.readFileSync(path.join(__dirname , process.env.SSL_CA), "utf8"),
       }
     : undefined;
 
@@ -45,7 +45,9 @@ var server =
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, () => {
+      console.log(`Server is running at port ${port}`);
+    });
 server.on("error", onError);
 server.on("listening", onListening);
 
