@@ -1,3 +1,4 @@
+import OAuthApiProvider from "data/http/oauth-api";
 import SystemApiProvider from "data/http/system-api";
 import { MemberApiProvider } from "data/http/member-api";
 import MissionApiProvider from "data/http/mission.api";
@@ -6,9 +7,11 @@ export class HttpProviderDependencies {
   public readonly memberApi: MemberApiProvider;
   public readonly systemApi: SystemApiProvider;
   public readonly missionApi: MissionApiProvider;
+  public readonly oauthApi: OAuthApiProvider;
   constructor() {
     this.memberApi = new MemberApiProvider();
     this.systemApi = new SystemApiProvider();
     this.missionApi = new MissionApiProvider();
+    this.oauthApi = new OAuthApiProvider();
   }
 }
