@@ -83,9 +83,9 @@ export const LoginIfo: React.FC = () => {
         icon={github}
         name="Github"
         actions={UserAction.SIGN_IN}
-        onClick={() => {
-           window.location.href = `${OAuthUrl.GITHUB_AUTH}/?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&scope=user`;
-        }}
+        onClick={() =>
+          (window.location.href = `${OAuthUrl.GITHUB_AUTH}/?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&scope=user`)
+        }
       ></OAuthButton>
     </>
   );
