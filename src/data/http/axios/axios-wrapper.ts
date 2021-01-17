@@ -16,18 +16,18 @@ export class AxiosWrapper {
   }
 
   public getAxios() {
-    const jwtToken = this.storage.JWTTokenStorage.get();
-    if (!(jwtToken && jwtToken.token)) return this.axios.create();
+    const accessToken = this.storage.AccessTokenStorage.get();
+    if (!(accessToken && accessToken.accessToken)) return this.axios.create();
     return this.axios.create({
       headers: {
-        Authorization: jwtToken.token,
+        Authorization: accessToken.accessToken,
       },
     });
   }
 
   public getAxiosWithPlainText() {
-    const jwtToken = this.storage.JWTTokenStorage.get();
-    if (!(jwtToken && jwtToken.token))
+    const accessToken = this.storage.AccessTokenStorage.get();
+    if (!(accessToken && accessToken.accessToken))
       return this.axios.create({
         headers: {
           "Content-Type": "plain/text; charset=utf-8",
@@ -36,7 +36,7 @@ export class AxiosWrapper {
 
     return this.axios.create({
       headers: {
-        Authorization: jwtToken.token,
+        Authorization: accessToken.accessToken,
         "Content-Type": "plain/text; charset=utf-8",
       },
     });
