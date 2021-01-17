@@ -3,7 +3,7 @@ import { MemberRepository } from "core/use-case/member-repository";
 import { MemberApiProvider } from "data/http/member-api";
 import { Member } from "core/entity/member";
 import HttpStatus from "http-status-codes";
-import { JWTToken } from "core/entity/jwt-token";
+import { AccessToken } from "core/entity/access-token";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { CancelTokenSource } from "axios";
 import RepoResponseType from "data/response-type/repo-response";
@@ -14,7 +14,7 @@ import { AuthErrorMessage } from "enum/auth-error-message";
 export class MemberRepositoryImpl implements MemberRepository {
   constructor(
     private api: MemberApiProvider,
-    private storage: BrowserStorage<JWTToken>
+    private storage: BrowserStorage<AccessToken>
   ) {}
 
   async signUp(member: Member) {
@@ -53,7 +53,7 @@ export class MemberRepositoryImpl implements MemberRepository {
           false,
           AuthErrorMessage.NOT_COME_TOKEN
         );
-      this.storage.set(new JWTToken(result.headers["authorization"]));
+      this.storage.set(new AccessToken(result.headers["authorization"]));
       return new RepoResponseType<undefined>(
         result.status === HttpStatus.OK,
         "message"
@@ -112,17 +112,17 @@ export class MemberRepositoryImpl implements MemberRepository {
 
   isLogined() {
     let token = this.storage.get();
-    if (token.token) return true;
+    if (token.accessToken) return true;
     return false;
   }
 
   getTokenInfo() {
     let token = this.storage.get();
-    return token.decodeTokenData();
+    return token.decodeAccessTokenData();
   }
 
-  getToken() {
-    return this.storage.get().token!;
+  getAccessToken() {
+    return this.storage.get().accessToken!;
   }
 
   logout() {
