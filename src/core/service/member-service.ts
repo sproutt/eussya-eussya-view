@@ -56,7 +56,7 @@ export class MemberService {
   }
 
   getToken() {
-    return this.repo.getToken();
+    return this.repo.getAccessToken();
   }
 
   logout() {

@@ -16,5 +16,5 @@ export interface MemberRepository {
   checkDuplicateOfNickName(nickName: string): Promise<boolean>;
   isLogined(): boolean;
   getTokenInfo(): any;
-  getToken(): string;
+  getAccessToken(): string;
 }
