@@ -11,14 +11,8 @@ export const OAuthButton: React.FC<propTypes> = ({
   href,
   clientId,
   redirectUri,
+  onClick,
 }) => {
-  const onClick = () => {
-    if (href && clientId && redirectUri)
-      // eslint-disable-next-line no-restricted-globals
-      location.href = `${href}?client_id=${clientId}&redirect_uri=${
-        process.env.REACT_APP_DOMAIN + redirectUri + "/" + name.toLowerCase()
-      }`;
-  };
   return (
     <RoundButton className="oauth-button" onClick={onClick}>
       <img src={icon} alt={name}></img>
@@ -36,4 +30,5 @@ type propTypes = {
   href?: OAuthUrl;
   clientId?: string;
   redirectUri?: string;
+  onClick?: any;
 };

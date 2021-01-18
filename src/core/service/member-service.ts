@@ -62,4 +62,8 @@ export class MemberService {
   logout() {
     return this.repo.logout();
   }
+
+  setOAuthToken(accessToken: string, refreshToken: string) {
+    this.repo.setOAuthToken(accessToken, refreshToken);
+  }
 }
