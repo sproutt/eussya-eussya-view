@@ -129,4 +129,8 @@ export class MemberRepositoryImpl implements MemberRepository {
     this.storage.clear();
     return true;
   }
+
+  setOAuthToken(accessToken: string, refreshToken: string) {
+    this.storage.set(new AccessToken(accessToken, refreshToken));
+  }
 }

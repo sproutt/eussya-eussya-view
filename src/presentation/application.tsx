@@ -12,6 +12,7 @@ import { Application } from "context-instance";
 import { GrassContextProvider } from "context-api/context/grass-context";
 import PrivateRoute from "./molecule/private-router";
 import { OAuth } from "./page/oauth";
+import { OAuthProcess } from "./page/oauth/process";
 
 function App() {
   let authDispatch = useAuthDispatch();
@@ -35,6 +36,9 @@ function App() {
           </Route>
           <Route path="/login">
             <Login></Login>
+          </Route>
+          <Route path="/oauth/:platform/process">
+            <OAuthProcess></OAuthProcess>
           </Route>
           <Route path="/oauth/:platform">
             <OAuth></OAuth>
