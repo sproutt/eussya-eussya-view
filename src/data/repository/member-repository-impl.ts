@@ -70,11 +70,6 @@ export class MemberRepositoryImpl implements MemberRepository {
           false,
           PublicErrorMessage.REQUEST_FAIL
         );
-      if (error.response.data.code === AuthErrorCode.EMAIL_AUTH_PENDING)
-        return new RepoResponseType<undefined>(
-          false,
-          AuthErrorMessage.EMAIL_AUTH_PENDING
-        );
       return new RepoResponseType<undefined>(
         false,
         PublicErrorMessage.UNKNOWN_ERROR
