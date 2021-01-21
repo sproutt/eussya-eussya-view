@@ -48,12 +48,14 @@ export class MemberRepositoryImpl implements MemberRepository {
   async login(member: Member): Promise<RepoResponseType<undefined>> {
     try {
       const result = await this.api.login(member);
-      if (!result.headers["authorization"])
+      if (!result.data.accessToken || !result.data.refreshToken)
         return new RepoResponseType<undefined>(
           false,
           AuthErrorMessage.NOT_COME_TOKEN
         );
-      this.storage.set(new AccessToken(result.headers["authorization"]));
+      this.storage.set(
+        new AccessToken(result.data.accessToken, result.data.refreshToken)
+      );
       return new RepoResponseType<undefined>(
         result.status === HttpStatus.OK,
         "message"
