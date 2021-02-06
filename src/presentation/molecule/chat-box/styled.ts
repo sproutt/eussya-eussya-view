@@ -82,4 +82,28 @@ const SendButton = styled.button`
   }
 `;
 
-export default { Wrapper, Layout, Header, Container, Footer, ChatInput, SendButton };
+const IncomingMessage = styled.section`
+  padding: 5px;
+`;
+
+const MyMessage = styled.section`
+  padding: 5px;
+  text-align: right;
+  section {
+    background-color: ${Color.MAIN_COLOR};
+    color: white;
+  }
+`;
+
+const MessageBubble = styled.section`
+  background-color: #dddddd;
+  vertical-align: middle;
+  padding: ${ElementDistanceEachOthers.SMALL_SMALL}
+  ${ElementDistanceEachOthers.MEDIUM_SMALL};
+  border-radius: ${FontSize.SMALL_MEDIUM};
+  width: 100%;
+  margin-right: 0;
+  
+`;
+
+export default { Wrapper, Layout, Header, Container, Footer, ChatInput, SendButton, MessageBubble, IncomingMessage, MyMessage };
