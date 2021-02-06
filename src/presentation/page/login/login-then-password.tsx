@@ -58,12 +58,6 @@ export const LoginThenPassword: React.FC = () => {
       }
       setResultModalText(result.message);
       resultModalEvent.addClickOutSideEvent();
-      if (result.message === AuthErrorMessage.EMAIL_AUTH_PENDING) {
-        setResultModalTitle("로그인에 실패하였습니다.");
-        setResultModalAction(AuthErrorCode.EMAIL_AUTH_PENDING);
-        setResultModalOnoff(1);
-        return;
-      }
       setResultModalTitle("로그인에 실패하였습니다.");
       setResultModalAction(AuthErrorCode.NOT_USER);
       setResultModalOnoff(1);
@@ -76,11 +70,6 @@ export const LoginThenPassword: React.FC = () => {
   ) => {
     event.preventDefault();
     switch (resultModalAction) {
-      case AuthErrorCode.EMAIL_AUTH_PENDING:
-        resultModalEvent.removeClickOutSideEvent(event);
-        setResultModalOnoff(0);
-        Application.services.member.sendEmail(email);
-        return history.push("/codecheck/" + email);
       case AuthErrorCode.NOT_USER:
         resultModalEvent.removeClickOutSideEvent(event);
         return setResultModalOnoff(0);

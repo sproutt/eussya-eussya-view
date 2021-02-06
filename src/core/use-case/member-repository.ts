@@ -15,6 +15,7 @@ export interface MemberRepository {
   checkDuplicateOfEmail(memberId: string): Promise<boolean>;
   checkDuplicateOfNickName(nickName: string): Promise<boolean>;
   isLogined(): boolean;
+  setOAuthToken(accessToken: string, refreshToken: string): void;
   getTokenInfo(): any;
-  getToken(): string;
+  getAccessToken(): string;
 }

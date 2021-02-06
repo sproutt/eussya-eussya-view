@@ -56,10 +56,14 @@ export class MemberService {
   }
 
   getToken() {
-    return this.repo.getToken();
+    return this.repo.getAccessToken();
   }
 
   logout() {
     return this.repo.logout();
+  }
+
+  setOAuthToken(accessToken: string, refreshToken: string) {
+    this.repo.setOAuthToken(accessToken, refreshToken);
   }
 }

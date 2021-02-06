@@ -72,7 +72,7 @@ export const SignUp: React.FC = () => {
       password!
     );
     setButtonOn(false);
-    if (result) history.push(`/codecheck/${email}`);
+    if (result) history.push(`/`);
   };
 
   const checkDuplicateOfEmail = async () => {
