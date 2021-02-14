@@ -88,10 +88,12 @@ const IncomingMessage = styled.section`
 
 const MyMessage = styled.section`
   padding: 5px;
+  float: right;
   text-align: right;
   section {
     background-color: ${Color.MAIN_COLOR};
     color: white;
+    margin-right: 0px;
   }
 `;
 
@@ -101,9 +103,7 @@ const MessageBubble = styled.section`
   padding: ${ElementDistanceEachOthers.SMALL_SMALL}
   ${ElementDistanceEachOthers.MEDIUM_SMALL};
   border-radius: ${FontSize.SMALL_MEDIUM};
-  width: 100%;
-  margin-right: 0;
-  
+  display: table-cell;
 `;
 
 export default { Wrapper, Layout, Header, Container, Footer, ChatInput, SendButton, MessageBubble, IncomingMessage, MyMessage };

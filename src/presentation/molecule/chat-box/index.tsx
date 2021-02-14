@@ -22,7 +22,6 @@ const ChatBox: React.FC = () => {
   const handleChangeOfChat = (event: any) => { };
   
   function sendChat(text: String) {
-    // chatArea.insertAdjacentHTML('beforeend', `<styled.Header>`+text+`</styled.Header>`)
     const chat = new Chat("나", text, new Date())
     const timeString = chat.sentTime?.toLocaleTimeString();
     
@@ -31,10 +30,9 @@ const ChatBox: React.FC = () => {
         <styled.MessageBubble>
           {chat.content}
         </styled.MessageBubble>
-        <small>{timeString?.substring(0, timeString.length-3)}</small>  
+        <small>{timeString?.substring(0, timeString.length-3)}</small>
       </styled.MyMessage>
     ])
-    console.log(chats)
     chatArea.scrollTop = chatArea.scrollHeight
   }
 
