@@ -93,7 +93,6 @@ const MyMessage = styled.section`
   section {
     background-color: ${Color.MAIN_COLOR};
     color: white;
-    margin-right: 0px;
   }
 `;
 

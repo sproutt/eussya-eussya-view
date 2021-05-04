@@ -30,7 +30,7 @@ const ChatBox: React.FC = () => {
         <styled.MessageBubble>
           {chat.content}
         </styled.MessageBubble>
-        <small>{timeString?.substring(0, timeString.length-3)}</small>
+        <small>{timeString?.substring(0, timeString.length - 3)}</small>
       </styled.MyMessage>
     ])
     chatArea.scrollTop = chatArea.scrollHeight
@@ -59,7 +59,7 @@ const ChatBox: React.FC = () => {
     <styled.Wrapper>
       <styled.Layout>
         <styled.Header>대화방 이름</styled.Header>
-        <styled.Container id="chat-area">{chats}</styled.Container>
+        <styled.Container id="chat-area">{chats.flatMap(t => [t,<div><tr></tr></div>])}</styled.Container>
         <styled.Footer>
           <styled.ChatInput rows={1} onKeyUp={onKeyUpHandler} id="chat-input"></styled.ChatInput>
           <styled.SendButton onClick={sendButtonClickHandler}>전송</styled.SendButton>

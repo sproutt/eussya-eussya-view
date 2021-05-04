@@ -55,5 +55,6 @@
     "@types/stompjs": "^2.3.4",
     "@types/styled-components": "^5.1.7",
     "eslint-plugin-flowtype": "^5.2.0"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }
