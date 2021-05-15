@@ -9,6 +9,7 @@ import Axios from "axios";
 import { TodoResistration } from "presentation/molecule/to-do-resistration";
 import GrassVisibility from "presentation/molecule/grass-visibility";
 import ResultSenderBox from "presentation/molecule/result-sender-box";
+import ChatBox from "presentation/molecule/chat-box";
 
 const EarlyCrazy: React.FC = () => {
   const [resultSenderModalOn, setResultSenderModalOn] = React.useState<
@@ -222,6 +223,7 @@ const EarlyCrazy: React.FC = () => {
             membersData.map((v, i) => (
               <UserCard key={i} nickName={v.nickName} />
             ))}
+          <ChatBox></ChatBox>
         </styled.Side>
         <TodoResistration
           on={toDoModalOn}

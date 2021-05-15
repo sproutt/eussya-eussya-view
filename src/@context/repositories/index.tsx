@@ -15,7 +15,7 @@ export class RepositoryContainer {
   ) {
     this.memberRepository = new MemberRepositoryImpl(
       apiProviders.memberApi,
-      storageProviders.JWTTokenStorage
+      storageProviders.AccessTokenStorage
     );
     this.systemRepository = new SystemRopositoryImpl(apiProviders.systemApi);
     this.missionRepository = new MissonRepositoryImpl(apiProviders.missionApi);
