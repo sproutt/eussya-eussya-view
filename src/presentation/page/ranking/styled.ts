@@ -11,7 +11,6 @@ const Filter = styled.div`
   justify-content: space-between;
   width: 80%;
   padding-top: 10vh;
-  
 `;
 
 const Rankingbox = styled.div`
@@ -47,7 +46,6 @@ const MyRankingbox = styled.div`
     justify-content: space-around;
     align-items: center;
   }
-
 `;
 
 const Content = styled.div`

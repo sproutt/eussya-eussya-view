@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "./styled";
 
 const Content: React.FC = () => {
@@ -10,7 +10,6 @@ const Content: React.FC = () => {
       <p>얼또 횟수</p>
       <p>얼또 총 횟수</p>
     </styled.Content>
-    
   );
 };
 

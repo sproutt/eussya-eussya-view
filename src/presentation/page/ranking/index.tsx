@@ -1,9 +1,8 @@
 import React from "react";
-import Counter from "./Counter";
 import Filter from "./Filter";
 import MyRankingbox from "./MyRankingbox";
 import Rankingbox from "./Rankingbox";
-import Content from "./Content"
+import Content from "./Content";
 import styled from "./styled";
 
 const week = `3월 둘째주(14~18)`;
@@ -31,13 +30,13 @@ const myLanking = {
   id: "egoing",
   count: 6,
   totalCount: 8,
-}
+};
 
-const Ranking: React.FC = () => {
+export const Ranking: React.FC = () => {
   return (
     <styled.Ranking>
-      <Filter week={week}/>
-      <Content/>
+      <Filter week={week} />
+      <Content />
       <MyRankingbox
         ranking={myLanking.ranking}
         trend={myLanking.trend}
@@ -57,5 +56,3 @@ const Ranking: React.FC = () => {
     </styled.Ranking>
   );
 };
-
-export default Ranking;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "./styled";
 
 type RankingProps = {
@@ -20,8 +20,10 @@ const Rankingbox: React.FC<RankingProps> = ({
 }) => {
   return (
     <styled.Rankingbox>
-      <img src={profile}></img> <div>{ranking}</div><div>{trend}</div>{" "}
-      <div>{id}</div><div>{count}</div><div>{totalCount}</div>
+      <img src={profile} alt="profile"></img> <div>{ranking}</div>
+      <div>{trend}</div> <div>{id}</div>
+      <div>{count}</div>
+      <div>{totalCount}</div>
     </styled.Rankingbox>
   );
 };
