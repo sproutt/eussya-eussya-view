@@ -28,7 +28,8 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "sudo env-cmd -f .env.development react-scripts start",
+    "start:local": "env-cmd -f .env.development.local react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -26,9 +26,8 @@ export const LoginIfo: React.FC = () => {
   const location = useLocation<LocationState>();
   let { from } = location.state || { from: { pathname: "/" } };
   const [email, setEmail] = React.useState<string | undefined>(undefined);
-  const [isCorrectEmail, setIsCorrectEmail] = React.useState<
-    boolean | undefined
-  >(undefined);
+  const [isCorrectEmail, setIsCorrectEmail] =
+    React.useState<boolean | undefined>(undefined);
 
   const changeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -84,7 +83,7 @@ export const LoginIfo: React.FC = () => {
         name="Github"
         actions={UserAction.SIGN_IN}
         onClick={() =>
-          (window.location.href = `${OAuthUrl.GITHUB_AUTH}/?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&scope=user`)
+          (window.location.href = `${process.env.REACT_APP_HOST}/oauth2/authorization/github`)
         }
       ></OAuthButton>
     </>
