@@ -15,6 +15,16 @@ class SystemApiProvider {
       throw error;
     }
   }
+
+  async postMotivatedText(motivatedText: string): Promise<AxiosResponse> {
+    try {
+      return await this.axiosWrapper
+        .getAxios()
+        .post(process.env.REACT_APP_HOST + "/phrase", motivatedText);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default SystemApiProvider;
