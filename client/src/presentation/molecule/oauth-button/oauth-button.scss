@@ -1,0 +1,56 @@
+@use "sass:math";
+@import "../../../global.scss";
+
+$img-width: ($medium-element/2.25);
+$span-block: (math.div($medium-element - $img-width, 2) * 2 + $img-width);
+
+.oauth-button {
+  height: $medium-element;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  font-weight: bolder;
+  width: 24rem;
+  border: 1px solid grey;
+  border-radius: 5px;
+  margin-bottom: $small-blank;
+  background-color: white;
+
+  &::before {
+    transition: all 0.45s cubic-bezier(0.4, 0.35, 0.6, 1);
+    content: "";
+    width: 0%;
+    height: 100%;
+    background: #{$main-color};
+    position: absolute;
+    top: 0;
+    left: $span-block;
+  }
+
+  img {
+    float: left;
+    margin: (($medium-element - $img-width)/2) 0;
+    margin-left: (($medium-element - $img-width)/2);
+    margin-right: (($medium-element - $img-width)/2 * 1.5);
+    width: $img-width;
+    height: $img-width;
+  }
+
+  span {
+    margin-right: (($medium-element - (25px / $font-size-base))/2 * 1.5);
+    transition: all 0.45s cubic-bezier(0.4, 0.35, 0.6, 1);
+    line-height: $medium-element;
+  }
+
+  &:hover {
+    span {
+      color: white;
+      mix-blend-mode: screen;
+    }
+
+    &::before {
+      background: #{$main-color};
+      width: calc(100% - #{$span-block});
+    }
+  }
+}
