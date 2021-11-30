@@ -53,6 +53,9 @@ function App() {
           <Route path="/ranking">
             <Ranking></Ranking>
           </Route>
+          <Route path="/ranking">
+            <Ranking></Ranking>
+          </Route>
         </Switch>
       </section>
     </Router>
