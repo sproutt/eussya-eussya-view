@@ -13,6 +13,7 @@ import { GrassContextProvider } from "context-api/context/grass-context";
 import PrivateRoute from "./molecule/private-router";
 import { OAuth } from "./page/oauth";
 import { OAuthProcess } from "./page/oauth/process";
+import { Ranking } from "./page/ranking";
 
 function App() {
   let authDispatch = useAuthDispatch();
@@ -48,6 +49,9 @@ function App() {
           </Route>
           <Route path="/">
             <Main></Main>
+          </Route>
+          <Route path="/ranking">
+            <Ranking></Ranking>
           </Route>
         </Switch>
       </section>
