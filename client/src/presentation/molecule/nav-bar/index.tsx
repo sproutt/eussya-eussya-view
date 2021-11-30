@@ -27,7 +27,9 @@ export const NavBar: React.FC = () => {
           </styled.NavButton>
         )}
 
-        <styled.NavButton>얼또 랭킹</styled.NavButton>
+        <styled.NavButton onClick={() => history.push("/ranking")}>
+          얼또 랭킹
+        </styled.NavButton>
       </styled.NavFirstGroup>
       <styled.NavSecondGroup>
         {auth.isLogined ? (
