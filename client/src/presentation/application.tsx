@@ -26,11 +26,11 @@ function App() {
       <section id="main-section">
         <NavBar></NavBar>
         <Switch>
-          <PrivateRoute path="/dawn">
+          <Route path="/dawn">
             <GrassContextProvider>
               <EarlyCrazy></EarlyCrazy>
             </GrassContextProvider>
-          </PrivateRoute>
+          </Route>
           <Route path="/signup">
             <SignUp></SignUp>
           </Route>
